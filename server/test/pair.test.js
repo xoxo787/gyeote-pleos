@@ -282,7 +282,8 @@ test('v0.4.1 목적지 조회: 받을 사람에서 빠진 자녀·동의 만료 
   const put = (json) => call('PUT', `/api/families/${fid}/consent`, { token: car, json });
   await put({ shareArrival: true, shareRouteArrival: true, recipients: [kidA.childId] });
   const dst = (await call('POST', `/api/families/${fid}/destinations`, { token: kidA.childToken, json: { name: '병원', address: '서울', lat: 37.5, lng: 127, note: '' } })).data;
-  assert.equal((await call('PATCH', `/api/destinations/${dst.id}`, { token: car, json: { status: 'accepted' } })).status, 200);
+  const acc = await call('PATCH', `/api/destinations/${dst.id}`, { token: car, json: { status: 'accepted' } });
+  assert.equal(acc.status, 200); const accepted = acc.data;
   const arr = await call('POST', `/api/families/${fid}/events`, { token: car, json: { type: 'arrived', at: new Date().toISOString(), summary: '도착', destinationId: dst.id } });
   assert.equal(arr.status, 201);
   const list = async (token, q = '') => (await call('GET', `/api/families/${fid}/destinations${q}`, { token })).data;
@@ -293,8 +294,9 @@ test('v0.4.1 목적지 조회: 받을 사람에서 빠진 자녀·동의 만료 
   const hidden = await list(kidB.childToken);
   assert.equal(hidden.length, 1); assert.equal(hidden[0].status, 'accepted'); assert.equal(hidden[0].arrivedAt, null); assert.equal(hidden[0].name, '병원');
   // updatedAt도 도착 시각을 드러내지 않고 수락 시각을 보여 준다
-  const full = (await list(car))[0];
-  assert.ok(full.respondedAt); assert.equal(hidden[0].updatedAt, full.respondedAt);
+  // 가린 기록은 도착 전 '수락' 기록과 필드·값이 같아야 한다(내부 필드 노출 없음)
+  assert.deepEqual(Object.keys(hidden[0]).sort(), Object.keys(dst).sort());
+  assert.equal(hidden[0].updatedAt, accepted.updatedAt);
   assert.equal((await list(kidB.childToken, '?status=arrived')).length, 0);
   assert.equal((await list(kidB.childToken, '?status=accepted')).length, 1);
   assert.equal((await list(car))[0].status, 'arrived'); // 저장된 값은 그대로

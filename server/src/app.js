@@ -83,7 +83,12 @@ function createApp({ dbPath = path.join(__dirname, '..', 'data', 'db.json'), cor
   }
   // v0.2에서 저장된 가족에는 shareRouteArrival이 없으므로 false로 채워서 쓴다.
   const consentOf = (f) => ({ shareRouteArrival: false, ...f.consent });
-  const destOut = (x) => ({ ...x, arrivedAt: x.arrivedAt || null });
+  // 응답 필드는 허용 목록으로만 만든다(내부 필드 respondedAt 등은 내보내지 않음).
+  const destOut = (x) => ({
+    id: x.id, familyId: x.familyId, fromChildId: x.fromChildId, name: x.name, address: x.address,
+    lat: x.lat, lng: x.lng, note: x.note, status: x.status,
+    createdAt: x.createdAt, updatedAt: x.updatedAt, arrivedAt: x.arrivedAt || null,
+  });
   function consentActive(c) { return !c.until || Date.parse(c.until) > Date.now(); }
 
   // 토큰 -> 호출자. 실패하면 401.
@@ -364,7 +369,11 @@ function createApp({ dbPath = path.join(__dirname, '..', 'data', 'db.json'), cor
     if (dest) ev.destinationId = dest.id;
     if (loc && c.shareLocation) ev.location = loc; // 위치 동의가 없으면 좌표는 버린다.
     d.events.push(ev);
-    if (dest) { dest.status = 'arrived'; dest.arrivedAt = at; dest.updatedAt = nowIso(); }
+    if (dest) {
+      // 가린 조회가 진짜 '수락' 기록과 똑같아 보이도록, 도착 직전의 updatedAt을 남겨 둔다.
+      dest.respondedAt = dest.respondedAt || dest.updatedAt;
+      dest.status = 'arrived'; dest.arrivedAt = at; dest.updatedAt = nowIso();
+    }
     const mine = d.events.filter((e) => e.familyId === f.id);
     if (mine.length > MAX_EVENTS_PER_FAMILY) {
       const drop = new Set(mine.slice(0, mine.length - MAX_EVENTS_PER_FAMILY).map((e) => e.id));
