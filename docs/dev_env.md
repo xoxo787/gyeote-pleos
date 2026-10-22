@@ -13,3 +13,5 @@
 - 이 PC에서는 호스트 포트 **8088이 Windows에 예약**되어 있어(오류 10013) 공식 문서의 `tcp:8088 tcp:8088` 대신 **18088**을 쓴다.
 - 에뮬레이터 실행: `emulator -avd Pleos_Connect -no-snapshot -no-boot-anim`
 - SDK 저장소는 로그인 없이 받을 수 있다. SDK 시그니처 요약은 `docs/pleos_sdk_notes.md`.
+
+- 2026-10-22: 메모리 부족으로 AVD RAM을 4096→3072MB로 낮춤(사용자 선택). 원본 config.ini 백업은 임시 폴더 avd-config-backup-283be458.

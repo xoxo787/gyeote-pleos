@@ -37,7 +37,6 @@
 | `app/` | Kotlin Android 앱 (패키지 `ai.gyeote.app`, 최소 Android 28). 설명·검증: [app/docs/README.md](app/docs/README.md) |
 | `server/` | Node.js 데모 서버 + 자녀용 웹 (외부 패키지 없음, Node 20+). 설명: [server/README.md](server/README.md) |
 | `docs/` | 결정 기록 [decisions.md](docs/decisions.md), API 계약 [api_contract.md](docs/api_contract.md), SDK 메모 [pleos_sdk_notes.md](docs/pleos_sdk_notes.md), 개발 환경 [dev_env.md](docs/dev_env.md), 공개 전 감사 [repo_audit.md](docs/repo_audit.md) |
-| `research/` | 공모전 규정·시장·선행 사례·SDK 가능성 조사 ([규정 요약](research/00_contest_rules.md)) |
 
 ## 쓰인 Pleos SDK와 실측 제약
 

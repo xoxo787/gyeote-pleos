@@ -148,7 +148,7 @@
 | `README.md` 상대 링크 20개가 커밋 대상 안의 파일·폴더를 가리킴 | 전부 | 전부 (깨진 링크 0) | 예 |
 | `server/README.md` 링크 | 전부 | 상대 링크 없음 | 예 |
 
-**알려진 제한 (결정 필요)**: `app/docs/VERIFICATION.md`, `VERIFICATION_car.md`, `VERIFICATION_edge.md`, `VERIFICATION_polish.md`는 이번에 제외한 로그·시도 기록을 링크한다. 커밋하면 아래 **17개 링크가 깨진다**(내용은 로컬에만 남음). 링크 문구를 "로컬 증거 파일(저장소에 없음)"로 바꿀지는 이 작업 범위 밖이라 손대지 않았다.
+**처리됨 (메인, 2026-10-22)**: VERIFICATION 4종이 링크하는 증거 파일 17개는 로컬 사용자 경로를 `<repo>`/`<home>`으로 치환한 뒤 `.gitignore` 예외(`!app/docs/...`)로 **저장소에 포함**했다. 링크는 모두 살아 있다(커밋 대상 대조로 깨진 링크 0). 대상:
 `build-verification.log`(VERIFICATION), `car-build-verification.log`·`car-vehicle.log`·`car-speech-final.log`·`car-exit-state.json`(car), `edge-build-verification.log`·`edge-static-verification.json`·`edge-runtime.log`·`edge-post-checks.log`·`edge-exit-state.json`(edge), `polish-build-verification.log`·`polish-static-verification.json`·`polish-event-attempts.log`·`polish-after-off-signal.log`·`polish-vehicle.log`·`polish-backup-path.txt`·`polish-exit-state.json`(polish).
 
 기타 남은 사항: 서버 `package.json`의 `npm test`와 README의 `node --test server/test` 실행 방식 차이는 그대로다. 저장소는 비공개로 시작하는 결정이므로 공개 전 `git log` 작성자 이름 노출 여부를 한 번 더 확인한다.
