@@ -187,3 +187,125 @@ test('대입 방어: 기본 설정(소켓 주소)에서도 같은 주소의 10�
   const r = await pair(call, fam.pairCode);
   assert.equal(r.status, 429); assert.equal(r.data.error, 'too_many_attempts');
 }));
+
+// ---- v0.4.1: 전체 실패 예산 · IPv6 /64 · 숫자별 기록 만료 · 발급 반복 상한 ---------------------
+const ALL_BAD = wrongCodes(300);
+
+test('v0.4.1 전체 예산: 서로 다른 주소 분산 200회 실패 뒤에는 맞는 숫자도 429 reason:global, 10분 뒤 풀린다', () => withServer(async (call, tick) => {
+  const fam = await mkFamily(call);
+  const bad = ALL_BAD.filter((c) => c !== fam.pairCode);
+  for (let i = 0; i < 200; i++) {
+    const r = await pairFrom(call, `10.0.${Math.floor(i / 5)}.1`, bad[i]); // 주소마다 5회씩(주소별 한도 10 미만)
+    assert.equal(r.status, 404, `시도 ${i + 1}`);
+  }
+  const r = await pairFrom(call, '203.0.113.77', fam.pairCode); // 처음 보는 주소, 맞는 숫자
+  assert.equal(r.status, 429); assert.equal(r.data.error, 'too_many_attempts'); assert.equal(r.data.reason, 'global');
+  tick(TEN_MIN - 1000);
+  assert.equal((await pairFrom(call, '203.0.113.78', fam.pairCode)).status, 429);
+  tick(2000);
+  const fresh = await mkFamily(call, '어머니'); // 처음 숫자는 10분이 지나 만료됐으므로 새 가족
+  assert.equal((await pairFrom(call, '203.0.113.79', fresh.pairCode)).status, 201);
+}, byHeader));
+
+test('v0.4.1 전체 예산: 199회까지는 막지 않는다', () => withServer(async (call) => {
+  const fam = await mkFamily(call);
+  const bad = ALL_BAD.filter((c) => c !== fam.pairCode);
+  for (let i = 0; i < 199; i++) assert.equal((await pairFrom(call, `10.1.${Math.floor(i / 5)}.1`, bad[i])).status, 404);
+  assert.equal((await pairFrom(call, '203.0.113.5', fam.pairCode)).status, 201);
+}, byHeader));
+
+test('v0.4.1 IPv6: 같은 /64의 다른 주소는 실패를 합산하고 다른 /64는 따로 센다', () => withServer(async (call) => {
+  const fam = await mkFamily(call);
+  const bad = ALL_BAD.filter((c) => c !== fam.pairCode);
+  for (let i = 0; i < 10; i++) {
+    assert.equal((await pairFrom(call, `2001:db8:1:2:${i}::${i + 1}`, bad[i])).status, 404);
+  }
+  let r = await pairFrom(call, '2001:0db8:0001:0002:ffff:ffff:ffff:ffff', fam.pairCode); // 같은 /64, 표기만 다름
+  assert.equal(r.status, 429); assert.equal(r.data.reason, 'address');
+  r = await pairFrom(call, '2001:db8:1:3::1', fam.pairCode); // 다른 /64
+  assert.equal(r.status, 201);
+}, byHeader));
+
+test('v0.4.1 IPv6: IPv4로 매핑된 주소는 IPv4와 같은 주소로 센다', () => withServer(async (call) => {
+  const fam = await mkFamily(call);
+  const bad = ALL_BAD.filter((c) => c !== fam.pairCode);
+  for (let i = 0; i < 5; i++) assert.equal((await pairFrom(call, '::ffff:192.0.2.9', bad[i])).status, 404);
+  for (let i = 5; i < 10; i++) assert.equal((await pairFrom(call, '192.0.2.9', bad[i])).status, 404);
+  assert.equal((await pairFrom(call, '192.0.2.9', fam.pairCode)).status, 429);
+}, byHeader));
+
+test('v0.4.1 숫자별 실패 기록: 마지막 실패 10분 뒤 만료 — 4번 틀린 숫자는 10분 뒤 다시 처음부터 센다', () => withServer(async (call, tick) => {
+  const wrong = '424242';
+  for (let i = 0; i < 4; i++) assert.equal((await pair(call, wrong)).status, 404);
+  tick(TEN_MIN - 1000);
+  assert.equal((await pair(call, wrong)).status, 429); // 5번째, 아직 유효한 기록
+  // 다른 숫자: 4번 틀리고 10분 지나면 기록이 사라져 다시 4번은 404
+  const other = '535353';
+  for (let i = 0; i < 4; i++) assert.equal((await pairFrom(call, 'X', other)).status, 404);
+  tick(TEN_MIN + 1);
+  for (let i = 0; i < 4; i++) assert.equal((await pairFrom(call, 'Y', other)).status, 404, `만료 뒤 다시 센다 ${i + 1}`);
+  assert.equal((await pairFrom(call, 'Y', other)).status, 429);
+}, byHeader));
+
+test('v0.4.1 숫자 발급: 50번 안에 못 찾으면 503 unavailable (가족도 만들어지지 않음), 주입한 생성기로 재현', async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'gyeote-issue-'));
+  let calls = 0; let mode = 'same';
+  const srv = createApp({ dbPath: path.join(dir, 'db.json'), randomCode: () => { calls++; return mode === 'same' ? 111111 : 222222 + calls; } });
+  await new Promise((r) => srv.listen(0, '127.0.0.1', r));
+  const base = `http://127.0.0.1:${srv.address().port}`;
+  const post = async (p, body, token) => {
+    const res = await fetch(base + p, { method: 'POST', headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify(body || {}) });
+    return { status: res.status, data: await res.json() };
+  };
+  try {
+    const a = await post('/api/families', { parentName: '아버지' });
+    assert.equal(a.status, 201); assert.equal(a.data.pairCode, '111111');
+    calls = 0;
+    const b = await post('/api/families', { parentName: '어머니' }); // 항상 111111 -> 충돌만 반복
+    assert.equal(b.status, 503); assert.equal(b.data.error, 'unavailable');
+    assert.equal(calls, 50, '정확히 50번 시도 후 포기');
+    mode = 'varied';
+    const c = await post('/api/families', { parentName: '이모' });
+    assert.equal(c.status, 201); // 503 뒤에도 서버는 정상
+    const saved = JSON.parse(fs.readFileSync(path.join(dir, 'db.json'), 'utf8'));
+    assert.equal(saved.families.length, 2, '503이었던 가족은 저장되지 않음');
+  } finally { await new Promise((r) => srv.close(r)); }
+});
+
+// ---- v0.4.1: 자녀의 목적지 조회도 동의 문을 지난다 ---------------------------------------------
+test('v0.4.1 목적지 조회: 받을 사람에서 빠진 자녀·동의 만료 자녀에게는 arrived를 accepted/arrivedAt null로 가린다', () => withServer(async (call) => {
+  const fam = await mkFamily(call);
+  const kidA = (await pair(call, fam.pairCode, '딸')).data;
+  const code2 = (await call('POST', `/api/families/${fam.familyId}/pair-code`, { token: fam.parentToken })).data.pairCode;
+  const kidB = (await pair(call, code2, '아들')).data;
+  const fid = fam.familyId; const car = fam.parentToken;
+  const put = (json) => call('PUT', `/api/families/${fid}/consent`, { token: car, json });
+  await put({ shareArrival: true, shareRouteArrival: true, recipients: [kidA.childId] });
+  const dst = (await call('POST', `/api/families/${fid}/destinations`, { token: kidA.childToken, json: { name: '병원', address: '서울', lat: 37.5, lng: 127, note: '' } })).data;
+  assert.equal((await call('PATCH', `/api/destinations/${dst.id}`, { token: car, json: { status: 'accepted' } })).status, 200);
+  const arr = await call('POST', `/api/families/${fid}/events`, { token: car, json: { type: 'arrived', at: new Date().toISOString(), summary: '도착', destinationId: dst.id } });
+  assert.equal(arr.status, 201);
+  const list = async (token, q = '') => (await call('GET', `/api/families/${fid}/destinations${q}`, { token })).data;
+  // 차와 받을 사람인 자녀는 그대로 보인다
+  let x = (await list(car))[0]; assert.equal(x.status, 'arrived'); assert.ok(x.arrivedAt);
+  x = (await list(kidA.childToken))[0]; assert.equal(x.status, 'arrived'); assert.ok(x.arrivedAt);
+  // 받을 사람이 아닌 자녀: 목록은 보이되 도착은 가려진다
+  const hidden = await list(kidB.childToken);
+  assert.equal(hidden.length, 1); assert.equal(hidden[0].status, 'accepted'); assert.equal(hidden[0].arrivedAt, null); assert.equal(hidden[0].name, '병원');
+  assert.equal((await list(kidB.childToken, '?status=arrived')).length, 0);
+  assert.equal((await list(kidB.childToken, '?status=accepted')).length, 1);
+  assert.equal((await list(car))[0].status, 'arrived'); // 저장된 값은 그대로
+  // 동의 기간이 끝나면 받을 사람이던 자녀에게도 가려진다
+  await put({ until: new Date(Date.now() - 60 * 1000).toISOString() });
+  x = (await list(kidA.childToken))[0]; assert.equal(x.status, 'accepted'); assert.equal(x.arrivedAt, null);
+  assert.equal((await list(car))[0].status, 'arrived');
+  // 기간을 다시 열면 보인다
+  await put({ until: null });
+  assert.equal((await list(kidA.childToken))[0].status, 'arrived');
+}));
+
+test('v0.4.1 자녀 웹: 전체 예산(reason global) 한국어 안내 코드 포함', () => {
+  const js = fs.readFileSync(path.join(__dirname, '..', 'public', 'child', 'app.js'), 'utf8');
+  assert.match(js, /reason === 'global'/);
+  assert.match(js, /너무 많/);
+});

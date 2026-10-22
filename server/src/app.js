@@ -16,6 +16,9 @@ const PAIR_ADDR_WINDOW_MS = 10 * 60 * 1000; // v0.3.1: 접속 주소별 실패�
 const MAX_PAIR_ADDR_FAILS = 10; // 창 안에 실패 10회면 그 주소를 PAIR_ADDR_BLOCK_MS 동안 막는다
 const PAIR_ADDR_BLOCK_MS = 10 * 60 * 1000;
 const MAX_TRACKED_ADDRS = 10000; // 메모리 상한(넘으면 가장 오래된 항목부터 버림)
+const MAX_GLOBAL_FAILS = 200; // v0.4.1: 서버 전체에서 창 안에 실패 200회면 PAIR_ADDR_BLOCK_MS 동안 전체 차단
+const MAX_TRACKED_CODES = 10000; // v0.4.1: 숫자별 실패 기록 상한
+const MAX_ISSUE_TRIES = 50; // v0.4.1: 숫자 발급 반복 상한
 const AUDIO_MIMES = ['audio/wav', 'audio/mp4'];
 const EVENT_KIND = { departed: 'shareDeparture', arrived: 'shareArrival', alert: 'shareAlerts' };
 const DEST_STATUS = ['pending', 'accepted', 'deferred', 'declined', 'arrived', 'closed'];
@@ -68,7 +71,7 @@ function readLocation(v) {
 }
 
 function createApp({ dbPath = path.join(__dirname, '..', 'data', 'db.json'), corsOrigin = '*', now = Date.now, pairCodeTtlMs = PAIR_CODE_TTL_MS,
-  remoteAddress = (req) => req.socket.remoteAddress || 'unknown' } = {}) {
+  randomCode = () => crypto.randomInt(0, 1000000), remoteAddress = (req) => req.socket.remoteAddress || 'unknown' } = {}) {
   const db = openDb(dbPath);
   const d = db.data;
 
@@ -161,7 +164,24 @@ function createApp({ dbPath = path.join(__dirname, '..', 'data', 'db.json'), cor
 
   // ---- 연결 숫자(v0.3.1): 10분 만료 · 1회용 · 같은 숫자 실패 5회면 무효 -----------------
   // 숫자별 실패 횟수는 메모리에만 둔다(서버를 다시 켜면 처음부터).
+  // v0.4.1: 숫자 -> { n, at(마지막 실패 시각) }. 마지막 실패 10분 뒤 만료, 최대 MAX_TRACKED_CODES개.
   const pairFails = new Map();
+  const failsOf = (code, t) => {
+    const e = pairFails.get(code);
+    if (!e) return 0;
+    if (t - e.at >= PAIR_ADDR_WINDOW_MS) { pairFails.delete(code); return 0; }
+    return e.n;
+  };
+  function bumpFails(code, t) {
+    const n = failsOf(code, t) + 1;
+    pairFails.delete(code); // 다시 넣어 Map 순서를 최신으로
+    pairFails.set(code, { n, at: t });
+    for (const k of pairFails.keys()) { if (pairFails.size <= MAX_TRACKED_CODES) break; pairFails.delete(k); }
+    return n;
+  }
+  function prunePairFails(t) {
+    for (const [k, e] of pairFails) { if (t - e.at >= PAIR_ADDR_WINDOW_MS) pairFails.delete(k); }
+  }
   const tooMany = () => new ApiError(429, 'too_many_attempts', '여러 번 틀려서 이 숫자는 더 쓸 수 없어요. 부모님 차에서 새 숫자를 받아 주세요.');
   const pairCodeActive = (x) => typeof x.pairCode === 'string' && Date.parse(x.pairCodeExpiresAt) > now();
   // 접속 주소별 제한: 소켓 원격 주소만 믿는다(X-Forwarded-For 불신). 메모리에만 둔다.
@@ -175,6 +195,29 @@ function createApp({ dbPath = path.join(__dirname, '..', 'data', 'db.json'), cor
     // Map은 넣은 순서를 지키므로 상한을 넘으면 앞(오래된 것)부터 버린다.
     for (const a of pairAddrs.keys()) { if (pairAddrs.size <= MAX_TRACKED_ADDRS) break; pairAddrs.delete(a); }
   }
+  // v0.4.1: IPv6는 /64(앞 4묶음) 단위로 묶고, IPv4로 매핑된 주소(::ffff:a.b.c.d)는 IPv4로 본다.
+  function addrKey(a) {
+    a = String(a).toLowerCase().replace(/%.*$/, '');
+    const m4 = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/.exec(a);
+    if (m4) return m4[1];
+    if (!a.includes(':')) return a;
+    const [head, tail] = a.split('::');
+    const h = head ? head.split(':') : [];
+    const tl = tail === undefined ? [] : tail ? tail.split(':') : [];
+    const groups = tail === undefined ? h : [...h, ...Array(Math.max(0, 8 - h.length - tl.length)).fill('0'), ...tl];
+    if (groups.length !== 8) return a;
+    return `${groups.slice(0, 4).map((g) => g.replace(/^0+(?=.)/, '')).join(':')}::/64`;
+  }
+  // 서버 전체 실패 예산(여러 주소로 나눠 대입하는 공격 방어)
+  let globalFails = [];
+  let globalBlockedUntil = 0;
+  const globalBlocked = (t) => globalBlockedUntil > t;
+  function globalFail(t) {
+    globalFails = globalFails.filter((x) => t - x < PAIR_ADDR_WINDOW_MS);
+    globalFails.push(t);
+    if (globalFails.length >= MAX_GLOBAL_FAILS) { globalBlockedUntil = t + PAIR_ADDR_BLOCK_MS; globalFails = []; }
+  }
+  const tooManyGlobal = () => new ApiError(429, 'too_many_attempts', '지금 연결 시도가 너무 많아요. 잠시 뒤(10분 뒤)에 다시 해 주세요.', { reason: 'global' });
   function addrBlocked(addr, t) {
     const e = pairAddrs.get(addr);
     return !!e && e.blockedUntil > t;
@@ -187,11 +230,16 @@ function createApp({ dbPath = path.join(__dirname, '..', 'data', 'db.json'), cor
     if (e.fails.length >= MAX_PAIR_ADDR_FAILS) { e.blockedUntil = t + PAIR_ADDR_BLOCK_MS; e.fails = []; }
   }
   // error 코드는 계약대로 too_many_attempts, 주소 차단은 reason:'address'를 덧붙여 자녀 웹이 문구를 가른다.
+  const fail = (addr, t) => { addrFail(addr, t); globalFail(t); };
   const tooManyAddr = () => new ApiError(429, 'too_many_attempts', '이 기기에서 여러 번 틀려서 잠시 쓸 수 없어요. 10분 뒤에 다시 해 보세요.', { reason: 'address' });
   function issuePairCode(f) {
-    let code;
-    do { code = String(crypto.randomInt(0, 1000000)).padStart(6, '0'); }
-    while (d.families.some((x) => x.pairCode === code) || (pairFails.get(code) || 0) >= MAX_PAIR_FAILS);
+    const t = now();
+    let code = null;
+    for (let i = 0; i < MAX_ISSUE_TRIES && code === null; i++) {
+      const c = String(randomCode()).padStart(6, '0');
+      if (!d.families.some((x) => x.pairCode === c) && failsOf(c, t) < MAX_PAIR_FAILS) code = c;
+    }
+    if (code === null) throw new ApiError(503, 'unavailable', '지금은 새 숫자를 만들 수 없어요. 잠시 뒤에 다시 해 주세요.');
     f.pairCode = code;
     f.pairCodeExpiresAt = new Date(now() + pairCodeTtlMs).toISOString();
     pairFails.delete(code);
@@ -203,8 +251,8 @@ function createApp({ dbPath = path.join(__dirname, '..', 'data', 'db.json'), cor
     const parentName = str(b.parentName, 'parentName', 1, 30);
     const f = { id: rid('fam'), parentName, pairCode: null, pairCodeExpiresAt: null, createdAt: nowIso(), parentToken: token() };
     f.consent = defaultConsent(f);
+    const { pairCode } = issuePairCode(f); // 실패(503)하면 가족을 만들지 않는다
     d.families.push(f);
-    const { pairCode } = issuePairCode(f);
     db.save();
     return { status: 201, body: { familyId: f.id, pairCode, parentToken: f.parentToken } };
   });
@@ -218,22 +266,23 @@ function createApp({ dbPath = path.join(__dirname, '..', 'data', 'db.json'), cor
 
   route('POST', '/api/pair', async (req) => {
     const t = now();
-    const addr = remoteAddress(req);
+    const addr = addrKey(remoteAddress(req));
     prunePairAddrs(t);
+    prunePairFails(t);
+    if (globalBlocked(t)) { req.resume(); throw tooManyGlobal(); }
     if (addrBlocked(addr, t)) { req.resume(); throw tooManyAddr(); }
     const b = await readJson(req);
     const name = str(b.name, 'name', 1, 20);
     if (typeof b.pairCode !== 'string' || !/^\d{6}$/.test(b.pairCode)) {
-      addrFail(addr, t);
+      fail(addr, t);
       throw new ApiError(404, 'invalid_code', INVALID_CODE);
     }
     const code = b.pairCode;
-    if ((pairFails.get(code) || 0) >= MAX_PAIR_FAILS) { addrFail(addr, t); throw tooMany(); }
+    if (failsOf(code, t) >= MAX_PAIR_FAILS) { fail(addr, t); throw tooMany(); }
     const f = d.families.find((x) => x.pairCode === code);
     if (!f || !pairCodeActive(f)) {
-      addrFail(addr, t);
-      const n = (pairFails.get(code) || 0) + 1;
-      pairFails.set(code, n);
+      fail(addr, t);
+      const n = bumpFails(code, t);
       if (n >= MAX_PAIR_FAILS) {
         // 5번째 실패: 이 숫자를 쓰던 가족이 있으면 숫자를 무효로 만들고 429를 돌려준다.
         if (f) { f.pairCode = null; f.pairCodeExpiresAt = null; db.save(); }
@@ -357,10 +406,14 @@ function createApp({ dbPath = path.join(__dirname, '..', 'data', 'db.json'), cor
   });
 
   route('GET', `/api/families/${ID}/destinations`, async (req, m, url) => {
-    const { f } = inFamily(req, m[1]);
+    const { me, f } = inFamily(req, m[1]);
     const status = url.searchParams.get('status');
     if (status !== null && !DEST_STATUS.includes(status)) throw bad('status 값이 맞지 않아요.');
-    return { status: 200, body: d.destinations.filter((x) => x.familyId === f.id && (status === null || x.status === status)).map(destOut) };
+    // v0.4.1: 도착 사실은 동의한 받을 사람에게만. 아닌 자녀에게는 arrived를 accepted로, arrivedAt을 null로 가린다.
+    const c = consentOf(f);
+    const hideArrival = me.role === 'child' && !(c.recipients.includes(me.childId) && consentActive(c));
+    const view = (x) => (hideArrival && x.status === 'arrived' ? { ...destOut(x), status: 'accepted', arrivedAt: null } : destOut(x));
+    return { status: 200, body: d.destinations.filter((x) => x.familyId === f.id).map(view).filter((x) => status === null || x.status === status) };
   });
 
   route('PATCH', `/api/destinations/${ID}`, async (req, m) => {

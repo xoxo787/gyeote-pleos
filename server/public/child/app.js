@@ -76,6 +76,7 @@
   // v0.3.1: 숫자는 10분 뒤 만료·1회용·5번 틀리면 무효. 서버 문구와 별개로 한국어 안내를 고정한다.
   function pairErrorText(err) {
     if (err.code === 'invalid_code') return '숫자가 맞지 않거나 10분이 지났어요. 이미 쓴 숫자일 수도 있어요. 부모님 차 화면에서 새 숫자를 받아 주세요.';
+    if (err.code === 'too_many_attempts' && err.reason === 'global') return '지금 연결을 시도하는 사람이 너무 많아요. 10분 뒤에 다시 입력해 주세요.';
     if (err.code === 'too_many_attempts' && err.reason === 'address') return '이 폰에서 여러 번 틀려서 잠시 멈췄어요. 10분 뒤에 다시 입력해 주세요.';
     if (err.code === 'too_many_attempts') return '여러 번 틀려서 이 숫자는 더 쓸 수 없어요. 부모님 차 화면에서 새 숫자를 받아 주세요.';
     return err.message;

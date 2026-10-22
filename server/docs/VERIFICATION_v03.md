@@ -96,3 +96,40 @@ L3의 '같은 숫자 5회'는 매번 다른 숫자를 넣는 대입을 막지 �
 - IPv6/NAT로 여러 사용자가 한 주소를 공유하면 함께 막힐 수 있다.
 
 | closed PATCH 차단 | accepted/deferred/declined 모두 `409 invalid_state`, 상태는 closed 유지 | 신규 테스트 통과, `node --test server/test` 전체 48개 중 48개 통과(그 사이 다른 작업의 변경으로 테스트 수가 늘어 있었음) | true |
+
+---
+
+# v0.4.1 보안 보완: 전체 실패 예산 · 숫자 기록 한도 · 목적지 조회 가림 (2026-10-22, 작업 S)
+
+시작 전 `git diff HEAD -- server/`: 출력 없음(커밋 이후 server/ 변경 없음). 계약 파일(`docs/api_contract.md`)은 읽기만 했다.
+
+| 항목 | expected | observed | passed |
+|---|---|---|---|
+| `node --test server/test` | 전부 통과 | 56개 중 56개 통과, 실패 0 (기존 48 + 신규 8) | true |
+| 분산 주소 200회 실패 | 주소마다 5회씩 200회까지 `404`, 그 뒤 처음 보는 주소의 **맞는 숫자도** `429 too_many_attempts` + `reason:"global"` | 테스트 통과 | true |
+| 전체 예산 해제 | 9분 59초는 계속 429, 10분 뒤 새 가족 숫자로 `201` | 테스트 통과(가짜 시계) | true |
+| 199회 | 막지 않음(맞는 숫자 `201`) | 테스트 통과 | true |
+| IPv6 /64 합산 | 같은 /64의 서로 다른 주소(표기만 달라도) 10회 합산 → `429 reason:"address"`, 다른 /64는 `201` | 테스트 통과 | true |
+| IPv4 매핑 주소 | `::ffff:192.0.2.9`와 `192.0.2.9`를 같은 주소로 합산 | 테스트 통과 | true |
+| pairFails 만료 | 4번 틀린 숫자는 마지막 실패 10분 뒤 기록이 사라져 다시 4번까지 `404`, 5번째 `429` | 테스트 통과 | true |
+| pairFails 최대 1만 개 | 넘으면 오래된 것부터 버림 | 코드로 구현(`MAX_TRACKED_CODES`). **1만 개 초과 동작은 테스트하지 않음** | 미검증 |
+| 발급 반복 상한 | 생성기를 항상 충돌하게 주입(`randomCode`) → 정확히 50번 시도 뒤 `503 unavailable`, 가족 미생성, 이후 정상 | 테스트 통과(시도 횟수 50 확인, db.json 가족 2개) | true |
+| 받을 사람에서 빠진 자녀 | `GET destinations`에서 `arrived`→`accepted`, `arrivedAt`→`null`, 목록은 그대로, `?status=arrived`는 0건 | 테스트 통과 | true |
+| 동의 만료 | 받을 사람이던 자녀에게도 가려지고, 차에는 계속 `arrived`, 기간 해제 시 다시 보임 | 테스트 통과 | true |
+| 받을 사람인 자녀·차 | 그대로 `arrived` + `arrivedAt` | 테스트 통과 | true |
+| 자녀 웹 문구 | `reason:"global"`이면 한국어 안내 | 코드 포함을 테스트로 확인. 브라우저 화면은 확인하지 않음 | true(코드 한정) |
+| `demo-car.js --base http://localhost:8790 --withdraw --location` (새 임시 `DB_PATH`) | exit 0 | 17단계 완료, exit 0 | true |
+| 서버 종료 | 8790 서버 종료 | LISTEN 프로세스 종료 후 health 응답 없음 | true |
+
+## 구현
+- `src/app.js`: 전체 실패 예산(`MAX_GLOBAL_FAILS=200`, 10분 창, 초과 시 10분간 `POST /api/pair` 전체 429 `reason:"global"`; 차단 검사는 주소 검사보다 먼저). 실패는 주소별 기록과 같은 지점에서 함께 센다.
+- IPv6는 앞 4묶음(/64)으로 묶는 `addrKey`(`::` 축약·0 생략·대소문자 정규화, `::ffff:a.b.c.d`는 IPv4로).
+- `pairFails`: `{n, at}`로 바꿔 마지막 실패 10분 뒤 만료, 호출마다 정리, 최대 1만 개.
+- `issuePairCode`: 최대 50번 시도 후 `503 unavailable`. `createApp({ randomCode })` 주입 추가(시험용, 기본은 `crypto.randomInt`). 가족 생성은 숫자 발급이 성공한 뒤에 목록에 넣는다.
+- `GET /api/families/:id/destinations`: 자녀 호출 시 recipients에 없거나 동의 기간이 끝났으면 `arrived`→`accepted`, `arrivedAt`→`null`(저장값은 불변).
+- `public/child/app.js`: `reason:"global"` 한국어 안내 추가. `test/pair.test.js`: 신규 8건.
+
+## 한계
+- `consentActive`는 기존대로 실제 시계(`Date.now`)를 쓰므로 동의 만료 시험은 과거 `until`로 만들었다.
+- 전체 예산은 서버 전체 공유라, 공격이 계속되면 정상 사용자도 10분 막힌다(계약 의도). 메모리에만 있어 재시작 시 초기화.
+- `503` 문구와 `reason:"global"`은 계약에 `reason`이 이미 쓰이는 방식과 같게 추가했다. 503 응답 본문은 `{error:"unavailable", message}`.
