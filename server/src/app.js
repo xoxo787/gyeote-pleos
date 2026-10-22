@@ -412,7 +412,10 @@ function createApp({ dbPath = path.join(__dirname, '..', 'data', 'db.json'), cor
     // v0.4.1: 도착 사실은 동의한 받을 사람에게만. 아닌 자녀에게는 arrived를 accepted로, arrivedAt을 null로 가린다.
     const c = consentOf(f);
     const hideArrival = me.role === 'child' && !(c.recipients.includes(me.childId) && consentActive(c));
-    const view = (x) => (hideArrival && x.status === 'arrived' ? { ...destOut(x), status: 'accepted', arrivedAt: null } : destOut(x));
+    // updatedAt도 도착 시각을 드러내므로 마지막 응답 시각으로 바꾼다.
+    const view = (x) => (hideArrival && x.status === 'arrived'
+      ? { ...destOut(x), status: 'accepted', arrivedAt: null, updatedAt: x.respondedAt || x.createdAt }
+      : destOut(x));
     return { status: 200, body: d.destinations.filter((x) => x.familyId === f.id).map(view).filter((x) => status === null || x.status === status) };
   });
 
@@ -427,6 +430,7 @@ function createApp({ dbPath = path.join(__dirname, '..', 'data', 'db.json'), cor
     if (dest.status === 'arrived' || dest.status === 'closed') throw invalidState('이미 끝난 길은 바꿀 수 없어요.');
     dest.status = b.status;
     dest.updatedAt = nowIso();
+    dest.respondedAt = dest.updatedAt; // 가린 조회에서 도착 시각 대신 보여 줄 마지막 응답 시각
     db.save();
     return { status: 200, body: destOut(dest) };
   });
