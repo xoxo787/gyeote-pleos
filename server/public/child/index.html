@@ -52,15 +52,16 @@
         <h2>가는 길 보내기</h2>
         <p class="lead small">부모님 차에 가실 곳을 보내요. 안내는 부모님이 받겠다고 하실 때 시작돼요.</p>
         <div class="examples" role="group" aria-label="예시 장소">
-          <button type="button" class="ex" data-name="서울대학교병원" data-address="서울 종로구 대학로 101" data-lat="37.5796" data-lng="126.9990">서울대학교병원</button>
-          <button type="button" class="ex" data-name="서울아산병원" data-address="서울 송파구 올림픽로43길 88" data-lat="37.5266" data-lng="127.1086">서울아산병원</button>
-          <button type="button" class="ex" data-name="광장시장" data-address="서울 종로구 창경궁로 88" data-lat="37.5701" data-lng="126.9996">광장시장</button>
+          <!-- 예시 장소는 실제 기관과 혼동되지 않도록 가상 이름·주소를 쓴다(좌표는 내비 시연용 서울 시내 임의 지점). -->
+          <button type="button" class="ex" data-name="서울 중앙병원" data-address="서울 중구 예시로 1 (가상)" data-lat="37.5665" data-lng="126.9780">서울 중앙병원</button>
+          <button type="button" class="ex" data-name="한빛 내과의원" data-address="서울 종로구 예시로 2 (가상)" data-lat="37.5720" data-lng="126.9910">한빛 내과의원</button>
+          <button type="button" class="ex" data-name="동네 시장" data-address="서울 중구 예시로 3 (가상)" data-lat="37.5640" data-lng="126.9970">동네 시장</button>
         </div>
         <form id="form-dest" class="card" autocomplete="off">
           <label for="d-name">가실 곳</label>
-          <input id="d-name" maxlength="60" placeholder="예) 서울대학교병원" required>
+          <input id="d-name" maxlength="60" placeholder="예) 서울 중앙병원" required>
           <label for="d-address">주소</label>
-          <input id="d-address" maxlength="120" placeholder="예) 서울 종로구 대학로 101">
+          <input id="d-address" maxlength="120" placeholder="예) 서울 중구 예시로 1">
           <label for="d-note">한마디 (선택)</label>
           <input id="d-note" maxlength="200" placeholder="예) 10시 진료예요. 천천히 오세요">
           <details class="coords">
