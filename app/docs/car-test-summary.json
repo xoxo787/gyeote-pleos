@@ -1,0 +1,132 @@
+[
+  {
+    "variant": "Debug",
+    "tests": 116,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": [
+      {
+        "name": "ai.gyeote.app.data.ApiClientTest",
+        "tests": "13",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.ConsentTest",
+        "tests": "10",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.DestinationInboxTest",
+        "tests": "5",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.IntentParserTest",
+        "tests": "21",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.JourneyMachineTest",
+        "tests": "20",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.MaintenanceTest",
+        "tests": "7",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.WarningDictionaryTest",
+        "tests": "32",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.vehicle.VehiclePortsTest",
+        "tests": "8",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ]
+  },
+  {
+    "variant": "Release",
+    "tests": 116,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": [
+      {
+        "name": "ai.gyeote.app.data.ApiClientTest",
+        "tests": "13",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.ConsentTest",
+        "tests": "10",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.DestinationInboxTest",
+        "tests": "5",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.IntentParserTest",
+        "tests": "21",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.JourneyMachineTest",
+        "tests": "20",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.MaintenanceTest",
+        "tests": "7",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.domain.WarningDictionaryTest",
+        "tests": "32",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "ai.gyeote.app.vehicle.VehiclePortsTest",
+        "tests": "8",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ]
+  }
+]

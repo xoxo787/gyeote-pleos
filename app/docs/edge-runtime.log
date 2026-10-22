@@ -1,0 +1,28 @@
+PASS v03-route-consent
+STEP create destination 서울 중앙병원
+PASS ask-mode-no-silent-send
+PASS ask-mode-parent-confirmation
+PASS mode-persist-True
+STEP create destination 자동 소식 시연 장소
+PASS automatic-mode-arrival
+PASS mode-persist-False
+STEP create destination 가족 만남 장소
+PASS unanswered-redeparture
+STEP create destination 이번만 보류 장소
+PASS skip-arrival
+STEP create destination 도착 재시도 network
+PASS arrival-failure-network
+PASS arrival-retry-network
+STEP create destination 도착 재시도 403
+PASS arrival-failure-403
+PASS arrival-retry-403
+STEP create destination 도착 재시도 409
+PASS arrival-failure-409
+PASS retry-queue-process-restart
+PASS arrival-retry-409
+STEP create destination 공유 끔 시연 장소
+PASS consent-off-no-card
+PASS consent-off-server
+PASS private-subscription-history
+PASS public-poll-history
+PASS captures

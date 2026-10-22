@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-22T02:03:22.4693427Z",
+  "ownNodePid": 33504,
+  "ownNodeStopped": true,
+  "port8787Listening": false,
+  "emulatorSerial": "emulator-5554",
+  "emulatorState": "device",
+  "displayBuild": "RELEASE.release_connect_v2.1.0 test-keys",
+  "runningEmulatorCount": 1,
+  "serverDataPreserved": true,
+  "passed": true
+}

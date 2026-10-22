@@ -1,0 +1,9 @@
+10-21 18:51:07.305 16567 16567 I GyeoteVehicle: speechProbe=start mode=ON_DEVICE noAppRegistration=true
+10-21 18:51:07.342 16567 16567 I GyeoteVehicle: speechProbe=ttsInitialized
+10-21 18:51:07.344 16567 16567 I GyeoteVehicle: speechProbe=sttInitialized
+10-21 18:51:07.379 16567 16567 I GyeoteVehicle: speechProbe=sttError type=ON_DEVICE_ENGINE_ERROR
+10-21 18:51:07.381 16567 16567 I GyeoteVehicle: speechProbe=sttError type=ON_DEVICE_ENGINE_ERROR
+10-21 18:51:07.392 16567 16593 I GyeoteVehicle: speechProbe=ttsReady
+10-21 18:51:07.393 16567 16593 I GyeoteVehicle: speechProbe=ttsStarted
+10-21 18:51:08.155 16567 16593 I GyeoteVehicle: speechProbe=ttsError type=ON_DEVICE_ENGINE_ERROR
+10-21 18:51:22.341 16567 16567 I GyeoteVehicle: speechProbe=closed

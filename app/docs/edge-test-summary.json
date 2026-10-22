@@ -1,0 +1,20 @@
+{
+  "baseline_test_methods": 66,
+  "current_test_methods": 107,
+  "added_test_methods": 41,
+  "removed_test_methods": [],
+  "variants": {
+    "testDebugUnitTest": {
+      "tests": 161,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "testReleaseUnitTest": {
+      "tests": 161,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  }
+}

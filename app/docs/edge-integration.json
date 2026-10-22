@@ -1,0 +1,1738 @@
+{
+  "at": "2026-10-22T03:29:11.975869+00:00",
+  "serial": "emulator-5554",
+  "test_profile": "edge-d28c887f7cf944bf",
+  "results": [
+    {
+      "scenario": "v03-route-consent",
+      "expected": "Only shareRouteArrival on and one recipient",
+      "observed": {
+        "status": 200,
+        "route": true,
+        "other_flags": [
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ask-mode-no-silent-send",
+      "expected": "Unanswered card remains after 12 seconds, no event",
+      "observed": {
+        "events": 0
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ask-mode-parent-confirmation",
+      "expected": "Explicit confirmation -> one arrived event with destinationId",
+      "observed": {
+        "events": 1
+      },
+      "passed": true
+    },
+    {
+      "scenario": "mode-persist-True",
+      "expected": "Local delivery choice survives process restart",
+      "observed": {
+        "checked": "true"
+      },
+      "passed": true
+    },
+    {
+      "scenario": "automatic-mode-arrival",
+      "expected": "Explicit automatic choice sends on stopped arrival without a question",
+      "observed": {
+        "events": 1
+      },
+      "passed": true
+    },
+    {
+      "scenario": "mode-persist-False",
+      "expected": "Local delivery choice survives process restart",
+      "observed": {
+        "checked": "true"
+      },
+      "passed": true
+    },
+    {
+      "scenario": "unanswered-redeparture",
+      "expected": "No response then drive again -> no event and no question at next stop",
+      "observed": {
+        "events": 0,
+        "card_visible": false
+      },
+      "passed": true
+    },
+    {
+      "scenario": "skip-arrival",
+      "expected": "Explicit skip -> no event",
+      "observed": {
+        "events": 0
+      },
+      "passed": true
+    },
+    {
+      "scenario": "arrival-failure-network",
+      "expected": "Failure is shown honestly, no successful event, queue retained",
+      "observed": {
+        "events": 0,
+        "message_visible": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "arrival-retry-network",
+      "expected": "Manual retry sends one event after fault clears",
+      "observed": {
+        "events": 1
+      },
+      "passed": true
+    },
+    {
+      "scenario": "arrival-failure-403",
+      "expected": "Failure is shown honestly, no successful event, queue retained",
+      "observed": {
+        "events": 0,
+        "message_visible": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "arrival-retry-403",
+      "expected": "Manual retry sends one event after fault clears",
+      "observed": {
+        "events": 1
+      },
+      "passed": true
+    },
+    {
+      "scenario": "arrival-failure-409",
+      "expected": "Failure is shown honestly, no successful event, queue retained",
+      "observed": {
+        "events": 0,
+        "message_visible": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "retry-queue-process-restart",
+      "expected": "409 pending queue survives full process restart",
+      "observed": "Pending count remains visible",
+      "passed": true
+    },
+    {
+      "scenario": "arrival-retry-409",
+      "expected": "Manual retry sends one event after fault clears",
+      "observed": {
+        "events": 1
+      },
+      "passed": true
+    },
+    {
+      "scenario": "consent-off-no-card",
+      "expected": "Disabled route sharing -> no arrival card",
+      "observed": {
+        "card_visible": false
+      },
+      "passed": true
+    },
+    {
+      "scenario": "consent-off-server",
+      "expected": "All sharing off at server",
+      "observed": {
+        "status": 200,
+        "route": false
+      },
+      "passed": true
+    },
+    {
+      "scenario": "private-subscription-history",
+      "expected": "Actual Console ENGINE on/off -> local completed record",
+      "observed": "ENGINE and end timestamp visible",
+      "passed": true
+    },
+    {
+      "scenario": "public-poll-history",
+      "expected": "Public-only path records ABS on/off",
+      "observed": {
+        "public_path": true,
+        "record_visible": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "captures",
+      "expected": "At least seven landscape Pleos screenshots",
+      "observed": {
+        "count": 14
+      },
+      "passed": true
+    },
+    {
+      "scenario": "sdk-detail-TPMS",
+      "expected": "Expected cautious description and hidden numeric UI; provenance explicitly recorded",
+      "observed": {
+        "signal": "TPMS",
+        "source": "actual-sdk",
+        "text_visible": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "mock-detail-FCA",
+      "expected": "Expected cautious description and hidden numeric UI; provenance explicitly recorded",
+      "observed": {
+        "signal": "FCA",
+        "source": "fake-debug",
+        "text_visible": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "mock-detail-ACCEL_RESPONSE_DASH",
+      "expected": "Expected cautious description and hidden numeric UI; provenance explicitly recorded",
+      "observed": {
+        "signal": "ACCEL_RESPONSE_DASH",
+        "source": "fake-debug",
+        "text_visible": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "debug-private-subscription-active",
+      "expected": "Actual final APK registers the permitted debug subscription",
+      "observed": {
+        "registered": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "history-clear-cancel",
+      "expected": "Cancel keeps actual observed records",
+      "observed": "Timeline remains visible",
+      "passed": true
+    },
+    {
+      "scenario": "history-clear-confirmed",
+      "expected": "Explicit confirmation clears only the isolated profile history",
+      "observed": "Empty timeline visible",
+      "passed": true
+    },
+    {
+      "scenario": "hidden-maintenance-redirect",
+      "expected": "Old debug route opens merged history instead of standalone maintenance",
+      "observed": "History shown",
+      "passed": true
+    },
+    {
+      "scenario": "hidden-messages-redirect",
+      "expected": "Old debug voice route opens home",
+      "observed": "Home shown",
+      "passed": true
+    }
+  ],
+  "captures": [
+    {
+      "file": "04-consent.png",
+      "sha256": "c75b1771a33255a468e00c3fb8bff134dedca6d03d7ff2eab73a4a553c383a21",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "자녀가 보낸 길에 도착하면 알리기",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "14-consent-default-method.png",
+      "sha256": "d90d5b6b1dee5e8f35904b2f812d365dc321993640bbc717a337df9ee73e974b",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "매번 물어보기",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "09-destination-note.png",
+      "sha256": "378962790a8f7abe92ebc810fe96e4da4969160b5276cc4c5ecc81568eb9da03",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "천천히 오세요",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "07-driving.png",
+      "sha256": "fc11a98f95f4956a7ba6d9ab8085a032db4cbb250967165fda266f2c11c55d98",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "운전에 집중",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "05-arrival-confirm.png",
+      "sha256": "e0aea87f7ce2b8dfe1b6020d111fe51f25ea2ad69c9af0a7b6d46a545c4f5fc4",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "도착 소식을 보낼까요?",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "06-arrival-sent.png",
+      "sha256": "2e3a7e8a7d188aa5b2d5299a42792a8e43f7d1904a4598203a235af58c40ebf9",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "따님께 잘 도착했다고 전했어요",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "13-consent-automatic.png",
+      "sha256": "50588bbe584f4774fba7b45be5356cc59bf9622f5b38630b2e2e6655ca9e304e",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "자동으로 보내기",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "10-network-queued.png",
+      "sha256": "06a8b2d6b4703253ea1459dbe1f025107c44cb3fcdc347440d77ca431d68a189",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "연결이 끊겨",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "11-consent-denied.png",
+      "sha256": "20aed2a7cea38428cec385318cb44bba2caeea60fe04d6fcf05eab2f6d8d1abf",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "(403)",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "12-conflict.png",
+      "sha256": "c1446c44ee68f4914774340699302b79430a73d63dfc1d12c3865a3282ed24ae",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "(409)",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "01-home.png",
+      "sha256": "6d96e4529ea991450858ac70f16eade0ea2649b26801d5728f0625347c1a18ae",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "오늘의 동행",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "02-history-parent.png",
+      "sha256": "f8145fb49e1223ac688699910808ee193cadf77e0b3c8841a8b70114d7e2171c",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "꺼졌어요",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "03-mechanic.png",
+      "sha256": "997587daa8fdbb76a2ac078de81349819d9a73cfdc662081b517ac82e74fc04c",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "ENGINE",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "08-public-poll-mechanic.png",
+      "sha256": "4ae571d675d0d37d48e5c4295432fb02f2691cb8bc54f5de1a28a4a00975224a",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "ABS",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "19-tpms-detail.png",
+      "sha256": "f920c29380fee8c24606ec072264896f9059aaa3c1ecb6a94db97ec5da8eb823",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "타이어 공기압이 낮을 수 있어요.",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "20-fca-detail.png",
+      "sha256": "6788346413f502fb804168c4dc59a490e6d5496eacd016397dbe707c7effc550",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "줄였을 수 있어요.",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "21-safety-meaning-unconfirmed.png",
+      "sha256": "6e0a7326ff2ae2c9349f0d46a7d9d59d7356c78129efcae04e2c1c6a552ade51",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "차의 안전 기능이 작동했을 수 있어요.",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "15-clear-confirmation.png",
+      "sha256": "9c263447f10aa75f8475820d7aa8b37338c5f25ab4a15211755c530c0d60dec4",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "이 차의 경고 기록을 모두 지울까요?",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "16-history-cleared.png",
+      "sha256": "de7bd021ae8ffc8aa405ec3af1d059e9b7956106815d7f8cffc2873435fc2392",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "아직 기록된 경고가 없어요.",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "17-hidden-maintenance.png",
+      "sha256": "af390346df07d2dc7183ff1f16cb68042dca9eb8888a62d66e6273e9f3fe37ed",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "차 안에 남긴 경고 기록",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    },
+    {
+      "file": "18-hidden-messages.png",
+      "sha256": "cb15eabd7438bfa46d187f8d84402e60e8dd502ff1399d17d01f651acaf55d76",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "expected": "오늘의 동행",
+      "hidden_ui_matches": 0,
+      "prohibited_word_matches": 0,
+      "passed": true
+    }
+  ],
+  "proxy_http": [
+    {
+      "method": "GET",
+      "path": "/health",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families",
+      "status": 201
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/pair",
+      "status": 201
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/destinations",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/destinations/[id]",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/events",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/destinations",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/destinations/[id]",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/events",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/destinations",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/destinations/[id]",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/destinations",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/destinations/[id]",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/destinations",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/destinations/[id]",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/events",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/destinations",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/destinations/[id]",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/events",
+      "status": 403
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/events",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/destinations",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/destinations/[id]",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/events",
+      "status": 409
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/events",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/destinations",
+      "status": 201
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PATCH",
+      "path": "/api/destinations/[id]",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "DELETE",
+      "path": "/api/families/[id]/shared-data",
+      "status": 204
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "PUT",
+      "path": "/api/families/[id]/consent",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/children",
+      "status": 200
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations?status=pending",
+      "status": 200
+    }
+  ],
+  "optional_checks": [
+    {
+      "scenario": "console-input-FCA",
+      "expected": "Console accepts the SDK constant for a live signal check",
+      "observed": {
+        "http_status": 400
+      },
+      "passed": false
+    },
+    {
+      "scenario": "console-input-ACCEL_RESPONSE_DASH",
+      "expected": "Console accepts the SDK constant for a live signal check",
+      "observed": {
+        "http_status": 400
+      },
+      "passed": false
+    }
+  ],
+  "apk_sha256": "d263027ee6b8dc2d266c93f5cebeb302663f6fe6a2c58881c0e56d4baa2580d7"
+}

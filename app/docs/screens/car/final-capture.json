@@ -1,0 +1,12 @@
+{
+  "file": "08-final-home.png",
+  "source": "actual Pleos SDK after final APK install and fake-mode regression",
+  "dimensions": [
+    2560,
+    1440
+  ],
+  "apk_sha256": "fe322e576b53fbf93e057b9e1f7c9f97e946061f44390aec56eb13ed353909d1",
+  "png_sha256": "6fd2709ee1c4f9cc66bf8667d561b0d02fdd6f0e40d053f7bf056681c44327ee",
+  "pleos_auto_selection_restored": true,
+  "passed": true
+}

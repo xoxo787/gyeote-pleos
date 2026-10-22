@@ -1,0 +1,191 @@
+{
+  "results": [
+    {
+      "scenario": "original-tests-preserved",
+      "expected": "Every original test method remains",
+      "observed": {
+        "baseline_test_methods": 66,
+        "current_test_methods": 107,
+        "added_test_methods": 41,
+        "removed_test_methods": [],
+        "variants": {
+          "testDebugUnitTest": {
+            "tests": 161,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "testReleaseUnitTest": {
+            "tests": 161,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          }
+        }
+      },
+      "passed": true
+    },
+    {
+      "scenario": "unit-tests",
+      "expected": "Debug and Release suites with no failures/errors/skips",
+      "observed": {
+        "testDebugUnitTest": {
+          "tests": 161,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "testReleaseUnitTest": {
+          "tests": 161,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "passed": true
+    },
+    {
+      "scenario": "lint",
+      "expected": "No errors or fatal findings",
+      "observed": {
+        "Warning": 8,
+        "Hint": 1,
+        "Error": 0,
+        "Fatal": 0
+      },
+      "passed": true
+    },
+    {
+      "scenario": "release-permissions",
+      "expected": "No private safety or speech permissions",
+      "observed": [
+        "android.permission.INTERNET",
+        "pleos.car.permission.CAR_DRIVE",
+        "pleos.car.permission.CAR_SAFETY",
+        "pleos.car.permission.CAR_DOORS",
+        "pleos.car.permission.NAVI_ROUTE",
+        "pleos.car.permission.NAVI_ROUTE_SEARCH",
+        "ai.pleos.playground.service.vehicle.VEHICLE_BINDING",
+        "ai.gyeote.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "word-scan",
+      "expected": "Zero prohibited words in app text/artifacts",
+      "observed": {
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "scenario": "consent-off-no-http",
+      "expected": "No event HTTP attempts after withdrawal",
+      "observed": {
+        "withdrawal_observed": true,
+        "event_posts": 0
+      },
+      "passed": true
+    },
+    {
+      "scenario": "screenshots",
+      "expected": "Seven required screens plus C delivery choices, all 2560x1440",
+      "observed": {
+        "files": [
+          "01-home.png",
+          "02-history-parent.png",
+          "03-mechanic.png",
+          "04-consent.png",
+          "05-arrival-confirm.png",
+          "06-arrival-sent.png",
+          "07-driving.png",
+          "08-public-poll-mechanic.png",
+          "09-destination-note.png",
+          "10-network-queued.png",
+          "11-consent-denied.png",
+          "12-conflict.png",
+          "13-consent-automatic.png",
+          "14-consent-default-method.png",
+          "15-clear-confirmation.png",
+          "16-history-cleared.png",
+          "17-hidden-maintenance.png",
+          "18-hidden-messages.png",
+          "19-tpms-detail.png",
+          "20-fca-detail.png",
+          "21-safety-meaning-unconfirmed.png"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "hidden-ui",
+      "expected": "Hidden feature strings absent from every captured app XML",
+      "observed": {
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "scenario": "driving-inputs",
+      "expected": "No interactive app controls while driving",
+      "observed": {
+        "count": 0
+      },
+      "passed": true
+    },
+    {
+      "scenario": "mode-choice-14-consent-default-method.xml",
+      "expected": "Specified C option is visibly selected",
+      "observed": {
+        "selected": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "mode-choice-13-consent-automatic.xml",
+      "expected": "Specified C option is visibly selected",
+      "observed": {
+        "selected": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "capture-apk",
+      "expected": "All final captures use the final Debug APK",
+      "observed": {
+        "build_sha256": "d263027ee6b8dc2d266c93f5cebeb302663f6fe6a2c58881c0e56d4baa2580d7",
+        "capture_sha256": "d263027ee6b8dc2d266c93f5cebeb302663f6fe6a2c58881c0e56d4baa2580d7"
+      },
+      "passed": true
+    }
+  ],
+  "source_modified": [
+    "app/docs/README.md",
+    "app/src/main/java/ai/gyeote/app/AppController.kt",
+    "app/src/main/java/ai/gyeote/app/Features.kt",
+    "app/src/main/java/ai/gyeote/app/MainActivity.kt",
+    "app/src/main/java/ai/gyeote/app/data/ApiClient.kt",
+    "app/src/main/java/ai/gyeote/app/data/EdgeJson.kt",
+    "app/src/main/java/ai/gyeote/app/data/SecureStore.kt",
+    "app/src/main/java/ai/gyeote/app/domain/Consent.kt",
+    "app/src/main/java/ai/gyeote/app/domain/Destinations.kt",
+    "app/src/main/java/ai/gyeote/app/domain/RouteArrival.kt",
+    "app/src/main/java/ai/gyeote/app/domain/WarningHistory.kt",
+    "app/src/main/java/ai/gyeote/app/domain/Warnings.kt",
+    "app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt",
+    "app/src/main/java/ai/gyeote/app/vehicle/VehiclePorts.kt",
+    "app/src/test/java/ai/gyeote/app/data/ApiClientTest.kt",
+    "app/src/test/java/ai/gyeote/app/data/EdgeJsonTest.kt",
+    "app/src/test/java/ai/gyeote/app/domain/RouteArrivalTest.kt",
+    "app/src/test/java/ai/gyeote/app/domain/WarningHistoryTest.kt",
+    "app/src/test/java/ai/gyeote/app/vehicle/VehiclePortsTest.kt",
+    "app/tools/edge_integration.py",
+    "app/tools/edge_post_checks.py",
+    "app/tools/node_edge_fixture.cjs",
+    "app/tools/runtime_smoke.py",
+    "app/tools/verify_edge.py"
+  ],
+  "backup": "<home>\\AppData\\Local\\Temp\\pleos-K-f84167d275d34abfa557bbc4043289dd",
+  "release_manifest": "build\\intermediates\\merged_manifests\\release\\processReleaseManifest\\AndroidManifest.xml",
+  "passed": true
+}

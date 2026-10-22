@@ -1,0 +1,38 @@
+{
+  "release_apk_sha256": "99300ea3e1197c5f6c5cf824d213746a386d52f6734a5fe39dbccac982229213",
+  "locally_signed_apk_sha256": "5c75fa1103959c3faaff879ac4c8b33b7d33d9a78eff39900d359d75587526aa",
+  "local_signed_apk": "<임시 폴더>/gyeote-polish-release-rzopt9eu\\app-release-local-check.apk",
+  "secure_capture_policy_preserved": true,
+  "results": [
+    {
+      "scenario": "release-payload-preserved",
+      "expected": "Local signing preserves all unsigned release payload entries",
+      "observed": {
+        "payload_equal": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "release-settings-no-editor",
+      "expected": "Actual release settings from top to family card has no server editor or debug tab",
+      "observed": {
+        "server_editor_matches": 0,
+        "debug_matches": 0,
+        "full_settings": true,
+        "xml": [
+          "release-settings-1.xml"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "release-debug-intent-ignored",
+      "expected": "Debug screen/server URL intents cannot reveal developer UI in release",
+      "observed": {
+        "developer_ui": false
+      },
+      "passed": true
+    }
+  ],
+  "debug_restored": true
+}

@@ -1,0 +1,320 @@
+{
+  "at": "2026-10-22T04:19:29.349457+00:00",
+  "serial": "emulator-5554",
+  "test_profile": "polish-55f88752b7594988",
+  "apk_sha256": "4e701c672adabd7f4097409c8bf69fc9db1fd661e6962c3f023dd8d57bd59f34",
+  "results": [
+    {
+      "scenario": "debug-settings-no-server",
+      "expected": "Normal settings contains no server-address editor",
+      "observed": {
+        "server_editor": false
+      },
+      "passed": true
+    },
+    {
+      "scenario": "fresh-code-invalidates-old",
+      "expected": "Explicit reissue replaces earlier one-use code",
+      "observed": {
+        "old_status": 404,
+        "changed": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "live-countdown",
+      "expected": "Remaining time changes without rebuilding the page",
+      "observed": {
+        "before": "남은 시간 9:56",
+        "after": "남은 시간 9:51"
+      },
+      "passed": true
+    },
+    {
+      "scenario": "pair-code-single-use",
+      "expected": "Consumed code cannot enroll another child",
+      "observed": {
+        "first": 201,
+        "second": 404
+      },
+      "passed": true
+    },
+    {
+      "scenario": "route-sharing-on",
+      "expected": "Only route-arrival consent enabled for one recipient",
+      "observed": {
+        "status": 200,
+        "flags": {
+          "shareDeparture": false,
+          "shareArrival": false,
+          "shareAlerts": false,
+          "shareLocation": false,
+          "shareRouteArrival": true
+        }
+      },
+      "passed": true
+    },
+    {
+      "scenario": "family-settings-no-server",
+      "expected": "Lower settings card also has no server address or developer controls",
+      "observed": {
+        "server_editor": false
+      },
+      "passed": true
+    },
+    {
+      "scenario": "unanswered-reask-no-event",
+      "expected": "Unanswered first prompt reappears at next actual stop without sending an event",
+      "observed": {
+        "status": 200,
+        "count": 0
+      },
+      "passed": true
+    },
+    {
+      "scenario": "arrival-positive-control",
+      "expected": "Direct server receives exactly one parent-confirmed event",
+      "observed": {
+        "status": 200,
+        "count": 1
+      },
+      "passed": true
+    },
+    {
+      "scenario": "unanswered-reask-closes",
+      "expected": "No response to the one reask ends silently at a later stop without another event",
+      "observed": {
+        "card": false,
+        "events": 1
+      },
+      "passed": true
+    },
+    {
+      "scenario": "all-off-server",
+      "expected": "Actual UI tap turns all server consent flags off and invokes shared-data deletion",
+      "observed": {
+        "status": 200,
+        "flags": {
+          "shareDeparture": false,
+          "shareArrival": false,
+          "shareAlerts": false,
+          "shareLocation": false,
+          "shareRouteArrival": false
+        },
+        "delete_statuses": [
+          204
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "off-arrival-no-http",
+      "expected": "Actual Console drive/park/door arrival after withdrawal causes zero event HTTP attempts",
+      "observed": {
+        "server_posts": 0,
+        "client_attempts": 0,
+        "arrival_card": false
+      },
+      "passed": true
+    },
+    {
+      "scenario": "mechanic-no-raw-placeholders",
+      "expected": "Actual SDK warning record preserves standard/SDK names without sentinel metadata",
+      "observed": {
+        "engine": true,
+        "placeholders": false
+      },
+      "passed": true
+    },
+    {
+      "scenario": "landscape-captures",
+      "expected": "At least five landscape screenshots covering required screens",
+      "observed": {
+        "count": 8
+      },
+      "passed": true
+    }
+  ],
+  "captures": [
+    {
+      "file": "03-settings.png",
+      "sha256": "b94868b3d7f2a258a021463095b13e24672ff0cc92765454867489acf3c3c9e2",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "file": "04-pairing-countdown.png",
+      "sha256": "959bfc4e3af8d5d40cafb18bd49c0408df2b332eb029705b7b2fde3b6b1b1661",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "file": "06-settings-family.png",
+      "sha256": "48820f0e248ebda08b2f7005008be500421a5fd2c7ae11fa2fa11000da946933",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "file": "05-debug-menu.png",
+      "sha256": "eac701f46eb064a00bcaaab0f5b764fd9d52ea14e17a1d77b2ab80981de638bd",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "file": "01-arrival-confirm.png",
+      "sha256": "e9e81f765a0fcac649f862f5346ca328982a286ca7af2f9f37df502b4b13cf02",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "file": "08-arrival-reask.png",
+      "sha256": "b283b42ce461189d94821517b49c8f9e50fdfac37fadd9fa4b61964972ca3da7",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "file": "07-all-off.png",
+      "sha256": "6a940c1fad81c0c1f7b2f54db949dd0c980e9963fe3197f1b845b632b2a479ba",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "passed": true
+    },
+    {
+      "file": "02-mechanic.png",
+      "sha256": "adcddd710e228bbac5f10f7f8b72a47e2f0350b6d0d4b0fffa43e208c169f7ea",
+      "dimensions": [
+        2560,
+        1440
+      ],
+      "passed": true
+    }
+  ],
+  "http": [
+    {
+      "method": "POST",
+      "path": "/api/pair",
+      "status": 404,
+      "authorization": "[absent]",
+      "response": {
+        "error": "invalid_code"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/pair",
+      "status": 201,
+      "authorization": "[absent]"
+    },
+    {
+      "method": "POST",
+      "path": "/api/pair",
+      "status": 404,
+      "authorization": "[absent]",
+      "response": {
+        "error": "invalid_code"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/consent",
+      "status": 200,
+      "authorization": "[masked]",
+      "response": {
+        "shareDeparture": false,
+        "shareArrival": false,
+        "shareAlerts": false,
+        "shareLocation": false,
+        "shareRouteArrival": true,
+        "recipientCount": 1
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/destinations",
+      "status": 201,
+      "authorization": "[masked]"
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations",
+      "status": 200,
+      "authorization": "[masked]"
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200,
+      "authorization": "[masked]"
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200,
+      "authorization": "[masked]"
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/destinations",
+      "status": 201,
+      "authorization": "[masked]"
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations",
+      "status": 200,
+      "authorization": "[masked]"
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/events",
+      "status": 200,
+      "authorization": "[masked]"
+    },
+    {
+      "method": "POST",
+      "path": "/api/families/[id]/destinations",
+      "status": 201,
+      "authorization": "[masked]"
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/destinations",
+      "status": 200,
+      "authorization": "[masked]"
+    },
+    {
+      "method": "GET",
+      "path": "/api/families/[id]/consent",
+      "status": 200,
+      "authorization": "[masked]",
+      "response": {
+        "shareDeparture": false,
+        "shareArrival": false,
+        "shareAlerts": false,
+        "shareLocation": false,
+        "shareRouteArrival": false,
+        "recipientCount": 0
+      }
+    }
+  ]
+}

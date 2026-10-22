@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-22T01:03:35.478239+00:00",
+  "serial": "emulator-5554",
+  "capture_command": "adb exec-out screencap -p",
+  "captures": [
+    {
+      "file": "01-home.png",
+      "sha256": "e183b58f1fb58b64ad0f75b28e6ac1ad971a159723e11770362bf71ea0964557",
+      "bytes": 158436,
+      "expected_visible": true,
+      "restricted": false
+    },
+    {
+      "file": "02-consent.png",
+      "sha256": "21d4cb963ec541c3776d59c135e197c2154ffb9455aefe4b0d49cf1d2b9298b5",
+      "bytes": 164669,
+      "expected_visible": true,
+      "restricted": false
+    },
+    {
+      "file": "03-warning.png",
+      "sha256": "1050d64892e558c64582d5e1809526e464466b4ed7b84773321c6dde1adfacb6",
+      "bytes": 169400,
+      "expected_visible": true,
+      "restricted": false
+    },
+    {
+      "file": "04-driving.png",
+      "sha256": "0a1e3078f5b8049c104308c86306d30cc292117c8b7a6c7eefc752a1846c8dc5",
+      "bytes": 75426,
+      "expected_visible": true,
+      "restricted": true
+    },
+    {
+      "file": "05-console.png",
+      "sha256": "dded332efd562575123e65ef9e90277cbc246ccf05bd5e0d4f70b07cbd5aa91d",
+      "bytes": 159399,
+      "expected_visible": true,
+      "restricted": false
+    }
+  ],
+  "apk_sha256": "a79211e9968476a40b5a8a0c4db5c231858286643c6dc06f3f94315c6247cd71"
+}

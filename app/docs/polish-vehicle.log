@@ -1,0 +1,202 @@
+10-21 21:04:28.376  9431  9431 I GyeoteVehicle: gear=PARK
+10-21 21:04:28.377  9431  9431 I GyeoteVehicle: restricted=false
+10-21 21:04:28.377  9431  9431 I GyeoteVehicle: gear=PARK
+10-21 21:04:28.377  9431  9431 I GyeoteVehicle: gear=PARK
+10-21 21:04:28.393  9431  9431 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:04:28.393  9431  9431 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:04:28.394  9431  9431 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:04:28.422  9431  9431 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:04:28.426  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:04:28.426  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:04:28.426  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:04:28.427  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:04:28.427  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:04:28.427  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:04:28.427  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:04:28.427  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:04:28.434  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:04:28.436  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:04:28.438  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:04:28.444  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:06:06.806  9431  9431 I GyeoteVehicle: gear=DRIVE
+10-21 21:06:06.806  9431  9431 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:06:06.837  9431  9431 I GyeoteVehicle: restricted=true
+10-21 21:06:07.611  9431  9431 I GyeoteVehicle: gear=PARK
+10-21 21:06:07.625  9431  9431 I GyeoteVehicle: restricted=false
+10-21 21:06:08.435  9431  9431 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:06:10.468  9431  9431 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:06:10.468  9431  9431 I GyeoteVehicle: arrivalOffer accepted=true allowed=true prompt=true deferred=false handled=0
+10-21 21:06:18.124  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:06:34.931  9431  9431 I GyeoteVehicle: gear=DRIVE
+10-21 21:06:34.931  9431  9431 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:06:34.955  9431  9431 I GyeoteVehicle: restricted=true
+10-21 21:06:35.741  9431  9431 I GyeoteVehicle: gear=PARK
+10-21 21:06:35.746  9431  9431 I GyeoteVehicle: restricted=false
+10-21 21:06:36.576  9431  9431 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:06:39.564  9431  9431 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:06:39.564  9431  9431 I GyeoteVehicle: arrivalOffer accepted=true allowed=true prompt=true deferred=false handled=0
+10-21 21:06:48.589  9431  9529 I GyeoteVehicle: eventHttpAttempt=arrived
+10-21 21:07:01.491  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:07:18.304  9431  9431 I GyeoteVehicle: gear=DRIVE
+10-21 21:07:18.304  9431  9431 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:07:18.356  9431  9431 I GyeoteVehicle: restricted=true
+10-21 21:07:19.114  9431  9431 I GyeoteVehicle: gear=PARK
+10-21 21:07:19.139  9431  9431 I GyeoteVehicle: restricted=false
+10-21 21:07:19.923  9431  9431 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:07:22.783  9431  9431 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:07:22.784  9431  9431 I GyeoteVehicle: arrivalOffer accepted=true allowed=true prompt=true deferred=false handled=1
+10-21 21:07:27.005  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:07:43.815  9431  9431 I GyeoteVehicle: gear=DRIVE
+10-21 21:07:43.815  9431  9431 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:07:43.844  9431  9431 I GyeoteVehicle: restricted=true
+10-21 21:07:44.623  9431  9431 I GyeoteVehicle: gear=PARK
+10-21 21:07:44.627  9431  9431 I GyeoteVehicle: restricted=false
+10-21 21:07:45.430  9431  9431 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:07:47.958  9431  9431 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:07:47.958  9431  9431 I GyeoteVehicle: arrivalOffer accepted=true allowed=true prompt=true deferred=false handled=1
+10-21 21:07:52.354  9431  9431 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:08:09.179  9431  9431 I GyeoteVehicle: gear=DRIVE
+10-21 21:08:09.179  9431  9431 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:08:09.214  9431  9431 I GyeoteVehicle: restricted=true
+10-21 21:08:09.988  9431  9431 I GyeoteVehicle: gear=PARK
+10-21 21:08:09.997  9431  9431 I GyeoteVehicle: restricted=false
+10-21 21:08:10.798  9431  9431 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:13.016  9431  9431 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:08:13.016  9431  9431 I GyeoteVehicle: arrivalOffer accepted=true allowed=true prompt=false deferred=false handled=2
+10-21 21:08:36.422 22664 22664 I GyeoteVehicle: gear=PARK
+10-21 21:08:36.423 22664 22664 I GyeoteVehicle: restricted=false
+10-21 21:08:36.423 22664 22664 I GyeoteVehicle: gear=PARK
+10-21 21:08:36.423 22664 22664 I GyeoteVehicle: gear=PARK
+10-21 21:08:36.431 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.431 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.434 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.434 22664 22664 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:08:36.434 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.436 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.437 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.438 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.439 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.440 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.441 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.442 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.442 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.444 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:08:36.444 22664 22664 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:10:00.980  7530  7530 I GyeoteVehicle: gear=PARK
+10-21 21:10:00.980  7530  7530 I GyeoteVehicle: restricted=false
+10-21 21:10:00.980  7530  7530 I GyeoteVehicle: gear=PARK
+10-21 21:10:00.980  7530  7530 I GyeoteVehicle: gear=PARK
+10-21 21:10:00.993  7530  7530 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:10:00.993  7530  7530 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:10:00.996  7530  7530 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:10:00.997  7530  7530 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:10:01.000  7530  7530 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:10:01.001  7530  7530 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:10:01.001  7530  7530 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:10:01.001  7530  7530 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:10:01.001  7530  7530 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:10:01.010  7530  7530 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:10:01.012  7530  7530 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:10:01.014  7530  7530 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:10:01.015  7530  7530 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:10:01.017  7530  7530 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:10:01.019  7530  7530 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:10:01.020  7530  7530 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:11:37.525  7530  7530 I GyeoteVehicle: gear=DRIVE
+10-21 21:11:37.525  7530  7530 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:11:37.572  7530  7530 I GyeoteVehicle: restricted=true
+10-21 21:11:38.329  7530  7530 I GyeoteVehicle: gear=PARK
+10-21 21:11:38.337  7530  7530 I GyeoteVehicle: restricted=false
+10-21 21:11:39.141  7530  7530 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:11:42.006  7530  7530 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:11:42.007  7530  7530 I GyeoteVehicle: arrivalOffer accepted=true allowed=true prompt=true deferred=false handled=0
+10-21 21:12:21.010 32264 32264 I GyeoteVehicle: gear=PARK
+10-21 21:12:21.010 32264 32264 I GyeoteVehicle: restricted=false
+10-21 21:12:21.010 32264 32264 I GyeoteVehicle: gear=PARK
+10-21 21:12:21.010 32264 32264 I GyeoteVehicle: gear=PARK
+10-21 21:12:21.026 32264 32264 I GyeoteVehicle: doorOpen=false locked=false
+10-21 21:12:21.026 32264 32264 I GyeoteVehicle: doorOpen=false locked=false
+10-21 21:12:21.026 32264 32264 I GyeoteVehicle: doorOpen=false locked=false
+10-21 21:12:21.028 32264 32264 I GyeoteVehicle: doorOpen=true locked=false
+10-21 21:12:21.029 32264 32264 I GyeoteVehicle: doorOpen=true locked=false
+10-21 21:12:21.030 32264 32264 I GyeoteVehicle: doorOpen=true locked=false
+10-21 21:12:21.034 32264 32264 I GyeoteVehicle: doorOpen=true locked=false
+10-21 21:12:21.034 32264 32264 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:12:21.034 32264 32264 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:12:21.036 32264 32264 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:12:21.041 32264 32264 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:12:21.042 32264 32264 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:14:25.873 22998 22998 I GyeoteVehicle: gear=PARK
+10-21 21:14:25.873 22998 22998 I GyeoteVehicle: restricted=false
+10-21 21:14:25.874 22998 22998 I GyeoteVehicle: gear=PARK
+10-21 21:14:25.874 22998 22998 I GyeoteVehicle: gear=PARK
+10-21 21:14:25.898 22998 22998 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:14:25.899 22998 22998 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:14:25.904 22998 22998 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:14:25.907 22998 22998 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:14:25.910 22998 22998 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:14:25.910 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:14:25.911 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:14:25.911 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:14:25.914 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:14:25.914 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:14:25.923 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:14:25.927 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:14:25.928 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:14:25.929 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:14:25.940 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:14:25.945 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:16:02.920 22998 22998 I GyeoteVehicle: gear=DRIVE
+10-21 21:16:02.920 22998 22998 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:16:02.942 22998 22998 I GyeoteVehicle: restricted=true
+10-21 21:16:03.727 22998 22998 I GyeoteVehicle: gear=PARK
+10-21 21:16:03.730 22998 22998 I GyeoteVehicle: restricted=false
+10-21 21:16:04.534 22998 22998 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:16:07.500 22998 22998 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:16:07.500 22998 22998 I GyeoteVehicle: arrivalOffer accepted=true allowed=true prompt=true deferred=false handled=0
+10-21 21:16:14.737 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:16:31.567 22998 22998 I GyeoteVehicle: gear=DRIVE
+10-21 21:16:31.567 22998 22998 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:16:31.598 22998 22998 I GyeoteVehicle: restricted=true
+10-21 21:16:32.369 22998 22998 I GyeoteVehicle: gear=PARK
+10-21 21:16:32.376 22998 22998 I GyeoteVehicle: restricted=false
+10-21 21:16:33.174 22998 22998 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:16:35.558 22998 22998 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:16:35.558 22998 22998 I GyeoteVehicle: arrivalOffer accepted=true allowed=true prompt=true deferred=false handled=0
+10-21 21:16:45.906 22998 23109 I GyeoteVehicle: eventHttpAttempt=arrived
+10-21 21:16:58.715 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:17:15.282 22998 22998 I GyeoteVehicle: gear=DRIVE
+10-21 21:17:15.282 22998 22998 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:17:15.391 22998 22998 I GyeoteVehicle: restricted=true
+10-21 21:17:16.113 22998 22998 I GyeoteVehicle: gear=PARK
+10-21 21:17:16.117 22998 22998 I GyeoteVehicle: restricted=false
+10-21 21:17:16.912 22998 22998 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:17:19.781 22998 22998 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:17:19.781 22998 22998 I GyeoteVehicle: arrivalOffer accepted=true allowed=true prompt=true deferred=false handled=1
+10-21 21:17:24.694 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:17:41.516 22998 22998 I GyeoteVehicle: gear=DRIVE
+10-21 21:17:41.516 22998 22998 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:17:41.547 22998 22998 I GyeoteVehicle: restricted=true
+10-21 21:17:42.331 22998 22998 I GyeoteVehicle: gear=PARK
+10-21 21:17:42.356 22998 22998 I GyeoteVehicle: restricted=false
+10-21 21:17:43.140 22998 22998 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:17:45.929 22998 22998 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:17:45.929 22998 22998 I GyeoteVehicle: arrivalOffer accepted=true allowed=true prompt=true deferred=false handled=1
+10-21 21:17:50.705 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:18:07.515 22998 22998 I GyeoteVehicle: gear=DRIVE
+10-21 21:18:07.515 22998 22998 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:18:07.542 22998 22998 I GyeoteVehicle: restricted=true
+10-21 21:18:08.322 22998 22998 I GyeoteVehicle: gear=PARK
+10-21 21:18:08.330 22998 22998 I GyeoteVehicle: restricted=false
+10-21 21:18:09.132 22998 22998 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:18:11.986 22998 22998 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:18:11.987 22998 22998 I GyeoteVehicle: arrivalOffer accepted=true allowed=true prompt=false deferred=false handled=2
+10-21 21:18:35.921 22998 22998 I GyeoteVehicle: doorOpen=false locked=true
+10-21 21:18:52.741 22998 22998 I GyeoteVehicle: gear=DRIVE
+10-21 21:18:52.741 22998 22998 I GyeoteVehicle: journeyEvent=DEPARTED
+10-21 21:18:52.772 22998 22998 I GyeoteVehicle: restricted=true
+10-21 21:18:53.549 22998 22998 I GyeoteVehicle: gear=PARK
+10-21 21:18:53.554 22998 22998 I GyeoteVehicle: restricted=false
+10-21 21:18:54.354 22998 22998 I GyeoteVehicle: doorOpen=true locked=true
+10-21 21:18:56.549 22998 22998 I GyeoteVehicle: journeyEvent=ARRIVED
+10-21 21:18:56.549 22998 22998 I GyeoteVehicle: arrivalOffer accepted=true allowed=false prompt=false deferred=false handled=2

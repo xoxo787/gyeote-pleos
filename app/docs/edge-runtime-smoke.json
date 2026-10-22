@@ -1,0 +1,47 @@
+{
+  "serial": "emulator-5554",
+  "results": [
+    {
+      "scenario": "departure-from-console-signals",
+      "expected": "출발했어요. 편안하게 다녀오세요.",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "scenario": "navigation-arrival-callback",
+      "expected": "잘 다녀오셨어요. 오늘도 반가워요.",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "scenario": "korean-acceptance-to-fake-route",
+      "expected": "모의 길안내를 요청했어요.",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "scenario": "accepted-destination-removed-from-inbox",
+      "expected": "아직 기다리는 길이 없어요",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "scenario": "android-36-back-dispatch",
+      "expected": "오늘의 동행",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "scenario": "maintenance-record-visible",
+      "expected": "참고:",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "scenario": "record-survives-process-restart",
+      "expected": "저장한 엔진오일 2000 km",
+      "observed": true,
+      "passed": true
+    }
+  ]
+}

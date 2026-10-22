@@ -1,0 +1,87 @@
+.gradle/
+.kotlin/
+.idea/
+**/build/
+local.properties
+*.iml
+*.jks
+*.keystore
+app/docs/*-stdout.log
+app/docs/*-stderr.log
+
+# --- 공개 전 보강 (작업 G, 2026-10-22) ---
+# 도구·로컬 산출물
+.playwright-mcp/
+server/data/
+node_modules/
+
+# APK: 제출용 release APK(apk/팀명_앱이름_release.apk)만 예외
+*.apk
+!apk/*.apk
+
+# 비밀값·로컬 설정
+.env
+.env.*
+!.env.example
+local.properties
+*.jks
+*.keystore
+*.pem
+*.p12
+
+# 에뮬레이터·로그 산출물
+*.hprof
+hs_err_pid*
+logcat*.txt
+emulator-*.log
+*.avd/
+captures/
+
+# 큰 영상 원본 (최종 mp4 포함 여부는 docs/repo_audit.md 참고)
+media/demo/raw/
+
+# OS·편집기 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+
+# --- 핵심만 공개 (작업 G2, 2026-10-22; docs/decisions.md 'GitHub' 결정) ---
+# 내부 작업 기록·초안·백업
+AWAY_REPORT.md
+docs/tasks/
+research/
+docs/*.bak*
+
+# 시연 영상 폴더 전체(영상은 별도 제출)
+media/demo/
+
+# app/docs 실행 로그·시도 기록 (VERIFICATION*.md, README.md, screens/, 요약 json/jsonl은 포함)
+app/docs/*.log
+app/docs/*-attempt*.json
+app/docs/*-exit-state.json
+app/docs/*-static-verification.json
+app/docs/polish-backup-path.txt
+
+# 파이썬 캐시
+__pycache__/
+*.pyc
+
+# VERIFICATION 문서가 링크하는 핵심 증거(개인 경로 치환 후 포함, 2026-10-22 메인)
+!app/docs/build-verification.log
+!app/docs/car-build-verification.log
+!app/docs/car-exit-state.json
+!app/docs/car-speech-final.log
+!app/docs/car-vehicle.log
+!app/docs/edge-build-verification.log
+!app/docs/edge-exit-state.json
+!app/docs/edge-post-checks.log
+!app/docs/edge-runtime.log
+!app/docs/edge-static-verification.json
+!app/docs/polish-after-off-signal.log
+!app/docs/polish-backup-path.txt
+!app/docs/polish-build-verification.log
+!app/docs/polish-event-attempts.log
+!app/docs/polish-exit-state.json
+!app/docs/polish-static-verification.json
+!app/docs/polish-vehicle.log

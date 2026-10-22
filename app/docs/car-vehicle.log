@@ -1,0 +1,716 @@
+--------- beginning of main
+10-21 18:32:21.939  3574  3574 I GyeoteVehicle: uxRestricted=false
+10-21 18:32:22.166  3574  3574 I GyeoteVehicle: navigation=connected
+10-21 18:32:23.290  3574  3574 I GyeoteVehicle: telltale unavailable: SecurityException
+10-21 18:32:23.620  3574  3574 I GyeoteVehicle: tireCapabilities unavailable: SecurityException
+10-21 18:32:23.620  3574  3574 I GyeoteVehicle: gear=PARK
+10-21 18:32:23.620  3574  3574 I GyeoteVehicle: restricted=false
+10-21 18:32:23.620  3574  3574 I GyeoteVehicle: gear=PARK
+10-21 18:32:23.620  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:32:23.621  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:32:23.621  3574  3574 I GyeoteVehicle: brakePressed=false
+10-21 18:32:23.621  3574  3574 I GyeoteVehicle: brakePressed=false
+10-21 18:32:23.629  3574  3574 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:32:23.629  3574  3574 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:32:23.629  3574  3574 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:32:23.630  3574  3574 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:32:23.630  3574  3574 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:32:23.630  3574  3574 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:32:23.630  3574  3574 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:32:23.630  3574  3574 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:32:23.630  3574  3574 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:32:23.631  3574  3574 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:32:23.632  3574  3574 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:32:23.633  3574  3574 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:32:23.634  3574  3574 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:32:23.636  3574  3574 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:32:23.637  3574  3574 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:32:27.785  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:32:32.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:32:36.784  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:32:40.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:32:45.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:32:48.784  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:32:52.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:32:57.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:01.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:04.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:08.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:12.808  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:16.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:20.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:24.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:29.780  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:33.784  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:37.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:41.784  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:46.785  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:51.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:54.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:33:59.784  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:03.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:07.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:12.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:15.787  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:19.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:24.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:28.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:32.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:35.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:39.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:43.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:46.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:49.784  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:54.800  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:34:58.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:02.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:05.785  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:10.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:14.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:17.786  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:21.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:24.799  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:28.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:32.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:37.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:41.780  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:44.799  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:47.784  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:52.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:35:56.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:01.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:06.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:11.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:15.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:19.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:22.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:26.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:30.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:33.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:37.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:41.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:45.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:49.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:53.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:36:57.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:01.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:04.784  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:09.784  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:14.801  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:17.789  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:21.790  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:24.801  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:28.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:31.784  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:35.783  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:40.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:44.800  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:49.781  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:53.782  3574  3574 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:57.637  5677  5677 I GyeoteVehicle: uxRestricted=false
+10-21 18:37:57.980  5677  5677 I GyeoteVehicle: navigation=connected
+10-21 18:37:59.453  5677  5677 I GyeoteVehicle: gear=PARK
+10-21 18:37:59.453  5677  5677 I GyeoteVehicle: restricted=false
+10-21 18:37:59.453  5677  5677 I GyeoteVehicle: gear=PARK
+10-21 18:37:59.453  5677  5677 I GyeoteVehicle: gear=PARK
+10-21 18:37:59.454  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:37:59.454  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:37:59.454  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:59.454  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:59.454  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:37:59.454  5677  5677 I GyeoteVehicle: brakePressed=false
+10-21 18:37:59.454  5677  5677 I GyeoteVehicle: brakePressed=false
+10-21 18:37:59.455  5677  5677 I GyeoteVehicle: brakePressed=false
+10-21 18:37:59.457  5677  5882 I GyeoteVehicle: tireCapabilities unavailable: a
+10-21 18:37:59.463  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:37:59.463  5677  5677 I GyeoteVehicle: doorOpen=false locked=false
+10-21 18:37:59.463  5677  5677 I GyeoteVehicle: doorOpen=false locked=false
+10-21 18:37:59.463  5677  5677 I GyeoteVehicle: doorOpen=false locked=false
+10-21 18:37:59.463  5677  5677 I GyeoteVehicle: doorOpen=false locked=false
+10-21 18:37:59.464  5677  5677 I GyeoteVehicle: doorOpen=false locked=false
+10-21 18:37:59.465  5677  5677 I GyeoteVehicle: doorOpen=false locked=false
+10-21 18:37:59.468  5677  5677 I GyeoteVehicle: doorOpen=false locked=false
+10-21 18:37:59.470  5677  5677 I GyeoteVehicle: doorOpen=false locked=false
+10-21 18:37:59.471  5677  5677 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:37:59.471  5677  5677 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:37:59.473  5677  5677 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:37:59.473  5677  5677 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:37:59.474  5677  5677 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:37:59.474  5677  5677 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:38:02.457  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:03.782  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:05.459  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:07.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:08.460  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:11.461  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:12.784  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:14.461  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:16.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:17.462  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:20.464  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:20.782  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:23.465  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:25.781  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:26.468  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:29.468  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:30.781  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:32.469  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:33.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:35.470  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:37.782  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:38.473  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:41.473  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:41.784  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:44.479  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:45.784  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:47.482  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:50.484  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:50.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:53.486  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:54.784  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:38:56.491  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:59.494  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:38:59.789  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:02.497  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:04.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:05.498  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:08.499  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:08.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:11.502  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:12.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:14.503  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:16.780  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:17.503  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:20.507  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:20.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:23.509  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:25.781  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:26.511  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:29.513  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:29.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:32.514  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:33.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:35.514  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:38.517  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:38.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:41.519  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:43.782  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:44.522  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:47.523  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:47.782  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:50.536  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:51.784  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:53.536  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:55.782  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:39:56.538  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:39:59.541  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:00.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:02.542  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:04.782  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:05.544  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:08.547  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:08.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:11.548  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:12.782  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:14.551  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:16.782  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:17.553  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:20.569  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:20.782  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:23.571  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:24.781  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:26.574  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:27.396  5677  5677 I GyeoteVehicle: doorOpen=false locked=false
+10-21 18:40:27.399  5677  5677 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:28.783  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:29.574  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:32.577  5677  5677 I GyeoteVehicle: telltales=
+10-21 18:40:32.782  5677  5677 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:35.725  3948  3948 I GyeoteVehicle: uxRestricted=false
+10-21 18:40:35.895  3948  3948 I GyeoteVehicle: navigation=connected
+10-21 18:40:37.356  3948  3948 I GyeoteVehicle: gear=PARK
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: restricted=false
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: gear=PARK
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: gear=PARK
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: brakePressed=false
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: brakePressed=false
+10-21 18:40:37.357  3948  3948 I GyeoteVehicle: brakePressed=false
+10-21 18:40:37.358  3948  3994 I GyeoteVehicle: tireCapabilities unavailable: a ERROR_NOT_SUPPORTED_PROPERTY
+10-21 18:40:37.362  3948  3948 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:40:37.362  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:40:37.363  3948  3948 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:40:37.363  3948  3948 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:40:37.363  3948  3948 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:40:37.363  3948  3948 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:37.363  3948  3948 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:37.364  3948  3948 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:37.364  3948  3948 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:37.364  3948  3948 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:37.367  3948  3948 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:37.368  3948  3948 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:37.369  3948  3948 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:37.372  3948  3948 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:37.373  3948  3948 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:37.373  3948  3948 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:40:40.362  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:40:40.784  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:43.364  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:40:45.782  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:46.371  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:40:48.783  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:49.370  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:40:52.374  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:40:53.784  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:55.375  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:40:57.784  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:40:58.378  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:00.786  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:01.378  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:04.380  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:04.781  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:07.384  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:08.781  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:10.384  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:11.789  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:13.387  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:16.389  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:16.784  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:19.390  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:20.781  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:22.393  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:24.780  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:25.395  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:28.399  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:28.782  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:31.398  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:32.781  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:34.399  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:35.783  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:37.400  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:39.783  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:40.404  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:43.408  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:43.781  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:46.409  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:47.783  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:49.411  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:51.785  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:52.413  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:55.418  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:55.781  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:41:58.418  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:41:59.781  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:01.421  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:03.781  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:04.422  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:07.425  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:08.782  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:10.426  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:13.428  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:13.783  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:16.430  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:18.784  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:19.432  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:22.436  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:22.781  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:25.438  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:26.782  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:28.439  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:30.783  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:31.442  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:34.444  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:35.782  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:37.447  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:38.783  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:40.447  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:42.784  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:43.449  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:45.787  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:46.454  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:49.453  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:49.781  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:52.454  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:53.782  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:55.456  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:42:57.781  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:42:58.470  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:43:00.783  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:01.472  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:43:04.478  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:43:04.782  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:07.479  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:43:08.785  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:10.496  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:43:12.785  3948  3948 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:13.496  3948  3948 I GyeoteVehicle: telltales=
+10-21 18:43:22.436  4636  4636 I GyeoteVehicle: uxRestricted=false
+10-21 18:43:22.444  4636  4636 I GyeoteVehicle: navigation=connected
+10-21 18:43:24.380  4636  4636 I GyeoteVehicle: gear=PARK
+10-21 18:43:24.381  4636  4636 I GyeoteVehicle: restricted=false
+10-21 18:43:24.381  4636  4636 I GyeoteVehicle: gear=PARK
+10-21 18:43:24.382  4636  4636 I GyeoteVehicle: gear=PARK
+10-21 18:43:24.384  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:24.385  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:24.385  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:24.385  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:24.385  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:24.385  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:24.386  4636  4636 I GyeoteVehicle: brakePressed=false
+10-21 18:43:24.386  4636  4636 I GyeoteVehicle: brakePressed=false
+10-21 18:43:24.386  4636  4636 I GyeoteVehicle: brakePressed=false
+10-21 18:43:24.391  4636  5388 I GyeoteVehicle: tireCapabilities unavailable: a ERROR_NOT_SUPPORTED_PROPERTY
+10-21 18:43:24.400  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:24.400  4636  4636 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:43:24.400  4636  4636 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:43:24.405  4636  4636 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:43:24.407  4636  4636 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:43:24.407  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:24.407  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:24.407  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:24.407  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:24.408  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:24.408  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:24.410  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:24.412  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:24.413  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:24.414  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:24.415  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:27.387  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:27.784  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:30.389  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:31.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:33.391  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:34.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:36.395  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:38.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:39.395  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:39.822  4636  4636 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:43:41.785  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:42.397  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:45.400  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:45.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:48.402  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:49.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:50.857  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:43:51.403  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:43:53.760  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:43:53.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:43:54.403  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:43:57.405  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:43:58.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:00.411  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:44:02.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:03.408  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:44:06.411  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:44:07.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:08.393  4636  4636 I GyeoteVehicle: gear=DRIVE
+10-21 18:44:08.395  4636  4636 I GyeoteVehicle: restricted=true
+10-21 18:44:09.414  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:44:11.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:12.412  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:44:14.920  4636  4636 I GyeoteVehicle: gear=PARK
+10-21 18:44:14.923  4636  4636 I GyeoteVehicle: restricted=false
+10-21 18:44:15.413  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:44:15.821  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:18.413  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:44:18.596  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:19.445  4636  4636 I GyeoteVehicle: speechProbe=start mode=ON_DEVICE noAppRegistration=true
+10-21 18:44:19.452  4636  4636 I GyeoteVehicle: speechProbe=ttsException type=UninitializedPropertyAccessException
+10-21 18:44:19.499  4636  4636 I GyeoteVehicle: speechProbe=sttInitialized
+10-21 18:44:19.600  4636  4636 I GyeoteVehicle: speechProbe=sttError type=ON_DEVICE_ENGINE_ERROR
+10-21 18:44:19.601  4636  4636 I GyeoteVehicle: speechProbe=sttError type=ON_DEVICE_ENGINE_ERROR
+10-21 18:44:20.793  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:21.425  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:24.429  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:25.787  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:27.451  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:29.784  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:30.442  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:32.787  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:33.444  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:34.572  4636  4636 I GyeoteVehicle: speechProbe=closed
+10-21 18:44:36.662  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:36.857  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:39.658  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:39.820  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:42.660  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:43.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:45.666  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:47.793  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:48.670  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:51.669  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:52.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:54.670  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:55.858  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:44:57.672  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:44:59.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:00.732  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:03.673  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:03.836  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:04.042  4636  4636 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:45:06.674  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:06.840  4636  4784 I GyeoteVehicle: eventHttpAttempt=arrived
+10-21 18:45:07.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:07.848  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:45:09.680  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:12.682  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:12.841  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:15.685  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:15.849  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:18.686  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:19.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:21.685  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:23.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:24.722  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:25.524  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:45:27.717  4636  4636 I GyeoteVehicle: telltales=TPMS
+10-21 18:45:28.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:30.633  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:30.702  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:31.438  4636  4636 I GyeoteVehicle: gear=DRIVE
+10-21 18:45:31.438  4636  4784 I GyeoteVehicle: eventHttpAttempt=departed
+10-21 18:45:31.446  4636  4636 I GyeoteVehicle: restricted=true
+10-21 18:45:32.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:33.704  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:34.304  4636  4636 I GyeoteVehicle: gear=PARK
+10-21 18:45:34.310  4636  4636 I GyeoteVehicle: restricted=false
+10-21 18:45:35.128  4636  4636 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:45:36.705  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:36.807  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:37.900  4636  4784 I GyeoteVehicle: eventHttpAttempt=arrived
+10-21 18:45:39.020  4636  4636 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:45:39.733  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:41.784  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:42.728  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:45.727  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:46.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:48.728  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:49.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:51.730  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:52.784  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:54.731  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:45:54.851  4636  4636 I GyeoteVehicle: navigation=requestSubmitted
+10-21 18:45:55.254  4636  4636 I GyeoteVehicle: speechProbe=closed
+10-21 18:45:56.790  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:45:57.736  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:46:00.737  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:46:00.784  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:46:03.742  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:46:04.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.926  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.927  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.927  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:21.931  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:24.784  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:24.930  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:27.933  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:28.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:30.934  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:33.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:33.951  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:36.938  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:37.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:39.941  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:41.800  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:42.942  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:45.785  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:45.946  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:48.948  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:49.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:51.951  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:54.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:47:54.951  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:57.954  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:47:58.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:00.956  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:02.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:03.983  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:06.971  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:07.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:09.973  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:10.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:12.975  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:14.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:15.977  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:17.800  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:18.981  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:21.997  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:22.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:24.987  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:26.802  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:27.994  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:30.784  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:31.000  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:33.997  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:34.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:36.996  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:38.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:39.998  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:42.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:43.000  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:46.001  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:46.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:49.004  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:51.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:52.005  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:54.786  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:48:55.006  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:58.007  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:48:58.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:01.008  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:01.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:04.009  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:06.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:07.015  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:10.015  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:10.782  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:13.018  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:13.784  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:16.019  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:17.802  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:19.021  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:21.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:22.024  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:25.023  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:25.781  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:28.025  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:28.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:31.026  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:32.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:34.027  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:37.030  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:37.784  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:40.032  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:41.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:43.035  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:44.799  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:46.036  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:49.038  4636  4636 I GyeoteVehicle: telltales=
+10-21 18:49:49.783  4636  4636 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:52.196 16567 16567 I GyeoteVehicle: uxRestricted=false
+10-21 18:49:52.445 16567 16567 I GyeoteVehicle: navigation=connected
+10-21 18:49:54.203 16567 16567 I GyeoteVehicle: gear=PARK
+10-21 18:49:54.203 16567 16567 I GyeoteVehicle: restricted=false
+10-21 18:49:54.203 16567 16567 I GyeoteVehicle: gear=PARK
+10-21 18:49:54.204 16567 16567 I GyeoteVehicle: gear=PARK
+10-21 18:49:54.204 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:49:54.204 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:49:54.205 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:49:54.205 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:54.205 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:54.205 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:49:54.205 16567 16567 I GyeoteVehicle: brakePressed=false
+10-21 18:49:54.205 16567 16567 I GyeoteVehicle: brakePressed=false
+10-21 18:49:54.205 16567 16567 I GyeoteVehicle: brakePressed=false
+10-21 18:49:54.210 16567 16592 I GyeoteVehicle: tireCapabilities unavailable: a ERROR_NOT_SUPPORTED_PROPERTY
+10-21 18:49:54.214 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:49:54.215 16567 16567 I GyeoteVehicle: doorOpen=false locked=false
+10-21 18:49:54.218 16567 16567 I GyeoteVehicle: doorOpen=false locked=false
+10-21 18:49:54.220 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.222 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.222 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.224 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.224 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.224 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.226 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.226 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.227 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.238 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.238 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.238 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.241 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:54.243 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:49:57.212 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:49:58.782 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:00.211 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:02.783 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:03.216 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:06.219 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:06.782 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:09.220 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:09.784 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:12.224 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:13.782 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:15.226 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:18.228 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:18.781 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:21.229 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:22.781 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:24.232 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:26.783 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:27.234 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:30.236 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:31.782 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:33.241 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:35.782 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:36.252 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:39.251 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:39.782 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:42.252 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:43.780 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:45.254 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:47.781 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:48.256 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:51.258 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:52.781 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:54.260 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:50:56.781 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:50:57.262 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:00.264 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:01.782 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:51:03.266 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:05.783 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:51:06.283 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:07.305 16567 16567 I GyeoteVehicle: speechProbe=start mode=ON_DEVICE noAppRegistration=true
+10-21 18:51:07.342 16567 16567 I GyeoteVehicle: speechProbe=ttsInitialized
+10-21 18:51:07.344 16567 16567 I GyeoteVehicle: speechProbe=sttInitialized
+10-21 18:51:07.379 16567 16567 I GyeoteVehicle: speechProbe=sttError type=ON_DEVICE_ENGINE_ERROR
+10-21 18:51:07.381 16567 16567 I GyeoteVehicle: speechProbe=sttError type=ON_DEVICE_ENGINE_ERROR
+10-21 18:51:07.392 16567 16593 I GyeoteVehicle: speechProbe=ttsReady
+10-21 18:51:07.393 16567 16593 I GyeoteVehicle: speechProbe=ttsStarted
+10-21 18:51:08.155 16567 16593 I GyeoteVehicle: speechProbe=ttsError type=ON_DEVICE_ENGINE_ERROR
+10-21 18:51:09.272 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:09.788 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:51:12.274 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:13.780 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:51:15.274 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:17.782 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:51:18.275 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:21.277 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:21.782 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:51:22.341 16567 16567 I GyeoteVehicle: speechProbe=closed
+10-21 18:51:24.278 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:24.786 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:51:24.956 16567 16567 I GyeoteVehicle: gear=DRIVE
+10-21 18:51:25.010 16567 16567 I GyeoteVehicle: restricted=true
+10-21 18:51:27.282 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:27.758 16567 16567 I GyeoteVehicle: gear=PARK
+10-21 18:51:27.767 16567 16567 I GyeoteVehicle: restricted=false
+10-21 18:51:28.568 16567 16567 I GyeoteVehicle: doorOpen=true locked=true
+10-21 18:51:28.782 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:51:30.286 16567 16567 I GyeoteVehicle: telltales=
+10-21 18:51:32.408 16567 16567 I GyeoteVehicle: doorOpen=false locked=true
+10-21 18:51:32.781 16567 16567 I GyeoteVehicle: odometerKm=0.0
+10-21 18:51:33.284 16567 16567 I GyeoteVehicle: telltales=

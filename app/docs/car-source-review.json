@@ -1,0 +1,153 @@
+{
+  "files": [
+    {
+      "file": "app/build.gradle.kts",
+      "sha256": "71ac78f62804666cee6cbfe9f89fc3dc868f18761396f184f3fdeee85b30cd75",
+      "baseline_available": true,
+      "diff_numstat": [
+        "5",
+        "0"
+      ]
+    },
+    {
+      "file": "app/docs/README.md",
+      "sha256": "b75e66ea2e376d55c0468498301ff5e3d4befda1e9f2c99e6e6d6aa8073e9ec9",
+      "baseline_available": true,
+      "diff_numstat": [
+        "18",
+        "9"
+      ]
+    },
+    {
+      "file": "app/src/debug/AndroidManifest.xml",
+      "sha256": "173d05fd8b827e5cef2818d3c4d26c4979f9d83975c69826ded2983c18c66e74",
+      "baseline_available": false
+    },
+    {
+      "file": "app/src/main/AndroidManifest.xml",
+      "sha256": "45114f6f7f493463aa6ffa6f0476283367f3b4ce5489ed14908af25a800aa42e",
+      "baseline_available": true,
+      "diff_numstat": [
+        "10",
+        "0"
+      ]
+    },
+    {
+      "file": "app/src/main/java/ai/gyeote/app/AppController.kt",
+      "sha256": "a47f2406c88f39ade9dd46c9a8b5b61110b1f7d2d57eecbbd1a0fcf2edc8c0d2",
+      "baseline_available": true,
+      "diff_numstat": [
+        "23",
+        "12"
+      ]
+    },
+    {
+      "file": "app/src/main/java/ai/gyeote/app/MainActivity.kt",
+      "sha256": "4d91e3f2aa225a62541fc316ced443eca2c6910c654703c2f416db793afbf064",
+      "baseline_available": true,
+      "diff_numstat": [
+        "92",
+        "34"
+      ]
+    },
+    {
+      "file": "app/src/main/java/ai/gyeote/app/data/ApiClient.kt",
+      "sha256": "3cc13c367292088daf3f87b5ed7beab4c44ba74ecdbf9e72d96ae96c53b8e96d",
+      "baseline_available": true,
+      "diff_numstat": [
+        "5",
+        "1"
+      ]
+    },
+    {
+      "file": "app/src/main/java/ai/gyeote/app/domain/JourneyMachine.kt",
+      "sha256": "c657fe11b163d1a2c642d5006334ebf929b325b164fb3115ee27a0c9efc6b47f",
+      "baseline_available": true,
+      "diff_numstat": [
+        "31",
+        "4"
+      ]
+    },
+    {
+      "file": "app/src/main/java/ai/gyeote/app/vehicle/FakeVehicle.kt",
+      "sha256": "de28cf00af48b6afea0ed64054cb65a01f1276fabb53e669df759aa188bca8c0",
+      "baseline_available": true,
+      "diff_numstat": [
+        "27",
+        "10"
+      ]
+    },
+    {
+      "file": "app/src/main/java/ai/gyeote/app/vehicle/PlatformDrivingState.kt",
+      "sha256": "912273f0caaa866fb59ebaa3f163c22b00a6852fdb59897695b43cb20443a11b",
+      "baseline_available": false
+    },
+    {
+      "file": "app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt",
+      "sha256": "7cd29c2b6d35d2070b363c35b98452e2349117835d8a5c1c82674be0353fc5e5",
+      "baseline_available": true,
+      "diff_numstat": [
+        "199",
+        "12"
+      ]
+    },
+    {
+      "file": "app/src/main/java/ai/gyeote/app/vehicle/PleosNavigator.kt",
+      "sha256": "a3cf906e459c4fefdc1f81edb1cac3bb3939de0498a6167d25552dc3ea9fdecb",
+      "baseline_available": false
+    },
+    {
+      "file": "app/src/main/java/ai/gyeote/app/vehicle/PleosSpeechProbe.kt",
+      "sha256": "416df7b3c1085380be2849023e4224c5c99c737a1d9a1a141504b71fd46a2a71",
+      "baseline_available": false
+    },
+    {
+      "file": "app/src/main/java/ai/gyeote/app/vehicle/VehiclePorts.kt",
+      "sha256": "87dbcef1cf23cfe9aaf16133a22834e14b6138bdeaecef1f1bd0fd862b533239",
+      "baseline_available": true,
+      "diff_numstat": [
+        "16",
+        "2"
+      ]
+    },
+    {
+      "file": "app/src/test/java/ai/gyeote/app/domain/JourneyMachineTest.kt",
+      "sha256": "6286979314f700ee958bc81816e4aee7cc4e8f752ecfb83c04c55744a65fa48c",
+      "baseline_available": true,
+      "diff_numstat": [
+        "64",
+        "1"
+      ]
+    },
+    {
+      "file": "app/src/test/java/ai/gyeote/app/vehicle/VehiclePortsTest.kt",
+      "sha256": "933f117acba7ac7cc355f5a7d181fa60bd20e86fe32273b1ec23d9380fb2cc45",
+      "baseline_available": false
+    },
+    {
+      "file": "app/tools/capture_screens.py",
+      "sha256": "c70ff0155969e39406910158f32ef5fe0029655f7aae285890d91e64843a507f",
+      "baseline_available": false
+    },
+    {
+      "file": "app/tools/car_integration.py",
+      "sha256": "8e405acb77d1ea65529a9d2ee93566ec4f1660d54d2ff64006c52b246a9135d1",
+      "baseline_available": false
+    },
+    {
+      "file": "app/tools/runtime_smoke.py",
+      "sha256": "ece19bd5a04bd5279e4b5942e8e957526fd2d6c1a94596be0ba583dc635fb2ec",
+      "baseline_available": false
+    },
+    {
+      "file": "settings.gradle.kts",
+      "sha256": "a120959c7e57daca34ff343a50beebe1472d56e27b11c5c21216f242c0b22c00",
+      "baseline_available": true,
+      "diff_numstat": [
+        "3",
+        "0"
+      ]
+    }
+  ],
+  "notes": "Read-only comparison against pre-task source backup; repository has no commits."
+}

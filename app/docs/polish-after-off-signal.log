@@ -1,0 +1,3 @@
+         1792642732.741 22998 22998 I GyeoteVehicle: journeyEvent=DEPARTED
+         1792642736.549 22998 22998 I GyeoteVehicle: journeyEvent=ARRIVED
+         1792642736.549 22998 22998 I GyeoteVehicle: arrivalOffer accepted=true allowed=false prompt=false deferred=false handled=2

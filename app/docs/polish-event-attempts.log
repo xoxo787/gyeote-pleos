@@ -1,0 +1,4 @@
+Before withdrawal event-attempt count: 2
+After withdrawal new event-attempt count: 0
+Server event POST count after DELETE: 0
+

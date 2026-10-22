@@ -1,0 +1,187 @@
+{
+  "results": [
+    {
+      "scenario": "build-tests",
+      "expected": "Requested build command succeeds and both variants have zero test failures/errors/skips",
+      "observed": {
+        "testDebugUnitTest": {
+          "tests": 173,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "testReleaseUnitTest": {
+          "tests": 173,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "passed": true
+    },
+    {
+      "scenario": "lint",
+      "expected": "Zero lint errors/fatal findings",
+      "observed": {
+        "Warning": 8,
+        "Hint": 1
+      },
+      "passed": true
+    },
+    {
+      "scenario": "release-permission",
+      "expected": "Private safety permission absent from final release",
+      "observed": [
+        "android.permission.INTERNET",
+        "pleos.car.permission.CAR_DRIVE",
+        "pleos.car.permission.CAR_SAFETY",
+        "pleos.car.permission.CAR_DOORS",
+        "pleos.car.permission.NAVI_ROUTE",
+        "pleos.car.permission.NAVI_ROUTE_SEARCH",
+        "ai.pleos.playground.service.vehicle.VEHICLE_BINDING",
+        "ai.gyeote.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "word-scan",
+      "expected": "Zero prohibited terms in app source, tools and text evidence",
+      "observed": {
+        "matches": []
+      },
+      "passed": true
+    },
+    {
+      "scenario": "runtime",
+      "expected": "All direct-server/Pleos scenarios pass",
+      "observed": {
+        "passed": 13,
+        "total": 13
+      },
+      "passed": true
+    },
+    {
+      "scenario": "arrival-after-withdrawal",
+      "expected": "Actual SDK arrival occurs after DELETE with sharing disabled and zero event HTTP attempts",
+      "observed": {
+        "app_pid": "22998",
+        "arrived_signals": 1,
+        "client_http_attempts": 0,
+        "disabled_offer": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "capture-apk",
+      "expected": "Captured Debug APK matches final build",
+      "observed": {
+        "sha256": "4e701c672adabd7f4097409c8bf69fc9db1fd661e6962c3f023dd8d57bd59f34"
+      },
+      "passed": true
+    },
+    {
+      "scenario": "screenshots",
+      "expected": "All required landscape screens and reask are captured",
+      "observed": {
+        "count": 8,
+        "files": [
+          "03-settings.png",
+          "04-pairing-countdown.png",
+          "06-settings-family.png",
+          "05-debug-menu.png",
+          "01-arrival-confirm.png",
+          "08-arrival-reask.png",
+          "07-all-off.png",
+          "02-mechanic.png"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "arrival-button-contrast",
+      "expected": "Primary text/background and button/card contrast >=4.5:1 with larger primary control",
+      "observed": {
+        "ratio": 10.448,
+        "primary_pixels": 149196,
+        "text_pixels": 464,
+        "primary_height": 104,
+        "secondary_height": 76
+      },
+      "passed": true
+    },
+    {
+      "scenario": "release-ui",
+      "expected": "Actual release UI has no developer/editor surface",
+      "observed": [
+        {
+          "scenario": "release-payload-preserved",
+          "expected": "Local signing preserves all unsigned release payload entries",
+          "observed": {
+            "payload_equal": true
+          },
+          "passed": true
+        },
+        {
+          "scenario": "release-settings-no-editor",
+          "expected": "Actual release settings from top to family card has no server editor or debug tab",
+          "observed": {
+            "server_editor_matches": 0,
+            "debug_matches": 0,
+            "full_settings": true,
+            "xml": [
+              "release-settings-1.xml"
+            ]
+          },
+          "passed": true
+        },
+        {
+          "scenario": "release-debug-intent-ignored",
+          "expected": "Debug screen/server URL intents cannot reveal developer UI in release",
+          "observed": {
+            "developer_ui": false
+          },
+          "passed": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "release-apk",
+      "expected": "Release UI evidence matches final unsigned build",
+      "observed": {
+        "sha256": "99300ea3e1197c5f6c5cf824d213746a386d52f6734a5fe39dbccac982229213"
+      },
+      "passed": true
+    },
+    {
+      "scenario": "exit-state",
+      "expected": "Task server stopped and original Debug APK restored",
+      "observed": {
+        "node_exited": true,
+        "debug_restored": true
+      },
+      "passed": true
+    }
+  ],
+  "modified": [
+    "app/docs/README.md",
+    "app/src/main/java/ai/gyeote/app/AppController.kt",
+    "app/src/main/java/ai/gyeote/app/MainActivity.kt",
+    "app/src/main/java/ai/gyeote/app/data/ApiClient.kt",
+    "app/src/main/java/ai/gyeote/app/data/EdgeJson.kt",
+    "app/src/main/java/ai/gyeote/app/domain/PairingCode.kt",
+    "app/src/main/java/ai/gyeote/app/domain/RouteArrival.kt",
+    "app/src/main/java/ai/gyeote/app/domain/WarningHistory.kt",
+    "app/src/test/java/ai/gyeote/app/data/ApiClientTest.kt",
+    "app/src/test/java/ai/gyeote/app/data/EdgeJsonTest.kt",
+    "app/src/test/java/ai/gyeote/app/domain/PairingCodeTest.kt",
+    "app/src/test/java/ai/gyeote/app/domain/RouteArrivalTest.kt",
+    "app/src/test/java/ai/gyeote/app/domain/WarningHistoryTest.kt",
+    "app/tools/node_polish_server.cjs",
+    "app/tools/polish_integration.py",
+    "app/tools/polish_release_check.py",
+    "app/tools/verify_polish.py"
+  ],
+  "backup": "<home>\\AppData\\Local\\Temp\\pleos-P-29cba90b37c34fb39c54166e571e8c6a",
+  "passed": true
+}
