@@ -1,0 +1,61 @@
+{
+ "takeover": "10-26 19:50:57.221  7022  7022 I GyeoteVehicle: handoverSnapshot saved soc=41 odometerKm=74.0 warnings= door=false trunk=false chargePort=false restored=true via=accept",
+ "card": "10-26 19:51:03.139  7022  7022 I GyeoteVehicle: returnCard shown mode=RENTAL gear=PARK soc=41->41 distanceKm=1.0 newWarnings=0 names= window=false",
+ "window_fl=0": {
+  "log": [],
+  "card": [
+   "창문",
+   "모두 닫혀 있어요."
+  ]
+ },
+ "window_fl=50": {
+  "log": [
+   "10-26 19:51:11.993  7022  7022 I GyeoteVehicle: windowOpen=true"
+  ],
+  "card": [
+   "창문",
+   "열려 있는 창문이 있어요."
+  ]
+ },
+ "window_fl=100": {
+  "log": [],
+  "card": [
+   "창문",
+   "열려 있는 창문이 있어요."
+  ]
+ },
+ "window_fl=1": {
+  "log": [
+   "10-26 19:51:26.285  7022  7022 I GyeoteVehicle: windowOpen=false"
+  ],
+  "card": [
+   "창문",
+   "모두 닫혀 있어요."
+  ]
+ },
+ "anyWindowLines": [
+  "10-26 19:51:03.134   532  5917 I VehicleApiDdsEmu: event seq=484 source=body-controls action=web-dds-published domain=30 topic=(none) type=(none) detail=door_fl=open door_fr=closed door_rl=closed door_rr=closed door_fl_locked=true door_fr_locked=true door_rl_locked=true door_rr_locked=true door_fl_move=0 door_fr_move=0 door_rl_move=0 door_rr_move=0 window_fl_pct=0 window_fr_pct=0 window_rl_pct=0 window_rr_pct=0 window_fl_move=0 window_fr_move=0 window_rl_move=0 window_rr_move=0 frunk=closed trunk=closed frunk_move=0 trunk_move=0 front_wiper=Off rear_wiper=Off front_washer=false rear_washer=false cabin_light=false ambient_color=#00e5ff ambient_mode=On ambient_brightness_pct=100 changed_mask=1 attempted=5 succeeded=5 door_position=true door_move_state=true door_actual_position=true door_actual_move_state=true door_actual_opened=true door_actual_locked=false window_position=false window_move_state=false window_actual_position=false window_actual_move_state=false trunk_position=false trunk_move_state=false trunk_latch_state=false trunk_actual_position=false trun",
+  "10-26 19:51:04.754   532   612 I VehicleApiDdsEmu: event seq=485 source=body-controls action=web-set domain=30 topic=(none) type=(none) detail=door_fl=open door_fr=closed door_rl=closed door_rr=closed door_fl_locked=true door_fr_locked=true door_rl_locked=true door_rr_locked=true door_fl_move=0 door_fr_move=0 door_rl_move=0 door_rr_move=0 window_fl_pct=0 window_fr_pct=0 window_rl_pct=0 window_rr_pct=0 window_fl_move=0 window_fr_move=0 window_rl_move=0 window_rr_move=0 frunk=closed trunk=closed frunk_move=0 trunk_move=0 front_wiper=Off rear_wiper=Off front_washer=false rear_washer=false cabin_light=false ambient_color=#00e5ff ambient_mode=On ambient_brightness_pct=100 changed_mask=16",
+  "10-26 19:51:04.755   532  5917 I VehicleApiDdsEmu: event seq=486 source=body-controls action=web-dds-published domain=30 topic=(none) type=(none) detail=door_fl=open door_fr=closed door_rl=closed door_rr=closed door_fl_locked=true door_fr_locked=true door_rl_locked=true door_rr_locked=true door_fl_move=0 door_fr_move=0 door_rl_move=0 door_rr_move=0 window_fl_pct=0 window_fr_pct=0 window_rl_pct=0 window_rr_pct=0 window_fl_move=0 window_fr_move=0 window_rl_move=0 window_rr_move=0 frunk=closed trunk=closed frunk_move=0 trunk_move=0 front_wiper=Off rear_wiper=Off front_washer=false rear_washer=false cabin_light=false ambient_color=#00e5ff ambient_mode=On ambient_brightness_pct=100 changed_mask=16 attempted=4 succeeded=4 door_position=false door_move_state=false door_actual_position=false door_actual_move_state=false door_actual_opened=false door_actual_locked=false window_position=true window_move_state=true window_actual_position=true window_actual_move_state=true trunk_position=false trunk_move_state=false trunk_latch_state=false trunk_actual_position=false tr",
+  "10-26 19:51:11.990   532   616 I VehicleApiDdsEmu: event seq=487 source=body-controls action=web-set domain=30 topic=(none) type=(none) detail=door_fl=open door_fr=closed door_rl=closed door_rr=closed door_fl_locked=true door_fr_locked=true door_rl_locked=true door_rr_locked=true door_fl_move=0 door_fr_move=0 door_rl_move=0 door_rr_move=0 window_fl_pct=50 window_fr_pct=0 window_rl_pct=0 window_rr_pct=0 window_fl_move=0 window_fr_move=0 window_rl_move=0 window_rr_move=0 frunk=closed trunk=closed frunk_move=0 trunk_move=0 front_wiper=Off rear_wiper=Off front_washer=false rear_washer=false cabin_light=false ambient_color=#00e5ff ambient_mode=On ambient_brightness_pct=100 changed_mask=16",
+  "10-26 19:51:11.990   532  5917 I VehicleApiDdsEmu: event seq=488 source=body-controls action=web-dds-published domain=30 topic=(none) type=(none) detail=door_fl=open door_fr=closed door_rl=closed door_rr=closed door_fl_locked=true door_fr_locked=true door_rl_locked=true door_rr_locked=true door_fl_move=0 door_fr_move=0 door_rl_move=0 door_rr_move=0 window_fl_pct=50 window_fr_pct=0 window_rl_pct=0 window_rr_pct=0 window_fl_move=0 window_fr_move=0 window_rl_move=0 window_rr_move=0 frunk=closed trunk=closed frunk_move=0 trunk_move=0 front_wiper=Off rear_wiper=Off front_washer=false rear_washer=false cabin_light=false ambient_color=#00e5ff ambient_mode=On ambient_brightness_pct=100 changed_mask=16 attempted=4 succeeded=4 door_position=false door_move_state=false door_actual_position=false door_actual_move_state=false door_actual_opened=false door_actual_locked=false window_position=true window_move_state=true window_actual_position=true window_actual_move_state=true trunk_position=false trunk_move_state=false trunk_latch_state=false trunk_actual_position=false t",
+  "10-26 19:51:11.993  2171  4681 D [GAA]   : [GAAVehicle] onWindowPositionUpdated() >> [ROW_1_LEFT] | 5",
+  "10-26 19:51:11.993  2171 19902 D [GAA]   : [GAA-Vehicle] [Car-Get-Vehicle-Context] >> UpdateWindowPositionState, Area : ROW_1_LEFT, Value : 5",
+  "10-26 19:51:11.993  2171 19902 I [GAA-SDK]GleoContextManager: setVehicleContext - cmd : UpdateWindowPositionState, area : ROW_1_LEFT, value : 5",
+  "10-26 19:51:19.127   532   612 I VehicleApiDdsEmu: event seq=489 source=body-controls action=web-set domain=30 topic=(none) type=(none) detail=door_fl=open door_fr=closed door_rl=closed door_rr=closed door_fl_locked=true door_fr_locked=true door_rl_locked=true door_rr_locked=true door_fl_move=0 door_fr_move=0 door_rl_move=0 door_rr_move=0 window_fl_pct=100 window_fr_pct=0 window_rl_pct=0 window_rr_pct=0 window_fl_move=0 window_fr_move=0 window_rl_move=0 window_rr_move=0 frunk=closed trunk=closed frunk_move=0 trunk_move=0 front_wiper=Off rear_wiper=Off front_washer=false rear_washer=false cabin_light=false ambient_color=#00e5ff ambient_mode=On ambient_brightness_pct=100 changed_mask=16",
+  "10-26 19:51:19.128   532  5917 I VehicleApiDdsEmu: event seq=490 source=body-controls action=web-dds-published domain=30 topic=(none) type=(none) detail=door_fl=open door_fr=closed door_rl=closed door_rr=closed door_fl_locked=true door_fr_locked=true door_rl_locked=true door_rr_locked=true door_fl_move=0 door_fr_move=0 door_rl_move=0 door_rr_move=0 window_fl_pct=100 window_fr_pct=0 window_rl_pct=0 window_rr_pct=0 window_fl_move=0 window_fr_move=0 window_rl_move=0 window_rr_move=0 frunk=closed trunk=closed frunk_move=0 trunk_move=0 front_wiper=Off rear_wiper=Off front_washer=false rear_washer=false cabin_light=false ambient_color=#00e5ff ambient_mode=On ambient_brightness_pct=100 changed_mask=16 attempted=4 succeeded=4 door_position=false door_move_state=false door_actual_position=false door_actual_move_state=false door_actual_opened=false door_actual_locked=false window_position=true window_move_state=true window_actual_position=true window_actual_move_state=true trunk_position=false trunk_move_state=false trunk_latch_state=false trunk_actual_position=false ",
+  "10-26 19:51:19.132  2171  3148 D [GAA]   : [GAAVehicle] onWindowPositionUpdated() >> [ROW_1_LEFT] | 10",
+  "10-26 19:51:19.133  2171 19902 D [GAA]   : [GAA-Vehicle] [Car-Get-Vehicle-Context] >> UpdateWindowPositionState, Area : ROW_1_LEFT, Value : 10",
+  "10-26 19:51:19.133  2171 19902 I [GAA-SDK]GleoContextManager: setVehicleContext - cmd : UpdateWindowPositionState, area : ROW_1_LEFT, value : 10",
+  "10-26 19:51:26.280   532   616 I VehicleApiDdsEmu: event seq=491 source=body-controls action=web-set domain=30 topic=(none) type=(none) detail=door_fl=open door_fr=closed door_rl=closed door_rr=closed door_fl_locked=true door_fr_locked=true door_rl_locked=true door_rr_locked=true door_fl_move=0 door_fr_move=0 door_rl_move=0 door_rr_move=0 window_fl_pct=1 window_fr_pct=0 window_rl_pct=0 window_rr_pct=0 window_fl_move=0 window_fr_move=0 window_rl_move=0 window_rr_move=0 frunk=closed trunk=closed frunk_move=0 trunk_move=0 front_wiper=Off rear_wiper=Off front_washer=false rear_washer=false cabin_light=false ambient_color=#00e5ff ambient_mode=On ambient_brightness_pct=100 changed_mask=16",
+  "10-26 19:51:26.282   532  5917 I VehicleApiDdsEmu: event seq=492 source=body-controls action=web-dds-published domain=30 topic=(none) type=(none) detail=door_fl=open door_fr=closed door_rl=closed door_rr=closed door_fl_locked=true door_fr_locked=true door_rl_locked=true door_rr_locked=true door_fl_move=0 door_fr_move=0 door_rl_move=0 door_rr_move=0 window_fl_pct=1 window_fr_pct=0 window_rl_pct=0 window_rr_pct=0 window_fl_move=0 window_fr_move=0 window_rl_move=0 window_rr_move=0 frunk=closed trunk=closed frunk_move=0 trunk_move=0 front_wiper=Off rear_wiper=Off front_washer=false rear_washer=false cabin_light=false ambient_color=#00e5ff ambient_mode=On ambient_brightness_pct=100 changed_mask=16 attempted=4 succeeded=4 door_position=false door_move_state=false door_actual_position=false door_actual_move_state=false door_actual_opened=false door_actual_locked=false window_position=true window_move_state=true window_actual_position=true window_actual_move_state=true trunk_position=false trunk_move_state=false trunk_latch_state=false trunk_actual_position=false tr",
+  "10-26 19:51:26.285  2171  3148 D [GAA]   : [GAAVehicle] onWindowPositionUpdated() >> [ROW_1_LEFT] | 0",
+  "10-26 19:51:26.285  2171 19902 D [GAA]   : [GAA-Vehicle] [Car-Get-Vehicle-Context] >> UpdateWindowPositionState, Area : ROW_1_LEFT, Value : 0",
+  "10-26 19:51:26.285  2171 19902 I [GAA-SDK]GleoContextManager: setVehicleContext - cmd : UpdateWindowPositionState, area : ROW_1_LEFT, value : 0",
+  "10-26 19:51:33.411   532   612 I VehicleApiDdsEmu: event seq=493 source=body-controls action=web-set domain=30 topic=(none) type=(none) detail=door_fl=open door_fr=closed door_rl=closed door_rr=closed door_fl_locked=true door_fr_locked=true door_rl_locked=true door_rr_locked=true door_fl_move=0 door_fr_move=0 door_rl_move=0 door_rr_move=0 window_fl_pct=0 window_fr_pct=0 window_rl_pct=0 window_rr_pct=0 window_fl_move=0 window_fr_move=0 window_rl_move=0 window_rr_move=0 frunk=closed trunk=closed frunk_move=0 trunk_move=0 front_wiper=Off rear_wiper=Off front_washer=false rear_washer=false cabin_light=false ambient_color=#00e5ff ambient_mode=On ambient_brightness_pct=100 changed_mask=16",
+  "10-26 19:51:33.412   532  5917 I VehicleApiDdsEmu: event seq=494 source=body-controls action=web-dds-published domain=30 topic=(none) type=(none) detail=door_fl=open door_fr=closed door_rl=closed door_rr=closed door_fl_locked=true door_fr_locked=true door_rl_locked=true door_rr_locked=true door_fl_move=0 door_fr_move=0 door_rl_move=0 door_rr_move=0 window_fl_pct=0 window_fr_pct=0 window_rl_pct=0 window_rr_pct=0 window_fl_move=0 window_fr_move=0 window_rl_move=0 window_rr_move=0 frunk=closed trunk=closed frunk_move=0 trunk_move=0 front_wiper=Off rear_wiper=Off front_washer=false rear_washer=false cabin_light=false ambient_color=#00e5ff ambient_mode=On ambient_brightness_pct=100 changed_mask=16 attempted=4 succeeded=4 door_position=false door_move_state=false door_actual_position=false door_actual_move_state=false door_actual_opened=false door_actual_locked=false window_position=true window_move_state=true window_actual_position=true window_actual_move_state=true trunk_position=false trunk_move_state=false trunk_latch_state=false trunk_actual_position=false tr"
+ ],
+ "navigationLines": [
+  "10-26 19:50:45.219  7022  7022 I GyeoteVehicle: navigation=connected"
+ ]
+}

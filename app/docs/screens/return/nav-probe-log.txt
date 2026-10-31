@@ -1,0 +1,24 @@
+# H6 nav probe (2026-10-31, emulator-5554). logcat excerpt; device clock PDT. Our app pid 22262.
+10-31 00:02:09.552 22262 22262 I GyeoteVehicle: navigation=connected
+10-31 00:02:17.942 22262 22262 I GyeoteVehicle: handoverSnapshot saved soc=41 odometerKm=12382.0 warnings= door=false trunk=false chargePort=false restored=true via=accept
+10-31 00:02:22.473 22262 22262 I GyeoteVehicle: handoverSettings mode=FLEET length=NORMAL
+10-31 00:03:04.672  3470  3470 D NavigationUseCase: TASUseCase, notifyRouteStarted, data:RouteStartInfo(duration=3240, distance=22000, tollFare=700, name=서울 중앙병원, remainDestinationChargingValue=74476), tts:안내를 시작합니다.
+10-31 00:03:04.673  3470  3578 I [NaviProvider][SDK]NaviProvider: [DefaultDispatcher-worker-1]notifyRouteStarted
+10-31 00:03:04.689  1660  3395 I [Navi]a : [binder:1660_5]requestToNavi(NotifyRouteStarted) ai.umos.maps.android.navigation.app
+10-31 00:03:04.690  1050  1066 I [NaviHelper][SDK]b: [binder:1050_2]onRouteStarted
+10-31 00:03:04.690  1050  1066 I [NaviHelper]EventListener: [binder:1050_2]onRouteStarted
+10-31 00:03:04.691  3790  3829 I [NaviHelper][SDK]a: [binder:3790_4]onRouteStarted
+10-31 00:03:04.691  3790  3829 I [NaviHelper]EventListener: [binder:3790_4]onRouteStarted
+10-31 00:03:04.695  2264  2478 I [NaviHelper][SDK]a: [binder:2264_3]onRouteStarted
+10-31 00:03:04.697  4574  4712 I [NaviHelper][SDK]b: [binder:4574_4]onRouteStarted
+10-31 00:03:04.697  4574  4712 I [NaviHelper]EventListener: [binder:4574_4]onRouteStarted
+10-31 00:03:04.698  2635  2665 I [NaviHelper][SDK]b: [binder:2635_3]onRouteStarted
+10-31 00:03:04.698  2635  2665 I [NaviHelper]EventListener: [binder:2635_3]onRouteStarted
+10-31 00:04:11.886   769  2636 D ActivityManager: quick sync unfreeze 22262 for 1
+10-31 00:04:11.913 22262 22284 I [NaviHelper][SDK]b: [binder:22262_1]onRouteStarted
+10-31 00:04:12.160 22262 22262 I GyeoteVehicle: navigation=destinationName chars=7
+10-31 00:04:58.782 22262 22262 I GyeoteVehicle: returnCard shown mode=FLEET gear=PARK soc=41->41 distanceKm=5.0 newWarnings=0 names= window=false
+10-31 00:05:36.534 22262 22262 I GyeoteVehicle: returnPair saved soc=41->41 odometerKm=12382.0->12387.0 newWarnings=0 pairs=1 restored=true
+10-31 00:05:36.534 22262 22262 I GyeoteVehicle: tripLog added startKm=12382.0 endKm=12387.0 distanceKm=5.0 destination=true trips=1
+10-31 00:06:08.486  3470  3654 D MainViewModel$startTripStateCollect: TripState TripStateInfo(state=CANCEL, createAt=2026-10-31T00:06:08.486385)
+10-31 00:06:11.985   769 25702 D ActivityManager: quick sync unfreeze 22262 for 1

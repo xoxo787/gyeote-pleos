@@ -2,7 +2,7 @@
   "name": "gyeote-demo-server",
   "version": "0.1.0",
   "private": true,
-  "description": "「곁에」 데모 서버 — docs/api_contract.md 구현 (외부 의존성 없음)",
+  "description": "Passer 데모 서버 — docs/api_contract.md 구현 (외부 의존성 없음)",
   "type": "commonjs",
   "engines": { "node": ">=20" },
   "scripts": {

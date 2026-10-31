@@ -1,6 +1,6 @@
-# 곁에 Android 프로토타입
+# Passer Android 프로토타입
 
-차량 경고를 쉬운 말로 풀고, 운전자가 직접 고른 소식만 가족에게 전하는 Kotlin 앱이다. 앱 이름은 `src/main/res/values/strings.xml`의 `app_name`과 `app_tagline`에서 바꾼다. 패키지는 `ai.gyeote.app`, 최소 Android 28, compile/target SDK 36이다.
+운전자가 바뀔 때 차가 다음 사람에게 자기 상태를 인계하고(F1), 실제 조작 미션으로 익숙해지게 하고(F2), 돌려줄 때 차 상태만 전후 비교하는(F3) Kotlin 앱이다. 경고등은 쉬운 말로 풀어 보여 준다. 앱 이름은 `src/main/res/values/strings.xml`의 `app_name`과 `app_tagline`에서 바꾼다(표시 이름 Passer, 패키지명은 초기 가제의 흔적). 패키지는 `ai.gyeote.app`, 최소 Android 28, compile/target SDK 36이다.
 
 현재 **Pleos 차량 SDK + 서버**를 연결하고 Fake 입력도 유지한다. Vehicle 2.3.2, NaviHelper 3.0.5, 음성 SDK 3.3.1을 공식 Maven에서 받는다. 실행 시 automotive 기능과 Pleos Vehicle Service 패키지 존재를 확인해 어댑터를 선택한다. AAOS용 독립 Activity이며 `android.hardware.type.automotive`와 `android.car` 라이브러리는 `required=false`로 선언해 폰에도 설치할 수 있다.
 
@@ -25,14 +25,16 @@ Windows 한글 경로를 유지하기 위해 `android.overridePathCheck=true`와
 |---|---|---|
 | 도메인 | `domain/Warnings.kt` | 경고 사전, 위험도 3단계, 짧은 주행 문구, 빨간 신호 보수적 격상 |
 | 도메인 | `domain/Maintenance.kt` | 정비 간격 예시·마지막 정비 거리·기록 검증; 기록이 없으면 추정하지 않음 |
-| 도메인 | `domain/JourneyMachine.kt` | P→D 우선 출발, P 복귀+문 열림 도착, 기어 없음 시 기존 도어·브레이크·거리 조합, 중복 방지 |
+| 도메인 | `domain/JourneyMachine.kt` | P→D 우선 출발, P 복귀+문 열림 도착, 기어 없음 시 기존 도어·브레이크·거리 조합, 중복 방지. 인계 상태: P에서 앱 시작 또는 P+운전석 문 열림→닫힘이면 카드 1회, 기어가 P를 벗어나야 다음 탑승으로 봄 |
 | 도메인 | `domain/Destinations.kt` | 한국어 의도 해석, 주행 중 응답 차단·정차 후 안내, 보류·중복 방지 |
 | 도메인 | `domain/Consent.kt` | 기본 off, 수신자·종류·만료·좌표 별도 허용, 철회·삭제 재시도 |
 | 도메인 | `domain/WarningHistory.kt` | 발생/해제 시각·거리·기어·색·SDK 횟수, 30일/200건 보존, 반복 묶기·쉬운 문구 |
 | 도메인 | `domain/RouteArrival.kt` | 수락한 길의 도착 확인, 매번 물어보기/자동 선택, 다음 정차 재질문, 암호화 재시도 큐 |
+| 도메인 | `domain/Handover.kt` | F1 인계 카드 문장(1인칭·쉬운 말), 모드(설정 순서: 렌터카·카셰어 기본 → 법인·택시 → 함께 쓰는 차 → 끄기)·모드별 기본 발화 길이(렌터카·카셰어·함께 쓰는 차 짧게, 법인·택시 보통)·한마디 표시 여부(렌터카·카셰어는 숨김), 차 상태만 담는 인수 스냅샷 |
+| 도메인 | `domain/Return.kt` | F3 돌려주기 카드(인수 때 → 지금: 배터리·누적 km·새로 켜진 경고등·문·트렁크·충전구·창문), 인수·반납 쌍(최근 50쌍), 법인·택시 운행 표(월별·합계 km), 다음 사람에게 한마디(한 줄, 다음 인계 카드에 1회. 법인·택시·함께 쓰는 차 모드만). 차 상태만 |
 | 도메인 | `domain/PairingCode.kt` | 서버 만료 시각에 따른 연결 번호 남은 시간·만료 판정, 진단 출력 비공개 |
-| 기능 선택 | `Features.kt` | 일반 운행 공유·경고 공유·좌표·음성 메시지·타이어 수치·독립 정비 화면 off |
-| 차량 포트 | `vehicle/VehiclePorts.kt` | 기존 포트 + GearSource, 저압 여부·바퀴별 Float 수치·선택 단위의 TireState |
+| 기능 선택 | `Features.kt` | 일반 운행 공유·경고 공유·좌표·음성 메시지·타이어 수치·독립 정비 화면 off. 10-26 전환 뒤 연결 번호·동의(`familyConnection`), 보낸 길·도착 소식(`sharedRoutes`), 서버 동기화(`serverSync`)도 off — 코드와 도메인 테스트는 보존. 인계 카드(`handover`) on |
+| 차량 포트 | `vehicle/VehiclePorts.kt` | 기존 포트 + GearSource, 저압 여부·바퀴별 Float 수치·선택 단위의 TireState. 배터리 %·주행가능거리(미터→km)·충전구, 방향지시등, 핸들 각도(SDK 부호 반대 보정), 운전석·조수석 착석, 운전석 문·트렁크 |
 | 대체 구현 | `vehicle/FakeVehicle.kt` | 모의 콘솔과 동일한 포트로 신호 전달; 실제 길안내 화면은 없음 |
 | 차량 연결 | `vehicle/PleosAdapters.kt` | 실제 SDK 조회·콜백, capability와 권한 확인, 동일 listener/area 해제 |
 | 주행 제한 | `vehicle/PlatformDrivingState.kt` | AAOS UX 제한 + 기어 P 조건, 정보 없음 시 입력 제한 |
@@ -80,6 +82,11 @@ Windows 한글 경로를 유지하기 위해 `android.overridePathCheck=true`와
 `screen`·`vehicleMode`·`restricted`·`warning` 인텐트 입력은 debug 빌드에서만 처리한다. `restricted`와 경고 주입은 가짜 어댑터에만 적용되어 Pleos 제한을 우회하지 않는다. `vehicleMode=pleos`로 자동 선택에 복귀한다. 모의 콘솔 탭도 debug 전용이다. release 화면 캡처는 보안 플래그로 차단한다.
 
 ## 검증 자료
+
+작업 H1(인계 카드)의 결과는 **[VERIFICATION_handover.md](VERIFICATION_handover.md)**, 실행 근거는 `handover-integration.json`·`handover-vehicle.log`, 화면은 `screens/handover/`에 있다. `python app/tools/handover_integration.py`는 emulator-5554와 Virtual Console(`adb forward tcp:18088 tcp:8088`)을 쓰고, 별도 암호화 테스트 프로필을 써서 기존 앱 상태를 건드리지 않는다.
+
+작업 H3(돌려주기 카드·인계 이력·법인 운행 표)의 결과는 **[VERIFICATION_return.md](VERIFICATION_return.md)**에 있다. `python app/tools/return_integration.py`는 H1·H2 스크립트와 같은 방식(emulator-5554, Virtual Console, 별도 테스트 프로필 `returnH3`)이다. **아직 실행하지 않았다**(에뮬레이터가 꺼져 있음).
+
 
 작업 P의 현재 결과는 **[VERIFICATION_polish.md](VERIFICATION_polish.md)**, HTTP·실제 화면 결과는 `polish-integration.json`, 가로 PNG는 `screens/polish/`에 있다. `python app/tools/polish_integration.py`는 실행 중인 emulator-5554와 고유한 디버그 암호화 저장소·새 임시 DB만 사용한다. 서버 원본 `createApp`이 포트 8787에서 직접 요청을 처리하며 수동 계측 리스너는 메서드·상태와 허용된 동의 필드만 기록한다. 프록시나 응답 주입을 쓰지 않으며 종료 시 서버를 멈추고 임시 폴더는 보존한다. `python app/tools/polish_release_check.py`는 unsigned release APK의 로컬 debug 서명 복사본을 임시 폴더에 만들고 실제 설정 화면 XML을 확인한 뒤 Debug APK를 복귀시킨다. `FLAG_SECURE`는 유지하고 기존 앱 데이터는 지우지 않는다. `python app/tools/verify_polish.py`가 최종 빌드·테스트·린트·문구·출시 권한·실제 버튼 색상과 캡처 APK 해시를 집계한다.
 

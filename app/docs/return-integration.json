@@ -1,0 +1,375 @@
+{
+  "at": "2026-10-31T07:53:25.503235+00:00",
+  "serial": "emulator-5554",
+  "testProfile": "returnH3",
+  "results": [
+    {
+      "scenario": "takeover",
+      "expected": "Handover card -> [인수했어요] stores the takeover snapshot (soc=54)",
+      "observed": {
+        "cleared": "10-31 00:51:25.811  7439  7439 I GyeoteVehicle: records cleared via=debugIntent pairs=0",
+        "snapshot": "10-31 00:51:37.711  7439  7439 I GyeoteVehicle: handoverSnapshot saved soc=54 odometerKm=12387.0 warnings= door=false trunk=false chargePort=false restored=true via=accept"
+      },
+      "passed": true
+    },
+    {
+      "scenario": "no-drive-no-card",
+      "expected": "Takeover without a drive: no return card",
+      "observed": null,
+      "passed": true
+    },
+    {
+      "scenario": "d-no-return",
+      "expected": "In D (door opened too): return card never shown, no input",
+      "observed": {
+        "log": [],
+        "text": [],
+        "odometer": [
+          12387.0,
+          12419
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "return-card",
+      "expected": "P alone: nothing; P + driver door open: card with 54% -> 41%, +32km, 1 new warning",
+      "observed": {
+        "beforeDoor": null,
+        "shown": "10-31 00:51:58.099  7439  7439 I GyeoteVehicle: returnCard shown mode=RENTAL gear=PARK soc=54->41 distanceKm=32.0 newWarnings=1 names=TPMS window=false",
+        "ui": [
+          "Passer",
+          "정차 중 · Pleos 차량",
+          "인계 방식 · 렌터카·카셰어",
+          "오늘",
+          "기록",
+          "설정",
+          "모의",
+          "차를 돌려줄 때 · 정차 중",
+          "이번 운행을 정리했어요.",
+          "인수 때 → 지금",
+          "배터리 · 인수 때 → 지금",
+          "54% → 41%",
+          "누적 주행거리",
+          "+32km",
+          "새로 켜진 경고등",
+          "1개: 타이어 바람",
+          "문·트렁크·충전구",
+          "열려 있어요: 문\n닫혀 있어요: 트렁크·충전구",
+          "창문",
+          "모두 닫혀 있어요.",
+          "돌려줬어요",
+          "나중에",
+          "[돌려줬어요]를 누르면 지금 차 상태만 인수 기록과 한 쌍으로 '인계 이력'에 남겨요."
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "rental-no-note",
+      "expected": "Rental mode return card: no [다음 사람에게 한마디] card or button",
+      "observed": {
+        "noteTexts": [],
+        "ui": [
+          "Passer",
+          "정차 중 · Pleos 차량",
+          "인계 방식 · 렌터카·카셰어",
+          "오늘",
+          "기록",
+          "설정",
+          "모의",
+          "차를 돌려줄 때 · 정차 중",
+          "이번 운행을 정리했어요.",
+          "인수 때 → 지금",
+          "배터리 · 인수 때 → 지금",
+          "54% → 41%",
+          "누적 주행거리",
+          "+32km",
+          "새로 켜진 경고등",
+          "1개: 타이어 바람",
+          "문·트렁크·충전구",
+          "열려 있어요: 문\n닫혀 있어요: 트렁크·충전구",
+          "창문",
+          "모두 닫혀 있어요.",
+          "돌려줬어요",
+          "나중에",
+          "[돌려줬어요]를 누르면 지금 차 상태만 인수 기록과 한 쌍으로 '인계 이력'에 남겨요."
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "window-read",
+      "expected": "Window line appears only when windows are reported (CAR_WINDOWS)",
+      "observed": {
+        "windowLog": "10-31 00:51:27.959  7439  7439 I GyeoteVehicle: windowOpen=false",
+        "windowLine": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "return-pair",
+      "expected": "[돌려줬어요] stores the return snapshot as a pair (rental: no trip line)",
+      "observed": {
+        "pair": "10-31 00:52:11.686  7439  7439 I GyeoteVehicle: returnPair saved soc=54->41 odometerKm=12387.0->12419.0 newWarnings=1 pairs=1 restored=true",
+        "trip": null
+      },
+      "passed": true
+    },
+    {
+      "scenario": "history-pairs",
+      "expected": "Record screen: tabs 경고등/인계 이력 (운행 표 hidden outside fleet mode), 1 pair, vehicle state only",
+      "observed": {
+        "ui": [
+          "Passer",
+          "정차 중 · Pleos 차량",
+          "인계 방식 · 렌터카·카셰어",
+          "오늘",
+          "기록",
+          "설정",
+          "모의",
+          "기록",
+          "차 상태만 이 차 안에 보관해요. 밖으로 보내지 않아요.",
+          "경고등",
+          "인계 이력",
+          "인수·반납 한 쌍씩 · 최근 50쌍까지 · 차 상태만",
+          "인수 10월 31일 00:51 → 반납 00:52",
+          "배터리 54% → 41% · 누적 +32km · 새로 켜진 경고등 1개: 타이어 바람 · 반납 때 열림: 문"
+        ],
+        "pairs": 1,
+        "tripTab": false
+      },
+      "passed": true
+    },
+    {
+      "scenario": "next-card",
+      "expected": "Door closed then opened: new handover card; no second return card",
+      "observed": {
+        "card": "10-31 00:52:21.892  7439  7439 I GyeoteVehicle: handoverCard shown mode=RENTAL gear=PARK",
+        "returnAgain": null
+      },
+      "passed": true
+    },
+    {
+      "scenario": "note-saved",
+      "expected": "Fleet mode: [다음 사람에게 한마디] -> one line -> [한마디 저장]",
+      "observed": {
+        "ui": [
+          "Passer",
+          "정차 중 · Pleos 차량",
+          "인계 방식 · 법인·택시",
+          "오늘",
+          "기록",
+          "설정",
+          "모의",
+          "차를 돌려줄 때 · 정차 중",
+          "이번 운행을 정리했어요.",
+          "인수 때 → 지금",
+          "배터리 · 인수 때 → 지금",
+          "41% → 41%",
+          "누적 주행거리",
+          "+5km",
+          "새로 켜진 경고등",
+          "0개",
+          "문·트렁크·충전구",
+          "열려 있어요: 문\n닫혀 있어요: 트렁크·충전구",
+          "창문",
+          "모두 닫혀 있어요.",
+          "다음 사람에게 한마디 · 선택",
+          "Rear tire air low",
+          "한마디 저장",
+          "취소",
+          "돌려줬어요",
+          "나중에",
+          "[돌려줬어요]를 누르면 지금 차 상태만 인수 기록과 한 쌍으로 '인계 이력'에 남겨요. 법인·택시 모드라 운행 표에도 1건을 적어요."
+        ],
+        "log": "10-31 00:52:53.377  7439  7439 I GyeoteVehicle: returnNote saved chars=17"
+      },
+      "passed": true
+    },
+    {
+      "scenario": "fleet-trip",
+      "expected": "Fleet mode: [돌려줬어요] writes one trip line; trip table tab shows month, 1 entry, total km",
+      "observed": {
+        "takeover": "10-31 00:52:28.890  7439  7439 I GyeoteVehicle: handoverSnapshot saved soc=41 odometerKm=12419.0 warnings=TPMS door=false trunk=false chargePort=false restored=true via=accept",
+        "mode": "10-31 00:52:33.343  7439  7439 I GyeoteVehicle: handoverSettings mode=FLEET length=NORMAL",
+        "trip": "10-31 00:52:56.330  7439  7439 I GyeoteVehicle: tripLog added startKm=12419.0 endKm=12424.0 distanceKm=5.0 destination=false trips=1",
+        "odometer": [
+          12419.0,
+          12424
+        ],
+        "ui": [
+          "Passer",
+          "정차 중 · Pleos 차량",
+          "인계 방식 · 법인·택시",
+          "오늘",
+          "기록",
+          "설정",
+          "모의",
+          "기록",
+          "차 상태만 이 차 안에 보관해요. 밖으로 보내지 않아요.",
+          "경고등",
+          "인계 이력",
+          "운행 표",
+          "법인·택시 모드에서 [돌려줬어요]를 누를 때마다 운행 1건을 적어요. 업무·개인 구분은 하지 않아요.",
+          "2026년 10월 · 1건 · 합계 5km",
+          "날짜",
+          "출발 km",
+          "도착 km",
+          "거리",
+          "목적지",
+          "인수 → 반납",
+          "10월 31일",
+          "12,419km",
+          "12,424km",
+          "5km",
+          "—",
+          "00:52 → 00:52"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "next-card-note",
+      "expected": "Fleet mode: the next handover card shows the note",
+      "observed": {
+        "card": "10-31 00:53:05.400  7439  7439 I GyeoteVehicle: handoverCard shown mode=FLEET gear=PARK",
+        "ui": [
+          "Passer",
+          "정차 중 · Pleos 차량",
+          "인계 방식 · 법인·택시",
+          "오늘",
+          "기록",
+          "설정",
+          "모의",
+          "차를 넘겨받는 순간 · 정차 중",
+          "안녕하세요. 지금 제 상태를 말씀드릴게요.",
+          "배터리",
+          "배터리 41% · 갈 수 있는 거리 약 210km",
+          "지금 켜진 경고등",
+          "없어요.",
+          "최근 켜졌던 경고등",
+          "타이어 바람 1번 (오늘)\n앱이 켜져 있던 동안의 기록이에요.",
+          "누적 주행거리",
+          "12,424km",
+          "문·트렁크·충전구",
+          "닫혀 있어요: 문·트렁크·충전구",
+          "이전 운전자 한마디",
+          "Rear tire air low",
+          "인수했어요",
+          "처음 타요",
+          "다시 듣기",
+          "[인수했어요]를 누르면 지금 차 상태(시각·배터리·누적 거리·켜진 경고등·문·충전구)만 이 차 안에 남겨요."
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "clear-all",
+      "expected": "Settings 모두 지우기 removes warning history, pairs, trips, snapshot and note",
+      "observed": "10-31 00:53:20.712  7439  7439 I GyeoteVehicle: records cleared warnings=0 pairs=0 trips=0 snapshot=false note=false",
+      "passed": true
+    },
+    {
+      "scenario": "ui-wording",
+      "expected": "No banned words or honorifics on the captured screens",
+      "observed": {
+        "screens": [
+          "01-return-card",
+          "02-note",
+          "03-history-pairs",
+          "04-next-card-note",
+          "05-trip-table",
+          "06-driving-no-return",
+          "07-rental-no-note"
+        ],
+        "offending": {}
+      },
+      "passed": true
+    }
+  ],
+  "captures": [
+    {
+      "file": "screens/return/06-driving-no-return.png",
+      "sha256": "c7b444fa674f720aa4328161f03f4ae0e1ccbab8b2f96b11bb3295342a6b935b",
+      "expected_text": [],
+      "passed": true
+    },
+    {
+      "file": "screens/return/01-return-card.png",
+      "sha256": "16b523bc3bfa5e6d2021f822c7ea87ac453ec5967eb567152b31d3b1c8f8b9f6",
+      "expected_text": [
+        "이번 운행을 정리했어요.",
+        "인수 때 → 지금",
+        "54% → 41%",
+        "+32km",
+        "1개: 타이어 바람",
+        "닫혀 있어요",
+        "돌려줬어요",
+        "나중에"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/return/07-rental-no-note.png",
+      "sha256": "ba747635396d0e144b28446ecf75cc9e99a333ed3e775468c0883f449259c990",
+      "expected_text": [
+        "이번 운행을 정리했어요.",
+        "돌려줬어요",
+        "나중에"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/return/03-history-pairs.png",
+      "sha256": "886ddbe7ffe300afc4f46a22d9ce025f13d30f384f5c7a3ecc26c15d367a3193",
+      "expected_text": [
+        "경고등",
+        "인계 이력",
+        "인수 ",
+        "→ 반납",
+        "배터리 54% → 41%",
+        "누적 +32km",
+        "새로 켜진 경고등 1개: 타이어 바람"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/return/02-note.png",
+      "sha256": "a22125999a12559fbd2b4f720311887d9560afdcac0c56712400e54483e81857",
+      "expected_text": [
+        "Rear tire air low",
+        "한마디 저장"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/return/05-trip-table.png",
+      "sha256": "4065ce8bc26f0cfa5a2966dce02e38d135d6e316ab523492c616275b683520ce",
+      "expected_text": [
+        "운행 표",
+        "1건 · 합계 5km",
+        "날짜",
+        "출발 km",
+        "도착 km",
+        "거리",
+        "목적지",
+        "인수 → 반납",
+        "5km"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/return/04-next-card-note.png",
+      "sha256": "5ebcaf1a17777a521570e463bc12c1cd0639daed676a03f7a830a78d8097099f",
+      "expected_text": [
+        "안녕하세요. 지금 제 상태를 말씀드릴게요.",
+        "이전 운전자 한마디",
+        "Rear tire air low",
+        "배터리 41%"
+      ],
+      "passed": true
+    }
+  ],
+  "apk_sha256": "d10a2cd0c0786e1002688e438ee52b3ccad31e0a8bf2fc0f0d9004dbb79d85f5"
+}

@@ -9,6 +9,14 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
+import android.animation.ValueAnimator
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.PathMeasure
+import android.graphics.RectF
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
@@ -45,6 +53,11 @@ class MainActivity : ComponentActivity() {
     private var testProfile: String? = null
     private var speechProbe: PleosSpeechProbe? = null
     private var clearHistoryConfirm = false
+    private var clearAllConfirm = false
+    /** Record screen tab: warnings / pairs (인계 이력) / trips (운행 표, fleet mode only). */
+    private var historyTab = "warnings"
+    private var noteEditing = false
+    private var noteDraft = ""
     private var showPairCode = false
     private var pairCountdown: TextView? = null
     private var renderedArrivalId: String? = null
@@ -129,10 +142,12 @@ class MainActivity : ComponentActivity() {
     private fun applyDebugIntent(intent: Intent) {
         if (!BuildConfig.DEBUG || !::controller.isInitialized) return
         intent.getStringExtra("serverUrl")?.let { serverInput = it }
-        intent.getStringExtra("screen")?.takeIf { it in setOf("home", "consent", "warning", "history", "mechanic", "maintenance", "destinations", "messages", "console") }?.let {
+        intent.getStringExtra("screen")?.takeIf { it in setOf("home", "consent", "warning", "history", "mechanic", "maintenance", "destinations", "messages", "console", "settings") }?.let {
             page = when {
                 it == "maintenance" && !Features.standaloneMaintenance -> "history"
                 it == "messages" && !Features.familyVoiceMessages -> "home"
+                it == "consent" && !Features.familyConnection -> "settings"
+                it == "destinations" && !Features.sharedRoutes -> "home"
                 else -> it
             }; draftLoaded = false; scroll = null
         }
@@ -142,6 +157,9 @@ class MainActivity : ComponentActivity() {
                 if (controller.ports.simulated && it !in controller.fake.activeWarnings) controller.fake.toggleWarning(it)
             }
         }
+        intent.getStringExtra("historyTab")?.takeIf { it in setOf("warnings", "pairs", "trips") }?.let { historyTab = it }
+        // Debug-only evidence setup for app/tools/return_integration.py (fresh records each run).
+        if (intent.getBooleanExtra("clearRecords", false)) controller.clearAllRecordsForTest()
         if (intent.hasExtra("restricted") && controller.ports.simulated) controller.fake.setRestriction(intent.getBooleanExtra("restricted", true))
         if (intent.getBooleanExtra("probeSpeech", false) && !controller.restricted) {
             speechProbe?.close(); speechProbe = PleosSpeechProbe(applicationContext).also { it.start() }
@@ -154,7 +172,7 @@ class MainActivity : ComponentActivity() {
             renderPending = false
             if (!isDestroyed) {
                 val prompt = controller.arrival.prompt
-                if (!controller.restricted && controller.privacy.current.routeArrivalAllowed(Instant.now()) &&
+                if (Features.sharedRoutes && !controller.restricted && controller.privacy.current.routeArrivalAllowed(Instant.now()) &&
                     controller.arrival.mode == ArrivalMode.ASK_EVERY_TIME && prompt != null && renderedArrivalId == prompt.destinationId) {
                     // Keep the unanswered question and its controls stable.
                 } else render()
@@ -165,9 +183,11 @@ class MainActivity : ComponentActivity() {
         if (controller.restricted) return
         if (next == "console" && !BuildConfig.DEBUG) return
         if (next == "messages" && !Features.familyVoiceMessages) return
+        if ((next == "consent" || next == "pairing") && !Features.familyConnection) return
+        if (next == "destinations" && !Features.sharedRoutes) return
         if (next == "maintenance" && !Features.standaloneMaintenance) { navigate("history"); return }
         (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(root.windowToken, 0)
-        page = next; scroll = null
+        page = next; scroll = null; clearAllConfirm = false
         if (next == "consent") { consentDraft = controller.privacy.current; arrivalModeDraft = controller.arrival.mode; draftLoaded = true }
         render()
     }
@@ -185,7 +205,7 @@ class MainActivity : ComponentActivity() {
             heading.addView(label(getString(R.string.app_name), 30, mint, true), LinearLayout.LayoutParams(0, -2, 1f))
             heading.addView(label(if (controller.ports.simulated) "정차 중 · 모의 차량" else "정차 중 · Pleos 차량", 18, muted), LinearLayout.LayoutParams(-2, -2))
             addView(heading)
-            addView(label(controller.connection, 14, muted).apply { setPadding(0, dp(5), 0, 0) })
+            addView(label(if (Features.serverSync) controller.connection else "인계 방식 · ${controller.handoverSettings.mode.label}", 14, muted).apply { setPadding(0, dp(5), 0, 0) })
         }
         root.addView(top)
         val scroller = ScrollView(this).apply { isFillViewport = true; clipToPadding = false }
@@ -198,8 +218,12 @@ class MainActivity : ComponentActivity() {
             root.addView(frame, LinearLayout.LayoutParams(-1, 0, 1f))
         } else root.addView(scroller, LinearLayout.LayoutParams(-1, 0, 1f))
         scroll = scroller
-        if (controller.arrival.mode == ArrivalMode.ASK_EVERY_TIME && controller.arrival.prompt != null && controller.privacy.current.routeArrivalAllowed(Instant.now())) arrivalScreen(content)
+        if (Features.sharedRoutes && controller.arrival.mode == ArrivalMode.ASK_EVERY_TIME && controller.arrival.prompt != null && controller.privacy.current.routeArrivalAllowed(Instant.now())) arrivalScreen(content)
+        else if (controller.tourVisible) tourScreen(content)
+        else if (controller.returnVisible) returnScreen(content)
+        else if (controller.handoverVisible) handoverScreen(content)
         else when (page) {
+            "settings" -> settingsScreen(content)
             "consent" -> consentScreen(content)
             "pairing" -> pairingScreen(content)
             "warning" -> warningScreen(content)
@@ -219,9 +243,9 @@ class MainActivity : ComponentActivity() {
     }
     private fun homeScreen(content: LinearLayout) {
         val (left, right) = pageColumns(content)
-        left.addView(label("오늘의 동행", 18, mint, true))
-        left.addView(label("오늘도,\n편안하게.", if (carWide) 44 else 36, light, true).apply { setPadding(0, dp(10), 0, dp(8)) })
-        left.addView(label(getString(R.string.app_tagline), 22, muted))
+        // Neutral placeholder title; the tagline stays empty until the name is decided.
+        left.addView(label("오늘", if (carWide) 44 else 36, light, true).apply { setPadding(0, dp(10), 0, dp(8)) })
+        getString(R.string.app_tagline).takeIf { it.isNotBlank() }?.let { left.addView(label(it, 22, muted)) }
         gap(left, 24)
         val advice = controller.warningAdvice
         card(left, if (advice == null) mint else peach) {
@@ -231,15 +255,21 @@ class MainActivity : ComponentActivity() {
             if (advice != null) addView(button("뜻과 할 일 보기", true) { selectedWarning = advice.code; navigate("warning") }.padTop(14))
         }
         gap(right, 12)
-        card(right) {
+        if (!Features.sharedRoutes) card(right) {
+            addView(label("차를 넘겨받을 때", 23, light, true))
+            addView(label(controller.lastHandover?.let { "마지막 인수 기록\n" + HandoverText.snapshotSummary(it) }
+                ?: "운전석 문을 열고 닫으면 정차 중에\n차가 자기 상태를 먼저 알려 드려요.", 22, muted).padTop(10))
+            addView(button("인계 설정", false) { navigate("settings") }.padTop(14))
+        }
+        if (Features.sharedRoutes) card(right) {
             addView(label("마음이 닿는 소식", 23, light, true))
             val enabled = controller.privacy.current.routeArrivalAllowed(Instant.now())
             addView(label(if (enabled) "자녀가 보낸 길에 도착할 때만\n고른 가족에게 안부를 전해요." else "소식 전하기는 꺼져 있어요.\n알릴 사람과 내용을 직접 골라 주세요.", 24, muted).padTop(10))
             addView(button("소식 전하기 설정", false) { navigate("consent") }.padTop(14))
         }
         gap(right, 12)
-        right.addView(button("경고 기록  ·  정비사에게 보여주기", false) { navigate("history") })
-        right.addView(button("자녀가 보낸 길", false) { navigate("destinations") }.padTop(10))
+        right.addView(button("기록 보기  ·  경고등 · 인계 이력", false) { navigate("history") })
+        if (Features.sharedRoutes) right.addView(button("자녀가 보낸 길", false) { navigate("destinations") }.padTop(10))
         right.addView(label("기어 ${controller.gear.name} · 문 ${if (controller.door.open) "열림" else "닫힘"}", 20, muted).padTop(16))
         right.addView(label(controller.notice, 23, muted).padTop(14))
         gap(content, 24)
@@ -250,7 +280,15 @@ class MainActivity : ComponentActivity() {
             val latest = WarningHistoryText.group(controller.history.records).firstOrNull()
             addView(label(latest?.let { WarningHistoryText.parent(it) } ?: "최근 30일 동안 기록된 경고가 없어요.", 30, muted).padTop(12))
         }
-        card(route) {
+        if (!Features.sharedRoutes) card(route) {
+            minimumHeight = dp(if (carWide) 220 else 120)
+            addView(label("배터리와 충전구", 26, light, true))
+            val energy = controller.energy
+            addView(label(listOfNotNull(energy.socPercent?.let { "배터리 $it%" }, energy.rangeKm?.let { "약 ${formatKm(it)}km" })
+                .joinToString(" · ").ifEmpty { "배터리 정보를 아직 받지 못했어요." } +
+                "\n충전구 " + when (energy.chargePortOpen) { true -> "열림"; false -> "닫힘"; null -> "확인 못 함" }, 30, mint).padTop(12))
+        }
+        if (Features.sharedRoutes) card(route) {
             minimumHeight = dp(if (carWide) 220 else 120)
             addView(label("보낸 길 소식", 26, light, true))
             addView(label(routeStatus(), 30, mint).padTop(12))
@@ -390,7 +428,69 @@ class MainActivity : ComponentActivity() {
         content.addView(button("오늘 상태로 돌아가기", false) { navigate("home") }.padTop(16))
     }
     private fun historyScreen(content: LinearLayout) {
-        title(content, "차 안에 남긴 경고 기록", "최근 30일 · 최대 200건\n가족에게 보내지 않고 이 차에만 보관해요.")
+        val fleet = controller.handoverSettings.mode == HandoverMode.FLEET
+        if (historyTab == "trips" && !fleet) historyTab = "warnings"
+        title(content, "기록", "차 상태만 이 차 안에 보관해요. 밖으로 보내지 않아요.")
+        val tabs = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+        listOfNotNull("warnings" to "경고등", "pairs" to "인계 이력", ("trips" to "운행 표").takeIf { fleet }).forEach { (key, text) ->
+            tabs.addView(Button(this).apply {
+                this.text = text; textSize = if (carWide) 24f else 18f; isAllCaps = false; minHeight = dp(72)
+                setTextColor(if (historyTab == key) dark else light)
+                background = round(if (historyTab == key) mint else surface, 14)
+                contentDescription = "$text 탭"
+                setOnClickListener { historyTab = key; clearHistoryConfirm = false; scroll = null; render() }
+            }, LinearLayout.LayoutParams(0, dp(76), 1f).apply { setMargins(dp(4), 0, dp(4), 0) })
+        }
+        content.addView(tabs, LinearLayout.LayoutParams(-1, -2))
+        gap(content, 18)
+        when (historyTab) {
+            "pairs" -> pairsTab(content)
+            "trips" -> tripsTab(content)
+            else -> warningsTab(content)
+        }
+    }
+    private fun pairsTab(content: LinearLayout) {
+        content.addView(label("인수·반납 한 쌍씩 · 최근 ${HandoverLedger.MAX_PAIRS}쌍까지 · 차 상태만", 20, muted))
+        gap(content, 14)
+        val pairs = controller.ledger.pairs.asReversed()
+        if (pairs.isEmpty()) card(content) { addView(label("아직 인계 이력이 없어요.", 28, light)) }
+        pairs.forEach { pair ->
+            val (head, body) = ReturnText.pairSummary(pair)
+            card(content) {
+                addView(label(head, 26, light, true))
+                addView(label(body, 22, mint).padTop(10))
+            }
+            gap(content, 12)
+        }
+    }
+    private fun tripsTab(content: LinearLayout) {
+        content.addView(label("법인·택시 모드에서 [돌려줬어요]를 누를 때마다 운행 1건을 적어요. 업무·개인 구분은 하지 않아요.", 20, muted))
+        gap(content, 14)
+        val months = ReturnText.months(controller.ledger.trips)
+        if (months.isEmpty()) card(content) { addView(label("아직 운행 기록이 없어요.", 28, light)) }
+        val weights = listOf(1.3f, 1.6f, 1.6f, 1.2f, 2.2f, 1.7f)
+        fun row(cells: List<String>, header: Boolean = false) {
+            val line = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL; isBaselineAligned = false
+                setPadding(dp(12), dp(14), dp(12), dp(14))
+                background = round(if (header) dark else surface, 8)
+            }
+            cells.forEachIndexed { index, text ->
+                line.addView(label(text, if (carWide) 22 else 15, if (header) mint else light, header).apply { setPadding(dp(6), 0, dp(6), 0) },
+                    LinearLayout.LayoutParams(0, -2, weights[index]))
+            }
+            content.addView(line, LinearLayout.LayoutParams(-1, -2).apply { bottomMargin = dp(8) })
+        }
+        months.forEach { month ->
+            content.addView(label(ReturnText.monthTitle(month), 26, light, true).padTop(10))
+            gap(content, 10)
+            row(listOf("날짜", "출발 km", "도착 km", "거리", "목적지", "인수 → 반납"), true)
+            month.entries.forEach { row(ReturnText.tripCells(it)) }
+        }
+    }
+    private fun warningsTab(content: LinearLayout) {
+        content.addView(label("최근 30일 · 최대 200건 · 앱이 켜져 있던 동안의 기록이에요.", 20, muted))
+        gap(content, 14)
         content.addView(button("정비사에게 보여주기", true) { navigate("mechanic") })
         gap(content, 18)
         val groups = WarningHistoryText.group(controller.history.records)
@@ -481,6 +581,217 @@ class MainActivity : ComponentActivity() {
                 textSize = 22f
             }.padTop(18))
         }
+    }
+    /** F3: parked only (render() shows the driving card otherwise). Vehicle state before -> now. */
+    private fun returnScreen(content: LinearLayout) {
+        val summary = controller.returnCard() ?: return
+        content.addView(label("차를 돌려줄 때 · 정차 중", 18, mint, true))
+        content.addView(label(summary.title, if (carWide) 40 else 30, light, true).padTop(10))
+        content.addView(label("인수 때 → 지금", 22, muted).padTop(8))
+        gap(content, 18)
+        val (left, right) = pageColumns(content)
+        val half = (summary.lines.size + 1) / 2
+        summary.lines.forEachIndexed { index, line ->
+            val column = if (index < half) left else right
+            val alert = line.label == "새로 켜진 경고등" && line.text != "0개"
+            card(column, if (alert) peach else surface) {
+                addView(label(line.label, 17, if (alert) dark else mint, true))
+                addView(label(line.text, if (carWide) 28 else 22, if (alert) dark else light, true).padTop(8))
+            }
+            gap(column, 12)
+        }
+        gap(content, 8)
+        // Rental/car-share: no note between strangers (HandoverMode.noteOn).
+        if (controller.handoverSettings.mode.noteOn) card(content) {
+            addView(label("다음 사람에게 한마디 · 선택", 20, mint, true))
+            val saved = controller.ledger.note
+            if (noteEditing) {
+                addView(input("글 한 줄 (최대 ${ReturnText.NOTE_MAX}자)", "returnNote", noteDraft) { noteDraft = it }.apply {
+                    filters = arrayOf(android.text.InputFilter.LengthFilter(ReturnText.NOTE_MAX))
+                    textSize = if (carWide) 26f else 20f
+                }.padTop(12))
+                val (save, cancel) = pageColumns(this)
+                save.addView(button("한마디 저장", true) {
+                    controller.saveReturnNote(noteDraft); noteEditing = false
+                    (getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(root.windowToken, 0)
+                    render()
+                }.padTop(12))
+                cancel.addView(button("취소", false) { noteEditing = false; render() }.padTop(12))
+            } else {
+                addView(label(saved?.let { "남긴 한마디: $it" } ?: "다음에 타는 사람의 인계 카드에 '이전 운전자 한마디'로 보여요.",
+                    if (carWide) 24 else 20, light).padTop(10))
+                addView(button(if (saved == null) "다음 사람에게 한마디" else "한마디 고치기", false) {
+                    noteDraft = saved.orEmpty(); noteEditing = true; render()
+                }.padTop(12))
+            }
+        }
+        gap(content, 16)
+        val (done, later) = pageColumns(content)
+        done.addView(button("돌려줬어요", true) { noteEditing = false; controller.confirmReturn() }.apply {
+            textSize = if (carWide) 30f else 24f; minHeight = dp(96); minimumHeight = minHeight
+        })
+        later.addView(button("나중에", false) { noteEditing = false; controller.laterReturn() }.apply {
+            textSize = if (carWide) 30f else 24f; minHeight = dp(96); minimumHeight = minHeight
+        }.padTop(if (carWide) 0 else 12))
+        content.addView(label("[돌려줬어요]를 누르면 지금 차 상태만 인수 기록과 한 쌍으로 '인계 이력'에 남겨요." +
+            if (controller.handoverSettings.mode == HandoverMode.FLEET) " 법인·택시 모드라 운행 표에도 1건을 적어요." else "", 18, muted).padTop(12))
+    }
+    private fun handoverScreen(content: LinearLayout) {
+        val handover = controller.handoverCard()
+        content.addView(label("차를 넘겨받는 순간 · 정차 중", 18, mint, true))
+        content.addView(label(handover.greeting, if (carWide) 40 else 30, light, true).padTop(10))
+        gap(content, 18)
+        val (left, right) = pageColumns(content)
+        val half = (handover.lines.size + 1) / 2
+        handover.lines.forEachIndexed { index, line ->
+            val column = if (index < half) left else right
+            val alert = line.label == "지금 켜진 경고등" && controller.warnings.isNotEmpty()
+            card(column, if (alert) peach else surface) {
+                addView(label(line.label, 17, if (alert) dark else mint, true))
+                addView(label(line.text, if (carWide) 26 else 22, if (alert) dark else light, true).padTop(8))
+            }
+            gap(column, 12)
+        }
+        gap(content, 8)
+        val (accept, tour) = pageColumns(content)
+        accept.addView(button("인수했어요", true) { controller.acceptHandover() }.apply {
+            textSize = if (carWide) 30f else 24f; minHeight = dp(96); minimumHeight = minHeight
+        })
+        if (controller.tourOffered) tour.addView(button("처음 타요", false) { controller.requestTour() }.apply {
+            textSize = if (carWide) 30f else 24f; minHeight = dp(96); minimumHeight = minHeight
+        }.padTop(if (carWide) 0 else 12))
+        content.addView(button("다시 듣기", false) { controller.replayHandover() }.padTop(12))
+        content.addView(label("[인수했어요]를 누르면 지금 차 상태(시각·배터리·누적 거리·켜진 경고등·문·충전구)만 이 차 안에 남겨요.", 18, muted).padTop(12))
+    }
+    /** F2: one mission per screen, large type, parked only (render() shows the driving card otherwise). */
+    private fun tourScreen(content: LinearLayout) {
+        val machine = controller.tour ?: return
+        val total = machine.missions.size
+        val head = LinearLayout(this).apply { gravity = Gravity.CENTER_VERTICAL }
+        head.addView(label("처음 3분 투어 · 정차 중", 20, mint, true), LinearLayout.LayoutParams(0, -2, 1f))
+        head.addView(label("통과 ${machine.passed} · 남음 ${machine.remaining}", 24, light, true).apply { gravity = Gravity.END },
+            LinearLayout.LayoutParams(-2, -2))
+        content.addView(head)
+        gap(content, 18)
+        val passedMission = controller.tourPassedMission
+        when {
+            controller.tourCelebrating && passedMission != null -> card(content, mint) {
+                gravity = Gravity.CENTER_HORIZONTAL
+                val elapsed = (SystemClock.elapsedRealtime() - controller.tourPassedAt).coerceIn(0, 500)
+                addView(CheckView(this@MainActivity).also { it.circle = dark; it.stroke = mint; it.animateFrom(elapsed / 500f, 500 - elapsed) },
+                    LinearLayout.LayoutParams(dp(if (carWide) 260 else 180), dp(if (carWide) 260 else 180)).apply { gravity = Gravity.CENTER_HORIZONTAL })
+                addView(label("좋아요. 통과했어요.", if (carWide) 52 else 34, dark, true).apply { gravity = Gravity.CENTER }.padTop(18))
+                addView(label("미션 ${machine.missions.indexOf(passedMission) + 1} · " + passedMission.title.replace("\n", " "), 24, dark).apply { gravity = Gravity.CENTER }.padTop(10))
+            }
+            machine.finished -> {
+                card(content, mint) {
+                    gravity = Gravity.CENTER_HORIZONTAL
+                    addView(label(TourPlan.DONE.replace(". ", ".\n"), if (carWide) 60 else 38, dark, true).apply { gravity = Gravity.CENTER })
+                    addView(label("통과 ${machine.passed} · 남음 ${machine.remaining}", if (carWide) 30 else 24, dark, true).apply { gravity = Gravity.CENTER }.padTop(20))
+                    if (machine.end == TourEnd.SKIPPED && machine.remaining > 0)
+                        addView(label("남은 미션은 건너뛰었어요. 설정에서 언제든 다시 할 수 있어요.", 22, dark).apply { gravity = Gravity.CENTER }.padTop(10))
+                }
+                content.addView(button("시작하기", true) { controller.finishTour(); page = "home"; scroll = null; render() }.apply {
+                    textSize = if (carWide) 34f else 26f; minHeight = dp(110); minimumHeight = minHeight
+                }.padTop(24))
+            }
+            else -> {
+                val mission = machine.current ?: return
+                card(content) {
+                    addView(label("미션 ${machine.passed + 1} / $total", 22, mint, true))
+                    addView(label(mission.title, if (carWide) 60 else 38, light, true).padTop(14))
+                    addView(label(mission.hint, if (carWide) 26 else 22, muted).padTop(14))
+                    if (mission == TourMission.STEERING) steeringGauge(this, machine)
+                }
+                content.addView(button("건너뛰기", false) { controller.skipTour() }.apply {
+                    textSize = if (carWide) 28f else 22f; minHeight = dp(92); minimumHeight = minHeight
+                }.padTop(24))
+                content.addView(label("기어를 D로 바꾸면 투어는 바로 끝나요. 결과는 저장하지 않아요.", 18, muted).padTop(12))
+            }
+        }
+    }
+    private fun steeringGauge(parent: LinearLayout, machine: TourMachine) {
+        val angle = controller.steeringAngle
+        val side = when { angle == null -> ""; angle < 0 -> " · 왼쪽"; angle > 0 -> " · 오른쪽"; else -> " · 가운데" }
+        parent.addView(label(angle?.let { String.format(Locale.KOREA, "%.0f°", it) + side } ?: "핸들 각도를 아직 받지 못했어요",
+            if (carWide) 80 else 48, light, true).apply { gravity = Gravity.CENTER }.padTop(24))
+        parent.addView(GaugeView(this).apply {
+            this.angle = angle; left = machine.leftReached; right = machine.rightReached; limit = TourPlan.STEERING_LIMIT_DEGREES
+            reached = mint; idle = muted; marker = peach; track = dark
+        },
+            LinearLayout.LayoutParams(-1, dp(if (carWide) 110 else 80)).apply { topMargin = dp(18) })
+        val row = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+        row.addView(label("왼쪽 끝 ${if (machine.leftReached) "통과" else "남음"}", 28, if (machine.leftReached) mint else muted, true),
+            LinearLayout.LayoutParams(0, -2, 1f))
+        row.addView(label("오른쪽 끝 ${if (machine.rightReached) "통과" else "남음"}", 28, if (machine.rightReached) mint else muted, true).apply { gravity = Gravity.END },
+            LinearLayout.LayoutParams(0, -2, 1f))
+        parent.addView(row, LinearLayout.LayoutParams(-1, -2).apply { topMargin = dp(14) })
+    }
+    private fun settingsScreen(content: LinearLayout) {
+        title(content, "인계 설정", "운전자가 바뀔 때 차가 자기 상태를\n먼저 알려 드려요.")
+        val current = controller.handoverSettings
+        val (left, right) = pageColumns(content)
+        card(left) {
+            addView(label("쓰는 방식", 23, light, true))
+            addView(RadioGroup(this@MainActivity).apply {
+                orientation = RadioGroup.VERTICAL
+                HandoverMode.settingsOrder.forEach { mode ->
+                    val choice = if (mode == HandoverMode.RENTAL) "${mode.label} · 기본" else mode.label
+                    addView(RadioButton(this@MainActivity).apply {
+                        id = View.generateViewId()
+                        text = choice
+                        textSize = if (carWide) 24f else 21f; setTextColor(light)
+                        buttonTintList = android.content.res.ColorStateList.valueOf(mint)
+                        minHeight = dp(72); isChecked = current.mode == mode
+                        setOnCheckedChangeListener { _, checked -> if (checked && controller.handoverSettings.mode != mode) controller.updateHandoverSettings(controller.handoverSettings.withMode(mode)) }
+                    })
+                }
+            })
+            addView(label("끄기를 고르면 인계 카드를 띄우지 않아요.", 18, muted).padTop(8))
+        }
+        card(right) {
+            addView(label("말하는 길이", 23, light, true))
+            addView(RadioGroup(this@MainActivity).apply {
+                orientation = RadioGroup.VERTICAL
+                HandoverLength.entries.forEach { length ->
+                    addView(RadioButton(this@MainActivity).apply {
+                        id = View.generateViewId()
+                        text = length.label
+                        textSize = if (carWide) 24f else 21f; setTextColor(light)
+                        buttonTintList = android.content.res.ColorStateList.valueOf(mint)
+                        minHeight = dp(72); isChecked = current.length == length
+                        setOnCheckedChangeListener { _, checked -> if (checked && controller.handoverSettings.length != length) controller.updateHandoverSettings(controller.handoverSettings.copy(length = length)) }
+                    })
+                }
+            })
+            addView(label("화면에는 늘 모든 줄을 보여 드려요.", 18, muted).padTop(8))
+        }
+        gap(content, 18)
+        card(content) {
+            addView(label("마지막 인수 기록", 23, light, true))
+            addView(label(controller.lastHandover?.let { HandoverText.snapshotSummary(it) } ?: "아직 인수 기록이 없어요.", 22, muted).padTop(10))
+            addView(label("차 상태만 이 차 안에 암호화해 저장해요.", 18, muted).padTop(8))
+        }
+        if (controller.tourMissions.isNotEmpty()) {
+            gap(content, 18)
+            card(content) {
+                addView(label("처음 3분 투어", 23, light, true))
+                addView(label("핸들·브레이크·방향지시등을 직접 움직여 보는 미션 ${controller.tourMissions.size}개예요. 정차 중(P)에만 할 수 있어요.", 22, muted).padTop(10))
+                addView(button("투어 다시 하기", true) { controller.restartTour() }.padTop(14))
+            }
+        }
+        gap(content, 18)
+        card(content) {
+            addView(label("기록 모두 지우기", 23, light, true))
+            addView(label("경고등 기록·인계 이력·운행 표·마지막 인수 기록·남긴 한마디를 이 차에서 지워요. 설정은 그대로 둬요.", 20, muted).padTop(10))
+            if (!clearAllConfirm) addView(button("모두 지우기", false) { clearAllConfirm = true; render() }.padTop(14))
+            else {
+                addView(label("정말 모두 지울까요? 되돌릴 수 없어요.", 24, peach, true).padTop(14))
+                addView(button("네, 모두 지울게요", true) { controller.clearAllRecords(); clearAllConfirm = false; render() }.padTop(12))
+                addView(button("남겨둘게요", false) { clearAllConfirm = false; render() }.padTop(10))
+            }
+        }
+        if (Features.familyConnection) content.addView(button("소식 전하기 설정", false) { navigate("consent") }.padTop(18))
     }
     private fun maintenanceScreen(content: LinearLayout) {
         title(content, "차를 돌보는 시간", "현재 ${formatKm(controller.odometerKm)} km\n마지막 정비 기록부터 살펴봐요.")
@@ -591,6 +902,17 @@ class MainActivity : ComponentActivity() {
         }
         gap(content, 12)
         card(content) {
+            addView(label("인계 시연 입력", 23, light, true))
+            val energy = controller.fake.energyState
+            addView(label("배터리 ${energy.socPercent ?: "—"}% · 충전구 ${if (energy.chargePortOpen == true) "열림" else "닫힘"} · 트렁크 ${if (controller.fake.doorState.trunkOpen == true) "열림" else "닫힘"}", 20, muted).padTop(10))
+            addView(button("배터리 54% · 누적 12,345 km", false) {
+                controller.fake.setBattery(54, 210.0); controller.fake.setOdometer(12_345.0); scheduleRender()
+            }.padTop(8))
+            addView(button("충전구 열기 / 닫기", false) { controller.fake.setChargePort(controller.fake.energyState.chargePortOpen != true); scheduleRender() }.padTop(8))
+            addView(button("트렁크 열기 / 닫기", false) { controller.fake.setTrunk(controller.fake.doorState.trunkOpen != true); scheduleRender() }.padTop(8))
+        }
+        if (Features.sharedRoutes) gap(content, 12)
+        if (Features.sharedRoutes) card(content) {
             addView(label("가족이 보내온 길 · 음성", 23, light, true))
             addView(button("모의 목적지 받기", false) { controller.demoDestination() }.padTop(12))
             addView(input("음성에서 바뀐 문장", "stt", sttInput) { sttInput = it }.padTop(10))
@@ -615,9 +937,9 @@ class MainActivity : ComponentActivity() {
             background = round(if (advice?.urgency == Urgency.STOP_SAFELY) danger else mint)
             minimumHeight = dp(260)
         }
-        val text = advice?.movingText ?: "운전에 집중해 주세요. 받은 소식은 정차 후 살펴볼게요."
+        val text = advice?.movingText ?: "운전에 집중해 주세요. 안내는 정차 후 보여 드릴게요."
         card.addView(label(text, if (carWide) 52 else 32, dark, true).apply { gravity = Gravity.CENTER; setLineSpacing(dp(6).toFloat(), 1.1f) })
-        controller.inbox.accepted()?.note?.takeIf { it.isNotBlank() }?.let {
+        if (Features.sharedRoutes) controller.inbox.accepted()?.note?.takeIf { it.isNotBlank() }?.let {
             card.addView(label("자녀의 한마디\n$it", if (carWide) 36 else 24, dark).padTop(28).apply { gravity = Gravity.CENTER })
         }
         container.addView(card, LinearLayout.LayoutParams(-1, -2))
@@ -628,7 +950,7 @@ class MainActivity : ComponentActivity() {
         orientation = if (carWide) LinearLayout.VERTICAL else LinearLayout.HORIZONTAL
         setPadding(dp(8), dp(6), dp(8), dp(8))
         setBackgroundColor(backgroundColor)
-        listOf("home" to "오늘", "history" to "기록", "destinations" to "함께", "consent" to "설정").let { tabs ->
+        listOfNotNull("home" to "오늘", "history" to "기록", ("destinations" to "함께").takeIf { Features.sharedRoutes }, "settings" to "설정").let { tabs ->
             val visible = if (BuildConfig.DEBUG) tabs + ("console" to "모의") else tabs
             visible.forEach { (target, text) ->
                 addView(Button(this@MainActivity).apply {
@@ -704,4 +1026,68 @@ class MainActivity : ComponentActivity() {
     }
     private fun dp(value: Int): Int = (value * resources.displayMetrics.density).toInt()
     private fun formatKm(value: Double): String = if (value.isFinite()) String.format(Locale.KOREA, "%,.0f", value) else "—"
+}
+
+/** Steering gauge: -540..+540 degrees, both ±limit zones, a marker at the current calibrated angle. */
+private class GaugeView(context: Context) : View(context) {
+    var angle: Float? = null
+    var left = false
+    var right = false
+    var limit = 400f
+    var reached = Color.GREEN
+    var idle = Color.GRAY
+    var marker = Color.WHITE
+    var track = Color.BLACK
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val rect = RectF()
+    private val span = 540f
+    init { importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO }
+    override fun onDraw(canvas: Canvas) {
+        val w = width.toFloat(); val h = height.toFloat(); val r = h * 0.18f
+        fun x(deg: Float) = w / 2 + (deg.coerceIn(-span, span) / span) * (w / 2 - r)
+        val top = h * 0.32f; val bottom = h * 0.68f
+        paint.color = track; rect.set(0f, top, w, bottom); canvas.drawRoundRect(rect, r, r, paint)
+        paint.color = if (left) reached else idle; rect.set(0f, top, x(-limit), bottom); canvas.drawRoundRect(rect, r, r, paint)
+        paint.color = if (right) reached else idle; rect.set(x(limit), top, w, bottom); canvas.drawRoundRect(rect, r, r, paint)
+        paint.color = idle; canvas.drawRect(w / 2 - 2f, top - h * 0.1f, w / 2 + 2f, bottom + h * 0.1f, paint)
+        angle?.let { paint.color = marker; canvas.drawCircle(x(it), h / 2, h * 0.42f, paint) }
+    }
+}
+
+/** The 0.5 s pass check: a circle with a check stroke drawn from the given start to complete. */
+private class CheckView(context: Context) : View(context) {
+    var circle = Color.BLACK
+    var stroke = Color.WHITE
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val path = Path()
+    private val part = Path()
+    private val measure = PathMeasure()
+    private var progress = 0f
+    init { importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO }
+    fun animateFrom(start: Float, remainingMillis: Long) {
+        progress = start.coerceIn(0f, 1f)
+        if (remainingMillis <= 0) { progress = 1f; return }
+        ValueAnimator.ofFloat(progress, 1f).apply {
+            duration = remainingMillis
+            addUpdateListener { progress = it.animatedValue as Float; invalidate() }
+            start()
+        }
+    }
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        val size = minOf(w, h).toFloat(); val cx = w / 2f; val cy = h / 2f
+        path.reset()
+        path.moveTo(cx - size * 0.22f, cy + size * 0.01f); path.lineTo(cx - size * 0.06f, cy + size * 0.17f); path.lineTo(cx + size * 0.24f, cy - size * 0.15f)
+        measure.setPath(path, false)
+    }
+    override fun onDraw(canvas: Canvas) {
+        val size = minOf(width, height).toFloat()
+        val scale = 0.6f + 0.4f * minOf(1f, progress * 2f)
+        paint.style = Paint.Style.FILL; paint.color = circle
+        canvas.drawCircle(width / 2f, height / 2f, size / 2 * scale, paint)
+        part.reset()
+        measure.getSegment(0f, measure.length * ((progress - 0.3f) / 0.7f).coerceIn(0f, 1f), part, true)
+        paint.style = Paint.Style.STROKE; paint.color = stroke; paint.strokeWidth = size * 0.09f
+        paint.strokeCap = Paint.Cap.ROUND; paint.strokeJoin = Paint.Join.ROUND
+        canvas.drawPath(part, paint)
+    }
 }

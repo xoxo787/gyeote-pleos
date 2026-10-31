@@ -57,6 +57,40 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
         private set
     var tires = TireState()
         private set
+    var energy = EnergyState()
+        private set
+    var turnSignal = TurnSignal.UNKNOWN
+        private set
+    /** Console sign convention (SDK sign corrected in the port). */
+    var steeringAngle: Float? = null
+        private set
+    var seats = SeatOccupancy()
+        private set
+    /** Any side window open; null when the vehicle does not report windows. */
+    var windowOpen: Boolean? = null
+        private set
+    var handoverSettings = store.handoverSettings()
+        private set
+    var lastHandover: HandoverSnapshot? = store.handoverSnapshot()
+        private set
+    /** F3 records: last 50 takeover/return pairs, fleet trip lines, the note for the next driver. */
+    val ledger = HandoverLedger(store.handoverPairs(), store.trips(), store.handoverNote())
+    /** Navigation destination name reported since the current takeover (fleet trip line only). */
+    private var tripDestination: String? = null
+    private var returnDueSince: Long? = null
+    /** F2 tour in progress (or its finish card). Session only: nothing about it is stored. */
+    var tour: TourMachine? = null
+        private set
+    /** The tour already ran in this boarding; cleared when the gear leaves P. Session flag only. */
+    var tourDoneThisBoarding = false
+        private set
+    /** elapsedRealtime of the last passed mission, for the 0.5 s check animation. */
+    var tourPassedAt = Long.MIN_VALUE
+        private set
+    var tourPassedMission: TourMission? = null
+        private set
+    private var handoverDueSince: Long? = null
+    private var handoverSpoken = false
     @Volatile var restricted = true
         private set
     var connection = if (session == null) "가족 연결 전" else "서버 연결 준비 중"
@@ -107,6 +141,8 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
     }
 
     init {
+        // A stored takeover without its return stays open across restarts (a drive in D is still needed).
+        journey.takeoverRestored(ledger.isOpen(lastHandover))
         inbox.restore(store.destinations())
         history.retain(Instant.now())
         subscriptions += ports.telltales.observeTelltaleDetails { readings ->
@@ -128,27 +164,54 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
             val updated = door != it; door = it; sample(); if (updated) changed()
         }
         subscriptions += ports.brake.observeBrake {
-            val updated = brake != it; brake = it; sample(); if (updated) changed()
+            val updated = brake != it; brake = it; sample()
+            val pressed = it
+            tourInput("brake") { machine -> machine.brake(pressed) }
+            if (updated) changed()
         }
         subscriptions += ports.gear.observeGear {
-            val updated = gear != it; gear = it; sample(); if (updated) changed()
+            val updated = gear != it; gear = it
+            if (it != GearSelection.PARK) { tourDoneThisBoarding = false; endTour("gear=$it") }
+            sample(); if (updated) changed()
         }
         subscriptions += ports.tire.observeTires {
             val updated = tires != it; tires = it; tireLow = it.lowPressure == true; updateWarnings(telltaleCodes)
             if (updated && Features.tireNumbers) changed()
         }
+        subscriptions += ports.energy.observeEnergy {
+            val updated = energy != it; energy = it; if (updated) changed()
+        }
+        subscriptions += ports.turnSignal.observeTurnSignal {
+            val updated = turnSignal != it; turnSignal = it
+            val on = signalOn(it)
+            tourInput("turnSignal") { machine -> machine.turnSignal(on) }
+            if (updated) changed()
+        }
+        subscriptions += ports.steering.observeSteeringAngle {
+            val updated = steeringAngle != it; steeringAngle = it
+            val angle = it
+            tourInput("steering") { machine -> machine.steering(angle) }
+            // Only the tour shows the live angle; elsewhere a steering change needs no redraw.
+            if (updated && tourVisible) changed()
+        }
+        subscriptions += ports.seats.observeSeats { seats = it }
+        subscriptions += ports.windows.observeWindows {
+            val updated = windowOpen != it; windowOpen = it; if (updated && returnVisible) changed()
+        }
+        subscriptions += ports.navigator.onDestinationName { tripDestination = it }
         subscriptions += ports.driving.observeRestrictions {
             if (!restricted && it) { arrival.depart(); store.saveArrival(arrival) }
             restricted = it
             inbox.restricted = it
-            if (it) { ports.listener.cancel(); ports.speaker.stop(); player.stop() }
+            if (it) { ports.listener.cancel(); ports.speaker.stop(); player.stop(); endTour("restricted") }
             else promptDestination()
+            checkHandover(); checkReturn()
             if (active) schedulePoll(0)
             changed()
         }
         subscriptions += ports.navigator.onDestinationArrived {
             journey.destinationArrived(SystemClock.elapsedRealtime())?.let(::journeyEvent)
-            offerArrival()
+            if (Features.sharedRoutes) offerArrival()
         }
     }
 
@@ -178,7 +241,7 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
             val instant = Instant.now()
             val before = arrival.prompt
             val queueSize = arrival.queue.size
-            arrival.advance(!restricted, privacy.current, instant, arrivedDestination)
+            if (Features.sharedRoutes) arrival.advance(!restricted, privacy.current, instant, arrivedDestination)
             if (before != arrival.prompt || queueSize != arrival.queue.size) {
                 store.saveArrival(arrival); changed()
                 if (queueSize != arrival.queue.size) {
@@ -202,21 +265,225 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
                 notice = "정해 둔 시간이 지나 소식 전하기를 껐어요."
                 changed()
             }
+            speakHandoverWhenSettled(now)
             handler.postDelayed(this, 1_000)
         }
     }
     private fun sample() {
-        journey.sample(VehicleSample(SystemClock.elapsedRealtime(), odometerKm, door.open, door.locked, brake, gear))?.let(::journeyEvent)
+        journey.sample(VehicleSample(SystemClock.elapsedRealtime(), odometerKm, door.open, door.locked, brake, gear, door.driverOpen))?.let(::journeyEvent)
+        checkHandover(); checkReturn()
     }
+
+    /** F1 is offered only while parked (gear P) and unrestricted; never while driving. */
+    val handoverVisible: Boolean get() = Features.handover && handoverSettings.mode.cardOn &&
+        journey.handover == HandoverState.DUE && !restricted && gear == GearSelection.PARK
+    fun handoverInput() = HandoverInput(
+        socPercent = energy.socPercent, rangeKm = energy.rangeKm,
+        activeWarnings = warnings.map(::adviceFor), history = history.records,
+        odometerKm = odometerKm.takeIf { it.isFinite() && it >= 0 },
+        doorOpen = door.open, trunkOpen = door.trunkOpen, chargePortOpen = energy.chargePortOpen,
+        previousNote = handoverSettings.mode.visibleNote(ledger.note),
+        windowOpen = windowOpen,
+    )
+    fun handoverCard(): HandoverCard = HandoverText.build(handoverInput(), handoverSettings.length, Instant.now())
+    private fun checkHandover() {
+        val visible = handoverVisible
+        if (visible && handoverDueSince == null) {
+            handoverDueSince = SystemClock.elapsedRealtime(); handoverSpoken = false
+            vehicleLog("handoverCard shown mode=${handoverSettings.mode} gear=$gear")
+            changed()
+        } else if (!visible && handoverDueSince != null) {
+            if (handoverSpoken) ports.speaker.stop()
+            handoverDueSince = null
+            vehicleLog("handoverCard hidden gear=$gear restricted=$restricted")
+            changed()
+        }
+    }
+    /** Values arrive shortly after the gear on a real vehicle; speak once they have had ~2 s to settle. */
+    private fun speakHandoverWhenSettled(now: Long) {
+        val since = handoverDueSince ?: return
+        if (handoverSpoken || !handoverVisible || now - since < 2_000) return
+        handoverSpoken = true
+        val card = handoverCard()
+        vehicleLog("handoverSpeech length=${handoverSettings.length} chars=${card.speech.length}")
+        ports.speaker.speak(card.speech)
+    }
+    fun replayHandover() { if (handoverVisible) ports.speaker.speak(handoverCard().speech) }
+    fun acceptHandover() {
+        if (!handoverVisible) return
+        saveHandoverSnapshot("accept")
+        notice = "인수 기록을 남겼어요. 차 상태만 저장했어요."
+        changed()
+    }
+    /** Both card buttons take the car over, so both store the same vehicle-only snapshot. */
+    private fun saveHandoverSnapshot(via: String) {
+        val snapshot = HandoverSnapshot.capture(Instant.now(), handoverInput())
+        store.saveHandoverSnapshot(snapshot)
+        lastHandover = store.handoverSnapshot()
+        vehicleLog("handoverSnapshot saved soc=${snapshot.socPercent} odometerKm=${snapshot.odometerKm} warnings=${snapshot.activeWarnings.joinToString("+")} " +
+            "door=${snapshot.doorOpen} trunk=${snapshot.trunkOpen} chargePort=${snapshot.chargePortOpen} restored=${lastHandover == snapshot} via=$via")
+        ports.speaker.stop()
+        journey.handoverHandled(); handoverDueSince = null
+        // A new takeover: the previous note has been shown to this driver; the return card waits for a drive.
+        if (ledger.note != null) { ledger.takenOver(); store.saveHandoverNote(null) }
+        journey.takeoverStarted(); tripDestination = null
+    }
+
+    /** F3: open takeover, driven in D since, now P + driver door open. Never while driving or restricted. */
+    val returnVisible: Boolean get() = Features.handover && handoverSettings.mode.cardOn && lastHandover != null &&
+        ledger.isOpen(lastHandover) && journey.returnState == ReturnState.DUE && !restricted && gear == GearSelection.PARK
+    fun returnComparison(): ReturnComparison? = lastHandover?.let {
+        ReturnText.compare(it, HandoverSnapshot.capture(Instant.now(), handoverInput()))
+    }
+    fun returnCard(): ReturnCard? = returnComparison()?.let(ReturnText::build)
+    private fun checkReturn() {
+        val visible = returnVisible
+        if (visible && returnDueSince == null) {
+            returnDueSince = SystemClock.elapsedRealtime()
+            val c = returnComparison()
+            vehicleLog("returnCard shown mode=${handoverSettings.mode} gear=$gear soc=${c?.socBefore}->${c?.socNow} " +
+                "distanceKm=${c?.distanceKm} newWarnings=${c?.newWarnings?.size} names=${c?.newWarnings?.joinToString("+")} window=${c?.windowOpen}")
+            changed()
+        } else if (!visible && returnDueSince != null) {
+            returnDueSince = null
+            vehicleLog("returnCard hidden gear=$gear restricted=$restricted")
+            changed()
+        }
+    }
+    /** [다음 사람에게 한마디]: one optional line, stored now and shown on the next handover card. */
+    fun saveReturnNote(text: String) {
+        if (!returnVisible || !handoverSettings.mode.noteOn) return
+        val saved = ledger.leaveNote(text)
+        store.saveHandoverNote(saved)
+        // Debug evidence names the length only, never the text.
+        vehicleLog("returnNote saved chars=${saved?.length ?: 0}")
+        changed()
+    }
+    /** [돌려줬어요]: the return snapshot (vehicle state only) is stored as a pair with the takeover. */
+    fun confirmReturn() {
+        if (!returnVisible) return
+        val takeover = lastHandover ?: return
+        val returned = HandoverSnapshot.capture(Instant.now(), handoverInput())
+        val trip = ledger.returned(takeover, returned, handoverSettings.mode, tripDestination)
+        store.saveHandoverPairs(ledger.pairs)
+        if (trip != null) store.saveTrips(ledger.trips)
+        val restored = store.handoverPairs().lastOrNull() == ledger.pairs.lastOrNull()
+        vehicleLog("returnPair saved soc=${takeover.socPercent}->${returned.socPercent} odometerKm=${takeover.odometerKm}->${returned.odometerKm} " +
+            "newWarnings=${ReturnText.compare(takeover, returned).newWarnings.size} pairs=${ledger.pairs.size} restored=$restored")
+        if (trip != null) vehicleLog("tripLog added startKm=${trip.startKm} endKm=${trip.endKm} distanceKm=${trip.distanceKm} " +
+            "destination=${trip.destination != null} trips=${ledger.trips.size}")
+        journey.returnHandled(closed = true); returnDueSince = null; tripDestination = null
+        notice = "돌려주기 기록을 남겼어요. 차 상태만 저장했어요."
+        changed()
+    }
+    /** [나중에]: hides the card for this stop without a record. */
+    fun laterReturn() {
+        if (!returnVisible) return
+        journey.returnHandled(closed = false); returnDueSince = null
+        vehicleLog("returnCard later")
+        changed()
+    }
+    /** Settings "모두 지우기": warning history, takeover/return pairs, trip lines, last snapshot and note. */
+    fun clearAllRecords() {
+        if (restricted) return
+        history.clear(); ledger.clear(); lastHandover = null
+        store.clearRecords()
+        journey.takeoverCleared(); returnDueSince = null; tripDestination = null
+        vehicleLog("records cleared warnings=${store.warningHistory().size} pairs=${store.handoverPairs().size} trips=${store.trips().size} " +
+            "snapshot=${store.handoverSnapshot() != null} note=${store.handoverNote() != null}")
+        notice = "이 차에 남긴 기록을 모두 지웠어요."
+        changed()
+    }
+    /** Debug-only evidence setup for the emulator script: same as the settings button, without the parked check. */
+    internal fun clearAllRecordsForTest() {
+        if (!BuildConfig.DEBUG) return
+        history.clear(); ledger.clear(); lastHandover = null
+        store.clearRecords(); journey.takeoverCleared(); returnDueSince = null; tripDestination = null
+        vehicleLog("records cleared via=debugIntent pairs=${store.handoverPairs().size}")
+        changed()
+    }
+
+    /** Missions for the current mode; empty when the mode is OFF. */
+    val tourMissions: List<TourMission> get() = if (Features.tour) TourPlan.missions(handoverSettings.mode) else emptyList()
+    /** The handover card offers [처음 타요] only once per boarding. */
+    val tourOffered: Boolean get() = tourMissions.isNotEmpty() && !tourDoneThisBoarding
+    /** Parked (P) and unrestricted only. Any other gear or a restriction removes the tour at once. */
+    val tourVisible: Boolean get() = tour != null && !restricted && gear == GearSelection.PARK
+    val tourCelebrating: Boolean get() = tourPassedMission != null && SystemClock.elapsedRealtime() - tourPassedAt < TOUR_CHECK_MILLIS
+    private fun signalOn(value: TurnSignal) = value == TurnSignal.LEFT || value == TurnSignal.RIGHT
+
+    /** [처음 타요]: take the car over (same snapshot as [인수했어요]) and start the tour. */
+    fun requestTour() {
+        if (!handoverVisible || !tourOffered) return
+        saveHandoverSnapshot("firstRide")
+        startTour("handover")
+    }
+    /** Settings [투어 다시 하기]: parked only, hidden when the mode is OFF. */
+    fun restartTour() {
+        if (restricted || gear != GearSelection.PARK || tourMissions.isEmpty() || handoverVisible) return
+        startTour("settings")
+    }
+    private fun startTour(from: String) {
+        val machine = TourMachine(tourMissions, brake, signalOn(turnSignal))
+        machine.steering(steeringAngle)
+        tour = machine; tourDoneThisBoarding = true; tourPassedMission = null; tourPassedAt = Long.MIN_VALUE
+        vehicleLog("tour started from=$from mode=${handoverSettings.mode} missions=${machine.missions.joinToString("+")} current=${machine.current}")
+        changed()
+    }
+    private fun tourInput(signal: String, feed: (TourMachine) -> Boolean) {
+        val machine = tour ?: return
+        if (!tourVisible) return
+        val before = machine.current ?: return
+        if (!feed(machine)) return
+        tourPassedMission = before; tourPassedAt = SystemClock.elapsedRealtime()
+        vehicleLog("tourMission passed=$before by=$signal next=${machine.current} passed=${machine.passed} remaining=${machine.remaining}")
+        if (machine.end == TourEnd.COMPLETED) vehicleLog("tour completed passed=${machine.passed}")
+        // Debug evidence names the kind of utterance only, never the text.
+        vehicleLog("tourSpeech kind=${if (machine.end == TourEnd.COMPLETED) "PASS+DONE" else "PASS"}")
+        ports.speaker.speak(if (machine.end == TourEnd.COMPLETED) "${TourPlan.PASS_SPEECH} ${TourPlan.DONE}" else TourPlan.PASS_SPEECH)
+        // Redraw once the check animation is over so the next mission (or the finish card) appears.
+        handler.postDelayed({ if (!destroyed) changed() }, TOUR_CHECK_MILLIS + 20)
+        changed()
+    }
+    fun skipTour() {
+        val machine = tour ?: return
+        if (!tourVisible || !machine.skip()) return
+        tourPassedMission = null
+        ports.speaker.stop()
+        vehicleLog("tour skipped passed=${machine.passed} remaining=${machine.remaining}")
+        changed()
+    }
+    /** [시작하기] on the finish card. */
+    fun finishTour() {
+        if (tour?.finished != true) return
+        tour = null; tourPassedMission = null
+        notice = TourPlan.DONE
+        vehicleLog("tour closed")
+        changed()
+    }
+    private fun endTour(reason: String) {
+        val machine = tour ?: return
+        machine.gear(GearSelection.UNKNOWN)
+        tour = null; tourPassedMission = null
+        ports.speaker.stop()
+        vehicleLog("tour ended reason=$reason passed=${machine.passed} remaining=${machine.remaining}")
+    }
+    fun updateHandoverSettings(next: HandoverSettings) {
+        if (restricted) return
+        handoverSettings = next; store.saveHandoverSettings(next)
+        vehicleLog("handoverSettings mode=${next.mode} length=${next.length}")
+        checkHandover(); changed()
+    }
+    private companion object { const val TOUR_CHECK_MILLIS = 500L }
     private fun journeyEvent(event: JourneyEvent) {
         vehicleLog("journeyEvent=${event.name}")
-        notice = if (event == JourneyEvent.DEPARTED) "출발했어요. 편안하게 다녀오세요." else "잘 다녀오셨어요. 오늘도 반가워요."
+        notice = if (event == JourneyEvent.DEPARTED) "출발했어요. 안전 운전하세요." else "정차했어요."
         if (event == JourneyEvent.DEPARTED) { arrival.depart(); store.saveArrival(arrival) }
-        if (event == JourneyEvent.DEPARTED) inbox.accepted()?.note?.takeIf { it.isNotBlank() }?.let {
+        if (event == JourneyEvent.DEPARTED && Features.sharedRoutes) inbox.accepted()?.note?.takeIf { it.isNotBlank() }?.let {
             notice += "\n자녀의 한마디: $it"
             ports.speaker.speak(it)
         }
-        if (event == JourneyEvent.ARRIVED) offerArrival()
+        if (event == JourneyEvent.ARRIVED && Features.sharedRoutes) offerArrival()
         val type = if (event == JourneyEvent.DEPARTED) SharedEventType.DEPARTED else SharedEventType.ARRIVED
         if (Features.generalJourneySharing) share(SharedEvent(type, Instant.now(), if (event == JourneyEvent.DEPARTED) "출발했어요" else "도착했어요"))
         changed()
@@ -278,6 +545,7 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
     }
     private fun schedulePoll(delay: Long) {
         polling?.cancel(false)
+        if (!Features.serverSync) return
         if (active && !destroyed) polling = io.schedule({
             pollOnce()
             if (active && !destroyed) schedulePoll(PollingPolicy.delayMillis(restricted, failures))
@@ -337,6 +605,7 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
         connection = if (privacy.deletionPending) "오프라인 · 소식 차단됨, 삭제 재시도 중" else "오프라인 · 연결을 다시 시도해요"
     }
     private fun promptDestination() {
+        if (!Features.sharedRoutes) return
         inbox.nextPrompt()?.let { destination ->
             val name = children.firstOrNull { it.id == destination.fromChildId }?.name ?: "가족"
             notice = "$name 님이 ${destination.name} 가는 길을 보내왔어요. 안내를 시작할까요?"

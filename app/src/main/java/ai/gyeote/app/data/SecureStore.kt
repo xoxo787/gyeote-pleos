@@ -11,6 +11,10 @@ import org.json.JSONArray
 import ai.gyeote.app.domain.Destination
 import ai.gyeote.app.domain.WarningRecord
 import ai.gyeote.app.domain.RouteArrivalFlow
+import ai.gyeote.app.domain.HandoverSettings
+import ai.gyeote.app.domain.HandoverSnapshot
+import ai.gyeote.app.domain.HandoverPair
+import ai.gyeote.app.domain.TripEntry
 import java.io.File
 import java.security.KeyStore
 import javax.crypto.Cipher
@@ -72,6 +76,23 @@ class SecureStore(context: Context, testProfile: String? = null) {
     fun saveWarningHistory(records: List<WarningRecord>) = change { it.put("warningHistory", EdgeJson.history(records)) }
     @Synchronized fun arrival(): RouteArrivalFlow = EdgeJson.arrival(state.optJSONObject("routeArrival"))
     fun saveArrival(flow: RouteArrivalFlow) = change { it.put("routeArrival", EdgeJson.arrival(flow)) }
+    @Synchronized fun handoverSnapshot(): HandoverSnapshot? = HandoverJson.snapshot(state.optJSONObject("handoverSnapshot"))
+    fun saveHandoverSnapshot(value: HandoverSnapshot) = change { it.put("handoverSnapshot", HandoverJson.snapshot(value)) }
+    @Synchronized fun handoverSettings(): HandoverSettings = HandoverJson.settings(state.optJSONObject("handoverSettings"))
+    fun saveHandoverSettings(value: HandoverSettings) = change { it.put("handoverSettings", HandoverJson.settings(value)) }
+    /** Written by F3 ([다음 사람에게 한마디]); F1 shows it on the next handover card. */
+    @Synchronized fun handoverNote(): String? = state.optString("handoverNote", "").takeIf { it.isNotBlank() }
+    fun saveHandoverNote(value: String?) = change { if (value.isNullOrBlank()) it.remove("handoverNote") else it.put("handoverNote", value) }
+    /** F3 takeover/return pairs (the caller keeps the last 50). Vehicle state only. */
+    @Synchronized fun handoverPairs(): List<HandoverPair> = HandoverJson.pairs(state.optJSONArray("handoverPairs"))
+    fun saveHandoverPairs(values: List<HandoverPair>) = change { it.put("handoverPairs", HandoverJson.pairs(values)) }
+    /** Fleet mode trip lines. */
+    @Synchronized fun trips(): List<TripEntry> = HandoverJson.trips(state.optJSONArray("tripLog"))
+    fun saveTrips(values: List<TripEntry>) = change { it.put("tripLog", HandoverJson.trips(values)) }
+    /** "Clear all": every record this car keeps about its state; settings stay. */
+    fun clearRecords() = change { root ->
+        listOf("warningHistory", "handoverSnapshot", "handoverPairs", "tripLog", "handoverNote").forEach { root.remove(it) }
+    }
     @Synchronized fun maintenance(): Map<MaintenanceItem, Long> {
         val values = state.optJSONObject("maintenance") ?: return emptyMap()
         return MaintenanceItem.entries.mapNotNull { item ->

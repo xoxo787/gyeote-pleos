@@ -85,3 +85,12 @@ __pycache__/
 !app/docs/polish-exit-state.json
 !app/docs/polish-static-verification.json
 !app/docs/polish-vehicle.log
+
+# 피벗 F1~F3 VERIFICATION 문서가 링크하는 로그(작업 D9, 2026-10-27; 개인 경로 0건 확인)
+# return-vehicle.log는 작업 H4(2026-10-27) 에뮬레이터 검증 뒤 추가
+!app/docs/handover-build-verification.log
+!app/docs/handover-vehicle.log
+!app/docs/tour-build-verification.log
+!app/docs/tour-vehicle.log
+!app/docs/return-build-verification.log
+!app/docs/return-vehicle.log

@@ -37,7 +37,7 @@ function must(r, status, what) {
 }
 
 (async () => {
-  console.log(`곁에 데모 차(흉내) -> ${BASE}\n`);
+  console.log(`Passer 데모 차(흉내) -> ${BASE}\n`);
   must(await http('GET', '/health'), 200, '서버 상태');
 
   // 1. 가족 만들기 (부모 = 차)

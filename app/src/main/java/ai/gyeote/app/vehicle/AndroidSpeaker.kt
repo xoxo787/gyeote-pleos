@@ -42,18 +42,19 @@ class AndroidSpeaker(context: Context) : Speaker {
             } else status = "음성 엔진이 없어 화면으로 안내해요"
         }
         engine.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(utteranceId: String?) = Unit
-            override fun onDone(utteranceId: String?) { audio.abandonAudioFocusRequest(focus) }
+            // Debug evidence only: utterance lifecycle, never the spoken text.
+            override fun onStart(utteranceId: String?) { vehicleLog("tts=start") }
+            override fun onDone(utteranceId: String?) { vehicleLog("tts=done"); audio.abandonAudioFocusRequest(focus) }
             @Deprecated("platform callback")
-            override fun onError(utteranceId: String?) { audio.abandonAudioFocusRequest(focus) }
+            override fun onError(utteranceId: String?) { vehicleLog("tts=error"); audio.abandonAudioFocusRequest(focus) }
         })
     }
     override fun speak(text: String) {
         if (closed) return
-        if (!ready) { queued = text; return }
+        if (!ready) { queued = text; vehicleLog("tts=queued status=$status"); return }
         if (audio.requestAudioFocus(focus) == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
             engine.speak(text, TextToSpeech.QUEUE_FLUSH, null, "gyeote-guidance")
-        }
+        } else vehicleLog("tts=focusDenied")
     }
     override fun stop() { queued = null; engine.stop(); audio.abandonAudioFocusRequest(focus) }
     override fun close() { closed = true; stop(); engine.shutdown() }

@@ -8,5 +8,5 @@ const server = createApp({
   corsOrigin: process.env.CORS_ORIGIN || '*',
 });
 server.listen(port, host, () => {
-  console.log(`곁에 데모 서버가 켜졌어요: http://localhost:${port}  (자녀용 웹: /child/)`);
+  console.log(`Passer 데모 서버가 켜졌어요: http://localhost:${port}  (자녀용 웹: /child/)`);
 });

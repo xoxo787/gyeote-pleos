@@ -1,0 +1,226 @@
+10-31 00:47:10.176 18179 18179 I GyeoteVehicle: uxRestricted=true
+10-31 00:47:10.189 18179 18179 I GyeoteVehicle: navigation=connected
+10-31 00:47:11.433 18179 18179 I GyeoteVehicle: telltalePath=privateSubscription+publicPoll
+10-31 00:47:12.461 18179 18179 I GyeoteVehicle: gear=PARK
+10-31 00:47:12.461 18179 18179 I GyeoteVehicle: gear=DRIVE
+10-31 00:47:12.461 18179 18179 I GyeoteVehicle: journeyEvent=DEPARTED
+10-31 00:47:12.463 18179 18213 I GyeoteVehicle: tireCapabilities unavailable: a ERROR_NOT_SUPPORTED_PROPERTY
+10-31 00:47:12.473 18179 18179 I GyeoteVehicle: gear=DRIVE
+10-31 00:47:12.474 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:12.474 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:12.474 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:12.475 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:12.475 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:12.475 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:12.475 18179 18179 I GyeoteVehicle: brakePressed=false
+10-31 00:47:12.475 18179 18179 I GyeoteVehicle: brakePressed=false
+10-31 00:47:12.475 18179 18179 I GyeoteVehicle: brakePressed=false
+10-31 00:47:12.484 18179 18179 I GyeoteVehicle: socPercent=41
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: socPercent=41
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: socPercent=41
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: chargePortOpen=false
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: chargePortOpen=false
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: turnSignal=OFF
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: turnSignal=OFF
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: turnSignal=OFF
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: steeringSdk=-0.0 steering=0.0
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: seat=ROW_1_LEFT occupied=false
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: seat=ROW_1_RIGHT occupied=true
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: seat=ROW_1_LEFT occupied=false
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: seat=ROW_1_RIGHT occupied=true
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: seat=ROW_1_RIGHT occupied=true
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: seat=ROW_1_LEFT occupied=false
+10-31 00:47:12.485 18179 18179 I GyeoteVehicle: seat=ROW_1_RIGHT occupied=true
+10-31 00:47:12.492 18179 18179 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:47:12.492 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:12.492 18179 18179 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:47:12.492 18179 18179 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:47:12.492 18179 18179 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:47:12.493 18179 18179 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:47:12.493 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.493 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.493 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.493 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.493 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.493 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.493 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.494 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.495 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.496 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.498 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.502 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.504 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:12.504 18179 18179 I GyeoteVehicle: windowOpen=false
+10-31 00:47:15.478 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:16.581 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:16.582 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:18.479 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:20.243 18179 18179 I GyeoteVehicle: telltales=TPMS
+10-31 00:47:20.264 18179 18179 I GyeoteVehicle: warningHistory records=7 open=1
+10-31 00:47:20.265 18179 18179 I GyeoteVehicle: tts=queued status=음성 엔진이 없어 화면으로 안내해요
+10-31 00:47:20.581 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:20.582 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:21.481 18179 18179 I GyeoteVehicle: telltales=TPMS
+10-31 00:47:24.483 18179 18179 I GyeoteVehicle: telltales=TPMS
+10-31 00:47:24.779 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:24.793 18179 18179 I GyeoteVehicle: warningHistory records=7 open=0
+10-31 00:47:25.582 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:25.583 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:27.486 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:28.584 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:28.584 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:29.388 18179 18179 I GyeoteVehicle: socPercent=60
+10-31 00:47:30.483 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:30.627 18179 18179 I GyeoteVehicle: socPercent=54
+10-31 00:47:33.486 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:33.584 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:33.584 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:33.954 18179 18179 I GyeoteVehicle: steeringSdk=-120.0 steering=120.0
+10-31 00:47:35.381 18179 18179 I GyeoteVehicle: steeringSdk=-0.0 steering=0.0
+10-31 00:47:36.019 18179 18179 I GyeoteVehicle: turnSignal=LEFT
+10-31 00:47:36.487 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:37.287 18179 18179 I GyeoteVehicle: turnSignal=OFF
+10-31 00:47:38.171 18179 18179 I GyeoteVehicle: seat=ROW_1_LEFT occupied=true
+10-31 00:47:38.581 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:38.585 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:39.488 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:42.490 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:42.582 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:42.583 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:42.691 18179 18179 I GyeoteVehicle: seat=ROW_1_LEFT occupied=false
+10-31 00:47:42.753 18179 18179 I GyeoteVehicle: gear=PARK
+10-31 00:47:42.756 18179 18179 I GyeoteVehicle: restricted=false
+10-31 00:47:44.272 18179 18179 I GyeoteVehicle: chargePortOpen=true
+10-31 00:47:45.100 18179 18179 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:47:45.101 18179 18179 I GyeoteVehicle: returnCard shown mode=RENTAL gear=PARK soc=54->54 distanceKm=42.0 newWarnings=0 names= window=false
+10-31 00:47:45.492 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:45.587 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:45.587 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:47.502 18179 18179 I GyeoteVehicle: journeyEvent=ARRIVED
+10-31 00:47:47.727 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:47:47.727 18179 18179 I GyeoteVehicle: handoverCard shown mode=RENTAL gear=PARK
+10-31 00:47:47.727 18179 18179 I GyeoteVehicle: returnCard hidden gear=PARK restricted=false
+10-31 00:47:48.491 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:50.518 18179 18179 I GyeoteVehicle: handoverSpeech length=SHORT chars=86
+10-31 00:47:50.518 18179 18179 I GyeoteVehicle: tts=queued status=음성 엔진이 없어 화면으로 안내해요
+10-31 00:47:50.581 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:50.582 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:51.494 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:54.497 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:54.581 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:54.583 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:57.498 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:47:58.582 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:47:58.582 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:47:59.062 18179 18179 I GyeoteVehicle: handoverSnapshot saved soc=54 odometerKm=12387.0 warnings= door=false trunk=false chargePort=true restored=true via=accept
+10-31 00:48:00.502 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:48:02.589 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:02.589 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:03.503 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:48:03.866 18179 18179 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:48:05.071 18179 18179 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:06.503 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:48:06.583 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:06.584 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:08.792 18179 18179 I GyeoteVehicle: gear=DRIVE
+10-31 00:48:08.792 18179 18179 I GyeoteVehicle: journeyEvent=DEPARTED
+10-31 00:48:08.817 18179 18179 I GyeoteVehicle: restricted=true
+10-31 00:48:09.505 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:48:10.581 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:10.581 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:12.506 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:48:14.584 18179 18179 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:14.584 18179 18179 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:15.218 18179 18179 I GyeoteVehicle: gear=PARK
+10-31 00:48:15.221 18179 18179 I GyeoteVehicle: restricted=false
+10-31 00:48:15.509 18179 18179 I GyeoteVehicle: telltales=
+10-31 00:48:16.966 30834 30834 I GyeoteVehicle: uxRestricted=false
+10-31 00:48:16.975 30834 30834 I GyeoteVehicle: navigation=connected
+10-31 00:48:18.183 30834 30834 I GyeoteVehicle: telltalePath=privateSubscription+publicPoll
+10-31 00:48:19.104 30834 30834 I GyeoteVehicle: gear=PARK
+10-31 00:48:19.104 30834 30834 I GyeoteVehicle: handoverCard shown mode=RENTAL gear=PARK
+10-31 00:48:19.104 30834 30834 I GyeoteVehicle: restricted=false
+10-31 00:48:19.104 30834 30834 I GyeoteVehicle: gear=PARK
+10-31 00:48:19.104 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:19.105 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:19.105 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:19.105 30834 30834 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:19.105 30834 30834 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:19.105 30834 30834 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:19.105 30834 30834 I GyeoteVehicle: brakePressed=false
+10-31 00:48:19.105 30834 30834 I GyeoteVehicle: brakePressed=false
+10-31 00:48:19.105 30834 30834 I GyeoteVehicle: brakePressed=false
+10-31 00:48:19.106 30834 31259 I GyeoteVehicle: tireCapabilities unavailable: a ERROR_NOT_SUPPORTED_PROPERTY
+10-31 00:48:19.114 30834 30834 I GyeoteVehicle: socPercent=54
+10-31 00:48:19.114 30834 30834 I GyeoteVehicle: socPercent=54
+10-31 00:48:19.114 30834 30834 I GyeoteVehicle: socPercent=54
+10-31 00:48:19.114 30834 30834 I GyeoteVehicle: chargePortOpen=true
+10-31 00:48:19.114 30834 30834 I GyeoteVehicle: chargePortOpen=true
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: turnSignal=OFF
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: turnSignal=OFF
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: turnSignal=OFF
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: steeringSdk=-0.0 steering=0.0
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: seat=ROW_1_LEFT occupied=false
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: seat=ROW_1_RIGHT occupied=true
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: seat=ROW_1_LEFT occupied=false
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: seat=ROW_1_RIGHT occupied=true
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: seat=ROW_1_LEFT occupied=false
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: seat=ROW_1_RIGHT occupied=true
+10-31 00:48:19.115 30834 30834 I GyeoteVehicle: seat=ROW_1_RIGHT occupied=true
+10-31 00:48:19.120 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:19.120 30834 30834 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:48:19.120 30834 30834 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:48:19.120 30834 30834 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:48:19.120 30834 30834 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:48:19.120 30834 30834 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:48:19.120 30834 30834 I GyeoteVehicle: doorOpen=true locked=true
+10-31 00:48:19.120 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.120 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.121 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.121 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.121 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.121 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.121 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.123 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.123 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.124 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.125 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.126 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:19.127 30834 30834 I GyeoteVehicle: windowOpen=false
+10-31 00:48:19.128 30834 30834 I GyeoteVehicle: doorOpen=false locked=true
+10-31 00:48:21.109 30834 30834 I GyeoteVehicle: handoverSpeech length=SHORT chars=86
+10-31 00:48:21.109 30834 30834 I GyeoteVehicle: tts=queued status=음성 엔진이 없어 화면으로 안내해요
+10-31 00:48:21.582 30834 30834 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:21.888 30834 30834 I GyeoteVehicle: handoverSnapshot saved soc=54 odometerKm=12387.0 warnings= door=false trunk=false chargePort=true restored=true via=accept
+10-31 00:48:22.108 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:23.600 30834 30834 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:25.112 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:26.580 30834 30834 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:27.581 30834 30834 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:28.114 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:30.582 30834 30834 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:30.582 30834 30834 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:31.116 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:33.583 30834 30834 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:33.584 30834 30834 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:34.117 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:37.118 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:37.581 30834 30834 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:37.582 30834 30834 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:40.120 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:41.581 30834 30834 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:41.582 30834 30834 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:43.122 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:45.581 30834 30834 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:45.581 30834 30834 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:46.123 30834 30834 I GyeoteVehicle: telltales=
+10-31 00:48:48.583 30834 30834 I GyeoteVehicle: odometerKm=12387.0
+10-31 00:48:48.583 30834 30834 I GyeoteVehicle: rangeMeters=210000.0
+10-31 00:48:48.798 30834 30834 I GyeoteVehicle: chargePortOpen=false
+10-31 00:48:49.126 30834 30834 I GyeoteVehicle: telltales=

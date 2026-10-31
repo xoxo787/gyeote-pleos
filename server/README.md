@@ -1,4 +1,4 @@
-# 곁에 데모 서버
+# Passer 데모 서버
 
 `docs/api_contract.md` v0.1을 구현한 데모 서버 + 자녀용 웹. Node.js 내장 모듈만 쓴다(npm 설치 없음, Node 20 이상).
 

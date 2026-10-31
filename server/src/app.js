@@ -1,5 +1,5 @@
 'use strict';
-// 「곁에」 데모 서버 — docs/api_contract.md 구현. 내장 모듈만 사용한다.
+// Passer 데모 서버 — docs/api_contract.md 구현. 내장 모듈만 사용한다.
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');

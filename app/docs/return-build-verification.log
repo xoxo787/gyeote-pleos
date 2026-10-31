@@ -1,0 +1,185 @@
+
+> Configure project :app
+WARNING: The option setting 'android.overridePathCheck=true' is experimental.
+The current default is 'false'.
+
+> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:preBuild UP-TO-DATE
+> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:generateDebugBuildConfig UP-TO-DATE
+> Task :app:checkDebugAarMetadata UP-TO-DATE
+> Task :app:processDebugNavigationResources UP-TO-DATE
+> Task :app:compileDebugNavigationResources UP-TO-DATE
+> Task :app:generateDebugResValues UP-TO-DATE
+> Task :app:mapDebugSourceSetPaths UP-TO-DATE
+> Task :app:generateDebugResources UP-TO-DATE
+> Task :app:mergeDebugResources UP-TO-DATE
+> Task :app:packageDebugResources UP-TO-DATE
+> Task :app:parseDebugLocalResources UP-TO-DATE
+> Task :app:createDebugCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksDebug UP-TO-DATE
+> Task :app:processDebugMainManifest UP-TO-DATE
+> Task :app:processDebugManifest UP-TO-DATE
+> Task :app:processDebugManifestForPackage UP-TO-DATE
+> Task :app:processDebugResources UP-TO-DATE
+> Task :app:compileDebugKotlin UP-TO-DATE
+> Task :app:javaPreCompileDebug UP-TO-DATE
+> Task :app:compileDebugJavaWithJavac UP-TO-DATE
+> Task :app:bundleDebugClassesToRuntimeJar UP-TO-DATE
+> Task :app:bundleDebugClassesToCompileJar UP-TO-DATE
+> Task :app:preDebugUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileDebugUnitTest UP-TO-DATE
+> Task :app:processDebugJavaRes UP-TO-DATE
+> Task :app:buildKotlinToolingMetadata UP-TO-DATE
+> Task :app:preReleaseBuild UP-TO-DATE
+> Task :app:generateReleaseBuildConfig UP-TO-DATE
+> Task :app:checkReleaseAarMetadata UP-TO-DATE
+> Task :app:processReleaseNavigationResources
+> Task :app:compileReleaseNavigationResources UP-TO-DATE
+> Task :app:generateReleaseResValues UP-TO-DATE
+> Task :app:mapReleaseSourceSetPaths
+> Task :app:generateReleaseResources
+> Task :app:compileDebugUnitTestKotlin
+> Task :app:compileDebugUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processDebugUnitTestJavaRes UP-TO-DATE
+> Task :app:mergeReleaseResources
+> Task :app:testDebugUnitTest
+> Task :app:packageReleaseResources
+> Task :app:createReleaseCompatibleScreenManifests UP-TO-DATE
+> Task :app:extractDeepLinksRelease UP-TO-DATE
+> Task :app:parseReleaseLocalResources
+> Task :app:processReleaseMainManifest
+> Task :app:processReleaseManifest
+> Task :app:javaPreCompileRelease UP-TO-DATE
+> Task :app:preReleaseUnitTestBuild UP-TO-DATE
+> Task :app:javaPreCompileReleaseUnitTest UP-TO-DATE
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugShaders UP-TO-DATE
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:mergeDebugAssets UP-TO-DATE
+> Task :app:compressDebugAssets UP-TO-DATE
+> Task :app:desugarDebugFileDependencies UP-TO-DATE
+> Task :app:dexBuilderDebug
+> Task :app:mergeDebugGlobalSynthetics UP-TO-DATE
+> Task :app:mergeDebugJavaResource UP-TO-DATE
+> Task :app:checkDebugDuplicateClasses UP-TO-DATE
+> Task :app:mergeExtDexDebug UP-TO-DATE
+> Task :app:mergeLibDexDebug UP-TO-DATE
+> Task :app:processReleaseManifestForPackage
+> Task :app:mergeProjectDexDebug
+> Task :app:mergeDebugJniLibFolders UP-TO-DATE
+> Task :app:mergeDebugNativeLibs UP-TO-DATE
+> Task :app:stripDebugDebugSymbols UP-TO-DATE
+> Task :app:validateSigningDebug UP-TO-DATE
+> Task :app:writeDebugAppMetadata UP-TO-DATE
+> Task :app:writeDebugSigningConfigVersions UP-TO-DATE
+> Task :app:packageDebug
+> Task :app:createDebugApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleDebug
+> Task :app:mergeReleaseJniLibFolders UP-TO-DATE
+> Task :app:mergeReleaseNativeLibs UP-TO-DATE
+> Task :app:stripReleaseDebugSymbols UP-TO-DATE
+> Task :app:extractReleaseNativeSymbolTables UP-TO-DATE
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
+> Task :app:checkReleaseDuplicateClasses UP-TO-DATE
+> Task :app:desugarReleaseFileDependencies UP-TO-DATE
+> Task :app:mergeReleaseStartupProfile UP-TO-DATE
+> Task :app:mergeExtDexRelease UP-TO-DATE
+> Task :app:mergeReleaseArtProfile UP-TO-DATE
+> Task :app:mergeReleaseShaders UP-TO-DATE
+> Task :app:compileReleaseShaders NO-SOURCE
+> Task :app:generateReleaseAssets UP-TO-DATE
+> Task :app:mergeReleaseAssets UP-TO-DATE
+> Task :app:compressReleaseAssets UP-TO-DATE
+> Task :app:extractReleaseVersionControlInfo UP-TO-DATE
+> Task :app:extractProguardFiles UP-TO-DATE
+> Task :app:collectReleaseDependencies UP-TO-DATE
+> Task :app:sdkReleaseDependencyData UP-TO-DATE
+> Task :app:writeReleaseAppMetadata UP-TO-DATE
+> Task :app:writeReleaseSigningConfigVersions UP-TO-DATE
+> Task :app:preDebugAndroidTestBuild SKIPPED
+> Task :app:generateDebugAndroidTestResValues UP-TO-DATE
+> Task :app:generateDebugAndroidTestLintModel
+> Task :app:generateDebugLintReportModel
+> Task :app:generateDebugUnitTestLintModel
+> Task :app:processReleaseResources
+
+> Task :app:compileReleaseKotlin
+w: file:///<project>/app/src/main/java/ai/gyeote/app/MainActivity.kt:82:36 'val systemWindowInsetLeft: Int' is deprecated. Deprecated in Java.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/MainActivity.kt:82:66 'val systemWindowInsetTop: Int' is deprecated. Deprecated in Java.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/MainActivity.kt:83:24 'val systemWindowInsetRight: Int' is deprecated. Deprecated in Java.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/MainActivity.kt:83:55 'val systemWindowInsetBottom: Int' is deprecated. Deprecated in Java.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:132:41 The corresponding parameter in the supertype 'GearSelectionListener' is named 'gear'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:133:39 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:135:20 'fun registerGearSelection(listener: GearSelectionListener): Unit' is deprecated. This API is deprecated, use the Google GEAR_SELECTION property.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:135:76 'fun unregisterGearSelection(listener: GearSelectionListener): Unit' is deprecated. This API is deprecated, use the Google GEAR_SELECTION property.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:136:20 'fun getCurrentGearSelectionState(onComplete: (VehicleGear?) -> Unit, onFailed: (Exception) -> Unit): Unit' is deprecated. This API is deprecated, use the Google GEAR_SELECTION property.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:141:52 The corresponding parameter in the supertype 'TelltaleInfoListener' is named 'telltales'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:142:39 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:156:39 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:164:56 The corresponding parameter in the supertype 'BrakePedalStatusListener' is named 'status'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:165:39 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:177:56 The corresponding parameter in the supertype 'DoorPositionListener' is named 'pos'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:178:47 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:190:61 The corresponding parameter in the supertype 'DoorLockStateListener' is named 'state'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:191:47 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:206:39 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:211:56 The corresponding parameter in the supertype 'EvChargePortOpenListener' is named 'isOpened'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:214:39 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:216:20 'fun registerEvChargePortOpen(listener: EvChargePortOpenListener): Unit' is deprecated. This API is deprecated, use the Google EV_CHARGE_PORT_OPEN property.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:216:75 'fun unregisterEvChargePortOpen(listener: EvChargePortOpenListener): Unit' is deprecated. This API is deprecated, use the Google EV_CHARGE_PORT_OPEN property.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:217:20 'fun isEvChargePortOpen(onComplete: (Boolean?) -> Unit, onFailed: (Exception) -> Unit): Unit' is deprecated. This API is deprecated, use the Google EV_CHARGE_PORT_OPEN property.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:223:54 The corresponding parameter in the supertype 'RangeRemainingListener' is named 'rangeRemaining'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:226:39 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:228:20 'fun registerRangeRemainingListener(listener: RangeRemainingListener): Unit' is deprecated. This API is deprecated, use the Google RANGE_REMAINING property.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:228:85 'fun unregisterRangeRemainingListener(listener: RangeRemainingListener): Unit' is deprecated. This API is deprecated, use the Google RANGE_REMAINING property.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:229:20 'fun getRangeRemainingDistance(onComplete: (Float?) -> Unit, onFailed: (Exception) -> Unit): Unit' is deprecated. This API is deprecated, use the Google RANGE_REMAINING property.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:234:55 The corresponding parameter in the supertype 'TurnSignalStateListener' is named 'state'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:243:39 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:251:58 The corresponding parameter in the supertype 'SteeringWheelAngleListener' is named 'angle'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:255:39 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:265:57 The corresponding parameter in the supertype 'SeatOccupancyListener' is named 'occupancy'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:269:43 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:283:62 The corresponding parameter in the supertype 'WindowPositionListener' is named 'position'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:290:47 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:305:60 The corresponding parameter in the supertype 'TirePressureListener' is named 'pressure'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosAdapters.kt:306:47 The corresponding parameter in the supertype 'VehicleListener' is named 'e'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosNavigator.kt:30:43 The corresponding parameter in the supertype 'NaviHelperEventListener' is named 'destinationArrivedInfo'. This may cause problems when calling this function with named arguments.
+w: file:///<project>/app/src/main/java/ai/gyeote/app/vehicle/PleosNavigator.kt:33:37 The corresponding parameter in the supertype 'NaviHelperEventListener' is named 'routeStartInfo'. This may cause problems when calling this function with named arguments.
+
+> Task :app:compileReleaseJavaWithJavac UP-TO-DATE
+> Task :app:bundleReleaseClassesToRuntimeJar
+> Task :app:bundleReleaseClassesToCompileJar
+> Task :app:compileReleaseUnitTestKotlin
+> Task :app:compileReleaseUnitTestJavaWithJavac NO-SOURCE
+> Task :app:processReleaseJavaRes UP-TO-DATE
+> Task :app:processReleaseUnitTestJavaRes UP-TO-DATE
+> Task :app:testReleaseUnitTest
+> Task :app:test
+> Task :app:dexBuilderRelease
+> Task :app:mergeDexRelease
+> Task :app:mergeReleaseGlobalSynthetics UP-TO-DATE
+> Task :app:compileReleaseArtProfile
+> Task :app:generateReleaseLintVitalReportModel
+> Task :app:lintVitalAnalyzeRelease
+> Task :app:lintVitalReportRelease
+> Task :app:lintVitalRelease
+> Task :app:mergeReleaseJavaResource UP-TO-DATE
+> Task :app:optimizeReleaseResources
+> Task :app:packageRelease
+> Task :app:createReleaseApkListingFileRedirect UP-TO-DATE
+> Task :app:assembleRelease
+> Task :app:lintAnalyzeDebugAndroidTest
+> Task :app:lintAnalyzeDebug
+> Task :app:lintAnalyzeDebugUnitTest
+
+> Task :app:lintReportDebug
+Wrote HTML report to file:///<project>/app/build/reports/lint-results-debug.html
+
+> Task :app:lintDebug
+
+BUILD SUCCESSFUL in 20s
+111 actionable tasks: 37 executed, 74 up-to-date
+
+[summary] Debug 244 tests, Release 244 tests, failures 0, errors 0, skipped 0. lintDebug: Error 0, Warning 8 (Aligned16KB, AndroidGradlePluginVersion, GradleDependency, KtxExtensionAvailable, NewerVersionAvailable).

@@ -20,7 +20,7 @@ internal class Signal<T>(initial: T) {
 
 /** Owned by the main thread. All console actions go through the same ports as real signals. */
 class FakeVehicle(initiallyRestricted: Boolean = false) : TelltaleSource, OdometerSource, DoorSource, BrakeSource, TireSource,
-    GearSource, Navigator, Listener, DrivingStateSource {
+    GearSource, Navigator, Listener, DrivingStateSource, EnergySource, TurnSignalSource, SteeringSource, SeatSource, WindowSource {
     private val warnings = Signal(emptySet<WarningCode>())
     private val distance = Signal(11_900.0)
     private val doors = Signal(DoorState(open = true, locked = false))
@@ -28,7 +28,13 @@ class FakeVehicle(initiallyRestricted: Boolean = false) : TelltaleSource, Odomet
     private val restrictions = Signal(initiallyRestricted)
     private val gears = Signal(GearSelection.UNKNOWN)
     private val tires = Signal(TireState(lowPressure = false))
+    private val energy = Signal(EnergyState(socPercent = 80, rangeKm = 320.0, chargePortOpen = false))
+    private val turn = Signal(TurnSignal.OFF)
+    private val steering = Signal<Float?>(0f)
+    private val seats = Signal(SeatOccupancy(driver = true, passenger = false))
+    private val windows = Signal<Boolean?>(false)
     private val arrivalListeners = linkedSetOf<() -> Unit>()
+    private val nameListeners = linkedSetOf<(String) -> Unit>()
     private var textListener: ((String) -> Unit)? = null
     var tireLow: Boolean?
         get() = tires.value.lowPressure
@@ -41,6 +47,9 @@ class FakeVehicle(initiallyRestricted: Boolean = false) : TelltaleSource, Odomet
     val restricted get() = restrictions.value
     val activeWarnings get() = warnings.value
     val gearSelection get() = gears.value
+    val energyState get() = energy.value
+    val turnSignal get() = turn.value
+    val steeringAngle get() = steering.value
     override val status get() = if (lastRoute == null) "모의 길안내 준비 중" else "모의 길안내 요청 기록됨 · 실제 경로는 열지 않았어요"
 
     override fun observeTelltales(callback: (Set<WarningCode>) -> Unit) = warnings.observe(callback)
@@ -51,6 +60,19 @@ class FakeVehicle(initiallyRestricted: Boolean = false) : TelltaleSource, Odomet
     override fun currentTires() = tires.value
     override fun observeTires(callback: (TireState) -> Unit) = tires.observe(callback)
     override fun observeGear(callback: (GearSelection) -> Unit) = gears.observe(callback)
+    override fun observeEnergy(callback: (EnergyState) -> Unit) = energy.observe(callback)
+    override fun observeTurnSignal(callback: (TurnSignal) -> Unit) = turn.observe(callback)
+    override fun observeSteeringAngle(callback: (Float?) -> Unit) = steering.observe(callback)
+    override fun observeSeats(callback: (SeatOccupancy) -> Unit) = seats.observe(callback)
+    override fun observeWindows(callback: (Boolean?) -> Unit) = windows.observe(callback)
+    override fun onDestinationName(callback: (String) -> Unit): Subscription {
+        nameListeners += callback
+        return Subscription { nameListeners -= callback }
+    }
+    /** Simulates the navigation reporting a destination name (route start). */
+    fun setDestinationName(name: String) { nameListeners.toList().forEach { it(name) } }
+    fun setWindowOpen(open: Boolean?) = windows.emit(open)
+    val windowOpen get() = windows.value
     override fun requestRoute(destination: Destination): Boolean {
         if (restrictions.value) return false
         lastRoute = destination
@@ -64,9 +86,16 @@ class FakeVehicle(initiallyRestricted: Boolean = false) : TelltaleSource, Odomet
     override fun cancel() { textListener = null }
     fun injectText(text: String) { textListener?.invoke(text) }
     fun setRestriction(restricted: Boolean) = restrictions.emit(restricted)
-    fun setDoor(open: Boolean, locked: Boolean = !open) = doors.emit(DoorState(open, locked && !open))
+    fun setDoor(open: Boolean, locked: Boolean = !open) = doors.emit(DoorState(open, locked && !open, trunkOpen = doors.value.trunkOpen))
     fun setBrake(pressed: Boolean) = brake.emit(pressed)
     fun setGear(gear: GearSelection) = gears.emit(gear)
+    fun setTrunk(open: Boolean) = doors.emit(doors.value.copy(trunkOpen = open))
+    fun setBattery(socPercent: Int?, rangeKm: Double? = energy.value.rangeKm) = energy.emit(energy.value.copy(socPercent = EnergyState.soc(socPercent), rangeKm = rangeKm))
+    fun setChargePort(open: Boolean) = energy.emit(energy.value.copy(chargePortOpen = open))
+    fun setTurnSignal(value: TurnSignal) = turn.emit(value)
+    /** Takes the SDK's raw value so tests exercise the same sign correction as the Pleos adapter. */
+    fun setSteeringFromSdk(sdkDegrees: Float?) = steering.emit(SteeringCalibration.normalize(sdkDegrees))
+    fun setSeats(value: SeatOccupancy) = seats.emit(value)
     fun setTirePressure(wheel: WheelPosition, pressure: Float?, unit: String? = null) {
         val values = tires.value.pressures.toMutableMap()
         if (pressure != null && pressure.isFinite() && pressure >= 0) values[wheel] = pressure else values.remove(wheel)
@@ -77,5 +106,6 @@ class FakeVehicle(initiallyRestricted: Boolean = false) : TelltaleSource, Odomet
         if (code in warnings.value) warnings.value - code else warnings.value + code,
     )
     fun arrive() { arrivalListeners.toList().forEach { it() } }
-    fun adapters(speaker: Speaker) = VehicleAdapters(this, this, this, this, this, this, speaker, this, this, this)
+    fun adapters(speaker: Speaker) = VehicleAdapters(this, this, this, this, this, this, speaker, this, this, this,
+        energy = this, turnSignal = this, steering = this, seats = this, windows = this)
 }

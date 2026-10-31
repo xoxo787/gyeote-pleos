@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">곁에</string>
-    <string name="app_tagline">차는 쉽게, 마음은 가까이</string>
+    <string name="app_name">Passer</string>
+    <!-- Left empty on purpose: decided together with the app name. -->
+    <string name="app_tagline" translatable="false"></string>
 </resources>

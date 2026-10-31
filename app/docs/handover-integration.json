@@ -1,0 +1,339 @@
+{
+  "at": "2026-10-31T07:48:50.693067+00:00",
+  "serial": "emulator-5554",
+  "testProfile": "handoverH1",
+  "results": [
+    {
+      "scenario": "no-card-in-drive",
+      "expected": "Started in D: no handover card, driving card has no input",
+      "observed": {
+        "cardLog": null,
+        "buttons": []
+      },
+      "passed": true
+    },
+    {
+      "scenario": "1-tpms-history",
+      "expected": "Console TPMS On -> Off creates a closed history record",
+      "observed": {
+        "on": "10-31 00:47:20.264 18179 18179 I GyeoteVehicle: warningHistory records=7 open=1",
+        "off": "10-31 00:47:24.793 18179 18179 I GyeoteVehicle: warningHistory records=7 open=0"
+      },
+      "passed": true
+    },
+    {
+      "scenario": "2-energy-odometer",
+      "expected": "SDK delivers SOC 54, the written odometer and range 210000 m (meters)",
+      "observed": {
+        "soc": "10-31 00:47:30.627 18179 18179 I GyeoteVehicle: socPercent=54",
+        "odometer": "10-31 00:47:33.584 18179 18179 I GyeoteVehicle: odometerKm=12387.0",
+        "range": "10-31 00:47:33.584 18179 18179 I GyeoteVehicle: rangeMeters=210000.0"
+      },
+      "passed": true
+    },
+    {
+      "scenario": "2-odometer-exactly-12345",
+      "expected": "Odometer set to exactly 12,345 km",
+      "observed": {
+        "target": 12387,
+        "currentBefore": 12387,
+        "http": 200,
+        "note": "console refuses a decreasing odometer; emulator was already past 12,345 km"
+      },
+      "passed": false
+    },
+    {
+      "scenario": "port-steering-sign",
+      "expected": "Console steering +120 -> SDK -120 -> app +120",
+      "observed": "10-31 00:47:33.954 18179 18179 I GyeoteVehicle: steeringSdk=-120.0 steering=120.0",
+      "passed": true
+    },
+    {
+      "scenario": "port-turn-signal",
+      "expected": "Console BlinkLeft -> app LEFT",
+      "observed": "10-31 00:47:36.019 18179 18179 I GyeoteVehicle: turnSignal=LEFT",
+      "passed": true
+    },
+    {
+      "scenario": "port-seat-occupancy",
+      "expected": "Seat occupancy is received (console write format unconfirmed)",
+      "observed": {
+        "initialRead": "10-31 00:47:38.171 18179 18179 I GyeoteVehicle: seat=ROW_1_LEFT occupied=true",
+        "consoleWriteHttp": 200,
+        "afterWrite": null
+      },
+      "passed": true
+    },
+    {
+      "scenario": "3-trigger",
+      "expected": "Card only after P + driver door open -> closed",
+      "observed": {
+        "beforeClose": null,
+        "afterClose": "10-31 00:47:47.727 18179 18179 I GyeoteVehicle: handoverCard shown mode=RENTAL gear=PARK"
+      },
+      "passed": true
+    },
+    {
+      "scenario": "3-card-content",
+      "expected": "Card shows SOC, range, history, odometer and charge port",
+      "observed": [
+        "Passer",
+        "정차 중 · Pleos 차량",
+        "인계 방식 · 렌터카·카셰어",
+        "오늘",
+        "기록",
+        "설정",
+        "모의",
+        "차를 넘겨받는 순간 · 정차 중",
+        "안녕하세요. 지금 제 상태를 말씀드릴게요.",
+        "배터리",
+        "배터리 54% · 갈 수 있는 거리 약 210km",
+        "지금 켜진 경고등",
+        "없어요.",
+        "최근 켜졌던 경고등",
+        "타이어 바람 7번 (오늘)\n앱이 켜져 있던 동안의 기록이에요.",
+        "누적 주행거리",
+        "12,387km",
+        "문·트렁크·충전구",
+        "열려 있어요: 충전구\n닫혀 있어요: 문·트렁크",
+        "인수했어요",
+        "처음 타요",
+        "다시 듣기",
+        "[인수했어요]를 누르면 지금 차 상태(시각·배터리·누적 거리·켜진 경고등·문·충전구)만 이 차 안에 남겨요."
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "3-tts",
+      "expected": "Same content spoken (TTS utterance started)",
+      "observed": {
+        "speech": "10-31 00:47:50.518 18179 18179 I GyeoteVehicle: handoverSpeech length=SHORT chars=86",
+        "tts": "10-31 00:47:50.518 18179 18179 I GyeoteVehicle: tts=queued status=음성 엔진이 없어 화면으로 안내해요",
+        "note": "app requested speech; this emulator has no local Korean TTS voice (see VERIFICATION_car.md)"
+      },
+      "passed": false
+    },
+    {
+      "scenario": "3-first-ride",
+      "expected": "[처음 타요] is offered on the card (tour flow: tour_integration.py)",
+      "observed": true,
+      "passed": true
+    },
+    {
+      "scenario": "3-snapshot",
+      "expected": "[인수했어요] stores vehicle-only snapshot and reads it back",
+      "observed": "10-31 00:47:59.062 18179 18179 I GyeoteVehicle: handoverSnapshot saved soc=54 odometerKm=12387.0 warnings= door=false trunk=false chargePort=true restored=true via=accept",
+      "passed": true
+    },
+    {
+      "scenario": "3-home-after-accept",
+      "expected": "Home shows the stored handover",
+      "observed": [
+        "Passer",
+        "정차 중 · Pleos 차량",
+        "인계 방식 · 렌터카·카셰어",
+        "오늘",
+        "기록",
+        "설정",
+        "모의",
+        "오늘",
+        "차량 안내",
+        "켜진 경고등이 없어요",
+        "차량이 보내온 상태예요.\n필요한 순간, 쉬운 말로 알려드릴게요.",
+        "차를 넘겨받을 때",
+        "마지막 인수 기록\n10월 31일 00:47 · 배터리 54% · 누적 12,387km · 켜진 경고등 없음 · 문 닫힘 · 트렁크 닫힘 · 충전구 열림",
+        "인계 설정",
+        "기록 보기  ·  경고등 · 인계 이력",
+        "기어 PARK · 문 닫힘",
+        "인수 기록을 남겼어요. 차 상태만 저장했어요.",
+        "최근 경고 기록",
+        "10월 31일 오전, 달리는 중에 타이어 바람 경고가 1번 켜졌다가 4초 뒤 꺼졌어요.",
+        "배터리와 충전구",
+        "배터리 54% · 약 210km\n충전구 열림"
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "same-boarding-once",
+      "expected": "Second door cycle in P without driving: no new card",
+      "observed": null,
+      "passed": true
+    },
+    {
+      "scenario": "drive-no-input",
+      "expected": "In D the screen shows no handover buttons",
+      "observed": [
+        "운전에 집중해 주세요. 안내는 정차 후 보여 드릴게요."
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "restart-restore",
+      "expected": "After force-stop the snapshot is read from SecureStore; start in P offers once",
+      "observed": {
+        "startCard": "10-31 00:48:19.104 30834 30834 I GyeoteVehicle: handoverCard shown mode=RENTAL gear=PARK",
+        "ui": [
+          "Passer",
+          "정차 중 · Pleos 차량",
+          "인계 방식 · 렌터카·카셰어",
+          "오늘",
+          "기록",
+          "설정",
+          "모의",
+          "인계 설정",
+          "운전자가 바뀔 때 차가 자기 상태를\n먼저 알려 드려요.",
+          "쓰는 방식",
+          "렌터카·카셰어 · 기본",
+          "법인·택시",
+          "함께 쓰는 차",
+          "끄기",
+          "끄기를 고르면 인계 카드를 띄우지 않아요.",
+          "말하는 길이",
+          "짧게 · 약 15초",
+          "보통 · 약 30초",
+          "화면에는 늘 모든 줄을 보여 드려요.",
+          "마지막 인수 기록",
+          "10월 31일 00:48 · 배터리 54% · 누적 12,387km · 켜진 경고등 없음 · 문 닫힘 · 트렁크 닫힘 · 충전구 열림",
+          "차 상태만 이 차 안에 암호화해 저장해요.",
+          "처음 3분 투어",
+          "핸들·브레이크·방향지시등을 직접 움직여 보는 미션 3개예요. 정차 중(P)에만 할 수 있어요.",
+          "투어 다시 하기",
+          "기록 모두 지우기",
+          "경고등 기록·인계 이력·운행 표·마지막 인수 기록·남긴 한마디를 이 차에서 지워요. 설정은 그대로 둬요.",
+          "모두 지우기"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "settings-mode-order",
+      "expected": "Settings modes in order 렌터카·카셰어 / 법인·택시 / 함께 쓰는 차 / 끄기",
+      "observed": {
+        "positions": [
+          10,
+          11,
+          12,
+          13
+        ],
+        "ui": [
+          "Passer",
+          "정차 중 · Pleos 차량",
+          "인계 방식 · 렌터카·카셰어",
+          "오늘",
+          "기록",
+          "설정",
+          "모의",
+          "인계 설정",
+          "운전자가 바뀔 때 차가 자기 상태를\n먼저 알려 드려요.",
+          "쓰는 방식",
+          "렌터카·카셰어 · 기본",
+          "법인·택시",
+          "함께 쓰는 차",
+          "끄기",
+          "끄기를 고르면 인계 카드를 띄우지 않아요.",
+          "말하는 길이",
+          "짧게 · 약 15초",
+          "보통 · 약 30초",
+          "화면에는 늘 모든 줄을 보여 드려요.",
+          "마지막 인수 기록",
+          "10월 31일 00:48 · 배터리 54% · 누적 12,387km · 켜진 경고등 없음 · 문 닫힘 · 트렁크 닫힘 · 충전구 열림",
+          "차 상태만 이 차 안에 암호화해 저장해요.",
+          "처음 3분 투어",
+          "핸들·브레이크·방향지시등을 직접 움직여 보는 미션 3개예요. 정차 중(P)에만 할 수 있어요.",
+          "투어 다시 하기",
+          "기록 모두 지우기",
+          "경고등 기록·인계 이력·운행 표·마지막 인수 기록·남긴 한마디를 이 차에서 지워요. 설정은 그대로 둬요.",
+          "모두 지우기"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ui-wording",
+      "expected": "No banned words or honorifics on reachable screens (mode label exception listed)",
+      "observed": {
+        "screens": [
+          "01-handover-card",
+          "03-after-accept-home",
+          "04-driving",
+          "05-settings-restored",
+          "ui-history",
+          "ui-home",
+          "ui-mechanic",
+          "ui-settings"
+        ],
+        "offending": {},
+        "modeLabelException": []
+      },
+      "passed": true
+    }
+  ],
+  "captures": [
+    {
+      "file": "screens/handover/01-handover-card.png",
+      "sha256": "300163bce2fadfc4c42d2db057ff5c4c35e9a0318fc4977fdd12770b7220cd12",
+      "expected_text": [
+        "안녕하세요. 지금 제 상태를 말씀드릴게요.",
+        "배터리 54%",
+        "약 210km",
+        "타이어 바람",
+        "번 (오늘)",
+        "12,387km",
+        "열려 있어요: 충전구"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/handover/03-after-accept-home.png",
+      "sha256": "d62763dc6d2fae73d249a499c853ad7e276e0f91ab1ce30581f0604e8a10e6fc",
+      "expected_text": [
+        "마지막 인수 기록",
+        "배터리 54%",
+        "충전구 열림"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/handover/04-driving.png",
+      "sha256": "6d4cdea665b575c1d63b7e716049c7645b5727a0145b3049021705a9bc6759fe",
+      "expected_text": [],
+      "passed": true
+    },
+    {
+      "file": "screens/handover/05-settings-restored.png",
+      "sha256": "d68d59a1da1a614274c66146484ed00ce6308a6c4e60c0ba83b785177451b72c",
+      "expected_text": [
+        "인계 설정",
+        "렌터카·카셰어",
+        "마지막 인수 기록",
+        "배터리 54%"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/handover/ui-home.png",
+      "sha256": "2d5ee1adf11507c63bb68ea3493d8b6bb8fa77637d151292e9a6fb2c6794843c",
+      "expected_text": [],
+      "passed": true
+    },
+    {
+      "file": "screens/handover/ui-history.png",
+      "sha256": "f3f83663215ef08f10bc976fd68e1c0920ee6e74350b94673cf7182ee983f080",
+      "expected_text": [],
+      "passed": true
+    },
+    {
+      "file": "screens/handover/ui-mechanic.png",
+      "sha256": "5f1db98b9c2ef8d59fb801bda207ffff49270a9e8dde94e42357392c76aeb4dc",
+      "expected_text": [],
+      "passed": true
+    },
+    {
+      "file": "screens/handover/ui-settings.png",
+      "sha256": "97967142b406d68b9c24ab68a97fa780c22c4cf9ed3002461df77caa73c5084f",
+      "expected_text": [],
+      "passed": true
+    }
+  ],
+  "apk_sha256": "d10a2cd0c0786e1002688e438ee52b3ccad31e0a8bf2fc0f0d9004dbb79d85f5"
+}

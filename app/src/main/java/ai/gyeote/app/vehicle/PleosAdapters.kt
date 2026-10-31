@@ -11,6 +11,10 @@ import ai.gyeote.app.domain.WarningCode
 import ai.gyeote.app.domain.TelltaleReading
 import ai.pleos.playground.vehicle.Vehicle
 import ai.pleos.playground.vehicle.api.model.telltale.Telltales
+import ai.pleos.playground.vehicle.api.model.area.SeatArea
+import ai.pleos.playground.vehicle.constant.area.WindowValue
+import ai.pleos.playground.vehicle.constant.area.SeatValue
+import ai.pleos.playground.vehicle.constant.area.TurnSignalValue
 import ai.pleos.playground.vehicle.constant.area.DoorValue
 import ai.pleos.playground.vehicle.constant.control.VehicleGear
 import ai.pleos.playground.vehicle.constant.telltale.TelltaleState
@@ -35,7 +39,7 @@ object PleosAdapters {
 internal fun vehicleLog(value: String) { if (BuildConfig.DEBUG) Log.i("GyeoteVehicle", value) }
 
 private class PleosVehicle(private val context: Context, private val publicTelltalesOnly: Boolean) : TelltaleSource, OdometerSource, DoorSource,
-    BrakeSource, TireSource, GearSource {
+    BrakeSource, TireSource, GearSource, EnergySource, TurnSignalSource, SteeringSource, SeatSource, WindowSource {
     private val main = Handler(Looper.getMainLooper())
     private val vehicle = Vehicle(context)
     private val driving = PlatformDrivingState(context)
@@ -47,6 +51,13 @@ private class PleosVehicle(private val context: Context, private val publicTellt
     private val brake = Signal(false)
     private val gears = Signal(GearSelection.UNKNOWN)
     private val tires = Signal(TireState())
+    private val energy = Signal(EnergyState())
+    private val turn = Signal(TurnSignal.UNKNOWN)
+    private val steering = Signal<Float?>(null)
+    private val seats = Signal(SeatOccupancy())
+    private val windows = Signal<Boolean?>(null)
+    private val windowPositions = mutableMapOf<WindowValue, Boolean>()
+    private val sideWindows = listOf(WindowValue.ROW_1_LEFT, WindowValue.ROW_1_RIGHT, WindowValue.ROW_2_LEFT, WindowValue.ROW_2_RIGHT)
     private val unregister = mutableListOf<() -> Unit>()
     private val positions = mutableMapOf<DoorValue, Boolean>()
     private val locks = mutableMapOf<DoorValue, Boolean>()
@@ -87,9 +98,13 @@ private class PleosVehicle(private val context: Context, private val publicTellt
         // Do not infer low pressure from an unverified numeric threshold.
         tires.emit(tires.value.copy(lowPressure = WarningCode.TPMS in codes))
     }
+    private val sideDoors = listOf(DoorValue.ROW_1_LEFT, DoorValue.ROW_1_RIGHT, DoorValue.ROW_2_LEFT, DoorValue.ROW_2_RIGHT)
     private fun door() {
-        val next = DoorState(open = positions.isEmpty() || positions.values.any { it },
-            locked = locks.isNotEmpty() && locks.values.all { it })
+        val side = positions.filterKeys { it in sideDoors }
+        // ROW_1_LEFT is treated as the driver door (left-hand drive, as sold in Korea); REAR is the trunk.
+        val next = DoorState(open = side.isEmpty() || side.values.any { it },
+            locked = locks.isNotEmpty() && locks.values.all { it },
+            driverOpen = positions[DoorValue.ROW_1_LEFT], trunkOpen = positions[DoorValue.REAR])
         vehicleLog("doorOpen=${next.open} locked=${next.locked}"); doors.emit(next)
     }
     private fun pressure(wheel: WheelPosition, value: Float?) = post {
@@ -157,7 +172,7 @@ private class PleosVehicle(private val context: Context, private val publicTellt
             source.checkDoorPositionCapabilities(onComplete = { _, supported ->
                 supported.keys.forEach { area ->
                     val key = area.values.firstOrNull() ?: return@forEach
-                    if (key !in listOf(DoorValue.ROW_1_LEFT, DoorValue.ROW_1_RIGHT, DoorValue.ROW_2_LEFT, DoorValue.ROW_2_RIGHT)) return@forEach
+                    if (key !in sideDoors + DoorValue.REAR) return@forEach
                     val listener = object : DoorPositionListener {
                         override fun onPositionUpdated(value: Int?) = post { if (value != null) { positions[key] = value > 0; door() } }
                         override fun onFailed(exception: Exception) = failed("door", exception)
@@ -182,6 +197,105 @@ private class PleosVehicle(private val context: Context, private val publicTellt
                 }
             }, onFailed = { failed("doorLockCapabilities", it) })
         }.onFailure { vehicleLog("doors unavailable: ${it.javaClass.simpleName}") }
+        runCatching {
+            val source = vehicle.getEvBattery()
+            val soc = object : EvBatteryStateOfChargeListener {
+                override fun onEvBatteryStateOfChargeUpdated(value: Int?) = post {
+                    energy.emit(energy.value.copy(socPercent = EnergyState.soc(value))); vehicleLog("socPercent=$value")
+                }
+                override fun onFailed(exception: Exception) = failed("soc", exception)
+            }
+            source.registerEvBatteryStateOfCharge(soc); unregister += { source.unregisterEvBatteryStateOfCharge(soc) }
+            source.getEvBatteryStateOfCharge(soc::onEvBatteryStateOfChargeUpdated) { failed("soc", it) }
+            val port = object : EvChargePortOpenListener {
+                override fun onEvChargePortOpenUpdated(value: Boolean?) = post {
+                    energy.emit(energy.value.copy(chargePortOpen = value)); vehicleLog("chargePortOpen=$value")
+                }
+                override fun onFailed(exception: Exception) = failed("chargePort", exception)
+            }
+            source.registerEvChargePortOpen(port); unregister += { source.unregisterEvChargePortOpen(port) }
+            source.isEvChargePortOpen(port::onEvChargePortOpenUpdated) { failed("chargePort", it) }
+        }.onFailure { vehicleLog("evBattery unavailable: ${it.javaClass.simpleName}") }
+        runCatching {
+            val source = vehicle.getOdometer()
+            val listener = object : RangeRemainingListener {
+                // The SDK reports meters (console remaining_range_m=210000 -> 210000.0, measured 10-26).
+                override fun onRangeRemainingChanged(value: Float?) = post {
+                    energy.emit(energy.value.copy(rangeKm = EnergyState.rangeFromMeters(value))); vehicleLog("rangeMeters=$value")
+                }
+                override fun onFailed(exception: Exception) = failed("range", exception)
+            }
+            source.registerRangeRemainingListener(listener); unregister += { source.unregisterRangeRemainingListener(listener) }
+            source.getRangeRemainingDistance(listener::onRangeRemainingChanged) { failed("range", it) }
+        }.onFailure { vehicleLog("range unavailable: ${it.javaClass.simpleName}") }
+        runCatching {
+            val source = vehicle.getTurnSignal()
+            val listener = object : TurnSignalStateListener {
+                override fun onTurnSignalStateUpdated(value: TurnSignalValue?) = post {
+                    val next = when (value) {
+                        TurnSignalValue.OFF -> TurnSignal.OFF
+                        TurnSignalValue.LEFT -> TurnSignal.LEFT
+                        TurnSignalValue.RIGHT -> TurnSignal.RIGHT
+                        else -> TurnSignal.UNKNOWN
+                    }
+                    turn.emit(next); vehicleLog("turnSignal=$next")
+                }
+                override fun onFailed(exception: Exception) = failed("turnSignal", exception)
+            }
+            source.registerTurnSignalState(listener); unregister += { source.unregisterTurnSignalState(listener) }
+            source.getCurrentTurnSignalState(listener::onTurnSignalStateUpdated) { failed("turnSignal", it) }
+        }.onFailure { vehicleLog("turnSignal unavailable: ${it.javaClass.simpleName}") }
+        runCatching {
+            val source = vehicle.getSteeringWheel()
+            val listener = object : SteeringWheelAngleListener {
+                override fun onSteeringWheelAngleUpdated(value: Float?) = post {
+                    val next = SteeringCalibration.normalize(value)
+                    if (next != steering.value) { steering.emit(next); vehicleLog("steeringSdk=$value steering=$next") }
+                }
+                override fun onFailed(exception: Exception) = failed("steering", exception)
+            }
+            source.registerSteeringWheelAngle(listener); unregister += { source.unregisterSteeringWheelAngle(listener) }
+            source.getCurrentSteeringWheelAngle(listener::onSteeringWheelAngleUpdated) { failed("steering", it) }
+        }.onFailure { vehicleLog("steering unavailable: ${it.javaClass.simpleName}") }
+        runCatching {
+            val source = vehicle.getSeat()
+            listOf(SeatValue.ROW_1_LEFT, SeatValue.ROW_1_RIGHT).forEach { seat ->
+                val area = SeatArea(seat)
+                val listener = object : SeatOccupancyListener {
+                    override fun onSeatOccupancyUpdated(value: Boolean?) = post {
+                        seats.emit(if (seat == SeatValue.ROW_1_LEFT) seats.value.copy(driver = value) else seats.value.copy(passenger = value))
+                        vehicleLog("seat=$seat occupied=$value")
+                    }
+                    override fun onFailed(exception: Exception) = failed("seat", exception)
+                }
+                source.registerSeatOccupancy(area, listener); unregister += { source.unregisterSeatOccupancy(area, listener) }
+                source.getCurrentSeatOccupancy(area, listener::onSeatOccupancyUpdated) { failed("seat", it) }
+            }
+        }.onFailure { vehicleLog("seats unavailable: ${it.javaClass.simpleName}") }
+        runCatching {
+            // Side window position (CAR_WINDOWS). Position > 0 is read as "open" (console window_fl=0..100).
+            val source = vehicle.getWindow()
+            source.checkWindowPositionCapabilities(onComplete = { _, supported ->
+                supported.keys.forEach { area ->
+                    val key = area.values.firstOrNull() ?: return@forEach
+                    if (key !in sideWindows) return@forEach
+                    val listener = object : WindowPositionListener {
+                        override fun onWindowPositionUpdated(value: Int?) = post {
+                            if (value != null) {
+                                windowPositions[key] = value > 0
+                                val next = windowPositions.values.any { it }
+                                if (windows.value != next) { windows.emit(next); vehicleLog("windowOpen=$next") }
+                            }
+                        }
+                        override fun onFailed(exception: Exception) = failed("window", exception)
+                    }
+                    post {
+                        source.registerWindowPosition(area, listener); unregister += { source.unregisterWindowPosition(area, listener) }
+                        source.getCurrentWindowPosition(area, listener::onWindowPositionUpdated) { failed("window", it) }
+                    }
+                }
+            }, onFailed = { failed("windowCapabilities", it) })
+        }.onFailure { vehicleLog("windows unavailable: ${it.javaClass.simpleName}") }
         if (privateSafety) runCatching {
             val source = vehicle.getTire()
             source.checkTirePressureCapabilities(onComplete = { _, supported ->
@@ -209,8 +323,14 @@ private class PleosVehicle(private val context: Context, private val publicTellt
     override fun observeGear(callback: (GearSelection) -> Unit) = gears.observe(callback)
     override fun observeTires(callback: (TireState) -> Unit) = tires.observe(callback)
     override fun currentTires() = tires.value
+    override fun observeEnergy(callback: (EnergyState) -> Unit) = energy.observe(callback)
+    override fun observeTurnSignal(callback: (TurnSignal) -> Unit) = turn.observe(callback)
+    override fun observeSteeringAngle(callback: (Float?) -> Unit) = steering.observe(callback)
+    override fun observeSeats(callback: (SeatOccupancy) -> Unit) = seats.observe(callback)
+    override fun observeWindows(callback: (Boolean?) -> Unit) = windows.observe(callback)
     fun adapters(speaker: Speaker, listener: Listener) = VehicleAdapters(this, this, this, this, this, navigator,
-        speaker, listener, driving, this, simulated = false, close = ::close)
+        speaker, listener, driving, this, simulated = false, close = ::close,
+        energy = this, turnSignal = this, steering = this, seats = this, windows = this)
     private fun close() {
         closed = true; main.removeCallbacksAndMessages(null)
         unregister.asReversed().forEach { runCatching(it) }
