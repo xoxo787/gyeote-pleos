@@ -3,15 +3,18 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
-const os = require('node:os');
 const path = require('node:path');
 const { createApp } = require('../src/app');
 
 const TEN_MIN = 10 * 60 * 1000;
 
+// 테스트 임시 DB는 시스템 Temp 대신 저장소 안 server/.tmp-test/ (git 제외)에 만든다.
+const TEST_TMP = path.join(__dirname, '..', '.tmp-test');
+fs.mkdirSync(TEST_TMP, { recursive: true });
+
 // 시계를 조작할 수 있는 서버를 띄워 fn(call, tick)을 실행하고 끝나면 닫는다.
 async function withServer(fn, opts = {}) {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'gyeote-pair-'));
+  const dir = fs.mkdtempSync(path.join(TEST_TMP, 'gyeote-pair-'));
   let t = Date.now();
   const srv = createApp({ dbPath: path.join(dir, 'db.json'), now: () => t, ...opts });
   await new Promise((r) => srv.listen(0, '127.0.0.1', r));
@@ -248,7 +251,7 @@ test('v0.4.1 숫자별 실패 기록: 마지막 실패 10분 뒤 만료 — 4번
 }, byHeader));
 
 test('v0.4.1 숫자 발급: 50번 안에 못 찾으면 503 unavailable (가족도 만들어지지 않음), 주입한 생성기로 재현', async () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'gyeote-issue-'));
+  const dir = fs.mkdtempSync(path.join(TEST_TMP, 'gyeote-issue-'));
   let calls = 0; let mode = 'same';
   const srv = createApp({ dbPath: path.join(dir, 'db.json'), randomCode: () => { calls++; return mode === 'same' ? 111111 : 222222 + calls; } });
   await new Promise((r) => srv.listen(0, '127.0.0.1', r));

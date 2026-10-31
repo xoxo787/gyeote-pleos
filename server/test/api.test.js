@@ -2,13 +2,16 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
-const os = require('node:os');
 const path = require('node:path');
 const { createApp } = require('../src/app');
 
+// 테스트 임시 DB는 시스템 Temp 대신 저장소 안 server/.tmp-test/ (git 제외)에 만든다.
+const TEST_TMP = path.join(__dirname, '..', '.tmp-test');
+fs.mkdirSync(TEST_TMP, { recursive: true });
+
 let server; let base;
 test.before(async () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'gyeote-test-'));
+  const dir = fs.mkdtempSync(path.join(TEST_TMP, 'gyeote-test-'));
   server = createApp({ dbPath: path.join(dir, 'db.json') });
   await new Promise((r) => server.listen(0, '127.0.0.1', r));
   base = `http://127.0.0.1:${server.address().port}`;

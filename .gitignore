@@ -94,3 +94,6 @@ __pycache__/
 !app/docs/tour-vehicle.log
 !app/docs/return-build-verification.log
 !app/docs/return-vehicle.log
+
+# 서버 테스트 임시 데이터(2026-10-31, 시스템 Temp 대신 저장소 안 한 폴더)
+server/.tmp-test/
