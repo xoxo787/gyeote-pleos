@@ -28,6 +28,8 @@ import android.widget.*
 import ai.gyeote.app.domain.*
 import ai.gyeote.app.vehicle.WheelPosition
 import ai.gyeote.app.vehicle.PleosSpeechProbe
+import ai.gyeote.app.vehicle.Subscription
+import ai.gyeote.app.vehicle.VehicleRecordRuntime
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -51,6 +53,9 @@ class MainActivity : ComponentActivity() {
     private var forceFake = false
     private var publicTelltalesOnly = false
     private var testProfile: String? = null
+    private var screenSubscription: Subscription? = null
+    private var screenStarted = false
+    private val recordConfig get() = VehicleRecordRuntime.Config(forceFake, publicTelltalesOnly, testProfile)
     private var speechProbe: PleosSpeechProbe? = null
     private var clearHistoryConfirm = false
     private var clearAllConfirm = false
@@ -93,7 +98,7 @@ class MainActivity : ComponentActivity() {
             forceFake = BuildConfig.DEBUG && intent.getStringExtra("vehicleMode") == "fake"
             publicTelltalesOnly = BuildConfig.DEBUG && intent.getBooleanExtra("publicTelltalesOnly", false)
             testProfile = intent.getStringExtra("testProfile")?.takeIf { BuildConfig.DEBUG && it.matches(Regex("[A-Za-z0-9_-]{1,40}")) }
-            controller = AppController(applicationContext, forceFake, publicTelltalesOnly, testProfile, ::scheduleRender)
+            controller = VehicleRecordRuntime.obtain(applicationContext, recordConfig).controller
             serverInput = controller.serverUrl
             applyDebugIntent(intent)
             render()
@@ -104,13 +109,21 @@ class MainActivity : ComponentActivity() {
     }
     override fun onStart() {
         super.onStart()
-        if (::controller.isInitialized) controller.start()
+        if (::controller.isInitialized) {
+            val session = VehicleRecordRuntime.obtain(applicationContext, recordConfig)
+            controller = session.controller
+            screenStarted = true
+            screenSubscription = session.attachScreen(::scheduleRender)
+            render()
+        }
         handler.post(pairCountdownTick)
     }
     override fun onStop() {
+        screenStarted = false
+        screenSubscription?.cancel(); screenSubscription = null
+        handler.removeCallbacksAndMessages(null); renderPending = false
         handler.removeCallbacks(pairCountdownTick); showPairCode = false
         speechProbe?.close(); speechProbe = null
-        if (::controller.isInitialized) controller.stop()
         super.onStop()
     }
     private val pairCountdownTick = object : Runnable {
@@ -126,7 +139,12 @@ class MainActivity : ComponentActivity() {
             handler.postDelayed(this, 1_000)
         }
     }
-    override fun onDestroy() { if (::controller.isInitialized) controller.close(); super.onDestroy() }
+    override fun onDestroy() {
+        screenStarted = false
+        screenSubscription?.cancel(); screenSubscription = null
+        handler.removeCallbacksAndMessages(null)
+        super.onDestroy()
+    }
     override fun onSaveInstanceState(outState: Bundle) { outState.putString("page", page); super.onSaveInstanceState(outState) }
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent); setIntent(intent)
@@ -166,11 +184,11 @@ class MainActivity : ComponentActivity() {
         }
     }
     private fun scheduleRender() {
-        if (!::controller.isInitialized || renderPending || isFinishing || isDestroyed) return
+        if (!screenStarted || !::controller.isInitialized || renderPending || isFinishing || isDestroyed) return
         renderPending = true
         handler.postDelayed({
             renderPending = false
-            if (!isDestroyed) {
+            if (screenStarted && !isFinishing && !isDestroyed) {
                 val prompt = controller.arrival.prompt
                 if (Features.sharedRoutes && !controller.restricted && controller.privacy.current.routeArrivalAllowed(Instant.now()) &&
                     controller.arrival.mode == ArrivalMode.ASK_EVERY_TIME && prompt != null && renderedArrivalId == prompt.destinationId) {
@@ -489,7 +507,7 @@ class MainActivity : ComponentActivity() {
         }
     }
     private fun warningsTab(content: LinearLayout) {
-        content.addView(label("최근 30일 · 최대 200건 · 앱이 켜져 있던 동안의 기록이에요.", 20, muted))
+        content.addView(label("최근 30일 · 최대 200건 · ${HandoverText.RECORDING_SCOPE}", 20, muted))
         gap(content, 14)
         content.addView(button("정비사에게 보여주기", true) { navigate("mechanic") })
         gap(content, 18)
@@ -747,7 +765,7 @@ class MainActivity : ComponentActivity() {
                     })
                 }
             })
-            addView(label("끄기를 고르면 인계 카드를 띄우지 않아요.", 18, muted).padTop(8))
+            addView(label("끄기를 고르면 인계 카드와 차 상태 기록을 멈춰요.", 18, muted).padTop(8))
         }
         card(right) {
             addView(label("말하는 길이", 23, light, true))

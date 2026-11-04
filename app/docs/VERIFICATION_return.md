@@ -78,3 +78,10 @@ release 병합 매니페스트: `PRIVATE_CAR_SAFETY` 0건(유지), `CAR_WINDOWS`
 - 라벨 '법인'→**법인·택시**, '가족 공유'→**함께 쓰는 차**(enum `FLEET`·`FAMILY`와 저장값은 그대로). **렌터카·카셰어 모드는 돌려주기 카드의 [다음 사람에게 한마디]와 인계 카드의 '이전 운전자 한마디'를 숨긴다.** 법인·택시·함께 쓰는 차는 그대로.
 - 이에 맞춰 `return_integration.py`의 순서를 바꿨다: 렌터카 단계에서 한마디가 없는 것을 확인(`rental-no-note`, `screens/return/07-rental-no-note.png`)하고, 한마디 저장(`02-note`)과 다음 인계 카드의 한마디(`04-next-card-note`)는 법인·택시 단계로 옮겼다. 렌터카 단계의 다음 인계 카드는 `next-card`로 남겼다.
 - 재실행(debug sha256 앞 12자리 `d10a2cd0c078`): **14개 중 14개 통과**, 스크린샷 7장 모두 기대 문구 일치. 단위 테스트 249개 통과.
+
+## 2026-11-04 H8
+- 기록 foreground service가 SDK 구독·공개 경고등 3초 조회·인수/반납 판정·내비 목적지명 수신을 유지하고 Activity는 화면 콜백만 붙였다 뗀다. 단위 테스트 Debug·Release 각 **259개**, 빌드 성공·lint 오류 0.
+- F3 재실행 **14/14**, F2 **16/16**, F1 **17/18**(한국어 TTS 환경 실패 1). debug APK sha256 앞 12자리 `63d07bdd7740`, F3 캡처는 `screens/return/01~07`.
+- 실제 화면 뒤 D 주행 → P+운전석 문 열림으로 반납 판정을 마친 뒤 앱을 열자 **+1km** 반납 카드가 즉시 보였다(`screens/background/02-return-ready.png`). 배경 65초 경고등 기록과 `isFrozen=false`도 확인했다.
+- 내비 H6 재실측·모드 끄기·release 권한의 최종 expected/observed/passed는 [VERIFICATION_background.md](VERIFICATION_background.md), 로그·시각 비교는 `background-integration.json`·`background-vehicle.log`, 화면은 `screens/background/`.
+- 한계: 실차·도착 콜백·앱마켓 정책 미확인. 부팅·시동·강제 종료 뒤 자동 시작은 넣지 않았다. 대기 카드는 서비스 프로세스에서 유지하고, 확정 인수/반납·경고등 이력은 기존 암호화 저장 형식에 남긴다.

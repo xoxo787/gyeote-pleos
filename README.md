@@ -85,11 +85,12 @@ node --test server/test                  # 서버 계약 테스트
 
 | 대상 | 최근 결과 | 근거 |
 |---|---|---|
-| 앱 단위 테스트 | Debug 244 · Release 244, 실패 0 (2026-10-27) | [VERIFICATION_return.md](app/docs/VERIFICATION_return.md) |
+| 앱 단위 테스트 | Debug 259 · Release 259, 실패 0 (2026-11-04 H8). 빌드 성공·lint 오류 0 | [VERIFICATION_background.md](app/docs/VERIFICATION_background.md) |
 | 서버 계약 테스트 | 56건 통과, 실패 0 (2026-10-27, `node --test server/test`) | 직접 실행 출력 |
-| 에뮬레이터 통합 — F1 인계 | 17개 중 16개 통과(2026-10-27 재실행). 실패 1개: 한국어 TTS 음성 없음 | [VERIFICATION_handover.md](app/docs/VERIFICATION_handover.md) |
-| 에뮬레이터 통합 — F2 투어 | 16개 중 16개 통과(TTS는 요청 로그까지만) | [VERIFICATION_tour.md](app/docs/VERIFICATION_tour.md) |
-| 에뮬레이터 통합 — F3 돌려주기 | 12개 중 12개 통과(2026-10-27). 주행 중(D) 돌려주기 카드 0건 확인 | [VERIFICATION_return.md](app/docs/VERIFICATION_return.md) |
+| 에뮬레이터 통합 — F1 인계 | 18개 중 17개 통과(2026-11-04 H8). 실패 1개: 한국어 TTS 음성 없음(허용 환경 실패) | [VERIFICATION_handover.md](app/docs/VERIFICATION_handover.md) |
+| 에뮬레이터 통합 — F2 투어 | 16개 중 16개 통과(2026-11-04 H8, TTS는 요청 로그까지만) | [VERIFICATION_background.md](app/docs/VERIFICATION_background.md) |
+| 에뮬레이터 통합 — F3 돌려주기 | 14개 중 14개 통과(2026-11-04 H8). 주행 중(D) 돌려주기 카드 0건 확인 | [VERIFICATION_return.md](app/docs/VERIFICATION_return.md) |
+| 에뮬레이터 통합 — H8 화면 뒤 기록 | 11개 중 11개 통과(2026-11-04). 65초 뒤 경고등 기록·FGS·frozen 아님, 앱 복귀 전 내비 콜백, 배경 카드·끄기·알림 확인 | [VERIFICATION_background.md](app/docs/VERIFICATION_background.md) |
 
 이전 콘셉트의 검증 기록: [VERIFICATION.md](app/docs/VERIFICATION.md), [VERIFICATION_car.md](app/docs/VERIFICATION_car.md), [VERIFICATION_edge.md](app/docs/VERIFICATION_edge.md), [VERIFICATION_polish.md](app/docs/VERIFICATION_polish.md). 에뮬레이터가 필요한 통합·캡처 도구(`app/tools/*.py`)는 해당 문서의 명령을 따릅니다.
 

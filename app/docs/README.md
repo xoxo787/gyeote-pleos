@@ -44,9 +44,11 @@ Windows 한글 경로를 유지하기 위해 `android.overridePathCheck=true`와
 | 데이터 | `data/ApiClient.kt` | `docs/api_contract.md`의 부모 역할 API, UTF-8 JSON, Bearer, PATCH 포함 |
 | 보관 | `data/SecureStore.kt` | Android Keystore AES-GCM, AtomicFile, 백업 제외 |
 | 오디오 | `data/MessagePlayer.kt` | 최대 30초·2MB 메시지, 메모리 재생·완료 후에만 played 처리 |
-| 연결·화면 | `AppController.kt`, `MainActivity.kt` | 단일 네트워크 작업자, 수명 관리, 한국어 큰 카드 화면 |
+| 기록 서비스·화면 | `vehicle/VehicleRecordService.kt`, `vehicle/RecordLifecycle.kt`, `AppController.kt`, `MainActivity.kt` | 프로세스 단일 컨트롤러, FGS 기록 수명과 화면 콜백 분리, 한국어 큰 카드 화면 |
 
-네트워크는 전경 화면이 활성화된 동안 정차 10초·주행 제한 중 30초로 폴링한다. 실패 시 2배 지연, 최대 120초 후 재시도한다. Activity가 멈추면 폴링·TTS·재생·이벤트 발송을 멈춘다. 실제 차량·백그라운드 서비스는 검증 범위에 포함하지 않는다. 음성은 Android의 로컬 한국어 TTS와 모의 인식 결과 입력을 유지한다. Pleos ON_DEVICE 확인의 결과와 한계는 `VERIFICATION_car.md`에 기록한다.
+앱을 열면 켜진 모드에서 차량 기록 foreground service를 시작한다. 화면을 닫아도 SDK 구독·공개 경고등 3초 조회·인수/반납 판정·내비 목적지명 수신을 이어 간다. 끄기를 고르면 기록 서비스와 상주 알림이 내려가고, 다른 모드를 고르면 다시 시작한다. 부팅·시동·앱 강제 종료 뒤에는 자동 시작하지 않는다. 화면 뒤에서 준비된 카드는 앱을 다시 열 때 보이며, 배경에서 Activity를 열거나 음성을 말하지 않는다. 상주 알림은 소리·진동이 없으며 누르면 앱을 연다. 알림 권한이 거절돼도 서비스는 실행하지만 알림 창의 노출은 OS 설정에 따른다. 상세 결과와 한계는 [VERIFICATION_background.md](VERIFICATION_background.md)에 기록한다.
+
+기존 서버 기능은 전경 화면이 활성화된 동안 정차 10초·주행 제한 중 30초로 폴링한다. 실패 시 2배 지연, 최대 120초 후 재시도한다. Activity가 멈추면 서버 폴링·TTS·재생·이벤트 발송을 멈춘다. 실제 차량에서의 연속 동작은 미확인이다. 음성은 Android의 로컬 한국어 TTS와 모의 인식 결과 입력을 유지한다. Pleos ON_DEVICE 확인의 결과와 한계는 `VERIFICATION_car.md`에 기록한다.
 
 `PRIVATE_CAR_SAFETY`는 앱마켓 사전 승인이 필요하며 **debug 매니페스트에만** 있다. 텔테일 구독과 타이어 수치 API가 이를 요구한다. release는 텔테일 공개 조회를 3초마다 사용하고 비공개 수치 API를 호출하지 않는다. 에뮬레이터 2.1.0의 타이어 수치 capability는 `ERROR_NOT_SUPPORTED_PROPERTY`여서 수치·단위를 실제 수신했다고 표시하지 않는다. 저압 안내는 TPMS 경고 신호에 따른다. SDK AAR·원문 API 덤프는 저장소에 복사하지 않는다.
 
@@ -85,7 +87,9 @@ Windows 한글 경로를 유지하기 위해 `android.overridePathCheck=true`와
 
 작업 H1(인계 카드)의 결과는 **[VERIFICATION_handover.md](VERIFICATION_handover.md)**, 실행 근거는 `handover-integration.json`·`handover-vehicle.log`, 화면은 `screens/handover/`에 있다. `python app/tools/handover_integration.py`는 emulator-5554와 Virtual Console(`adb forward tcp:18088 tcp:8088`)을 쓰고, 별도 암호화 테스트 프로필을 써서 기존 앱 상태를 건드리지 않는다.
 
-작업 H3(돌려주기 카드·인계 이력·법인 운행 표)의 결과는 **[VERIFICATION_return.md](VERIFICATION_return.md)**에 있다. `python app/tools/return_integration.py`는 H1·H2 스크립트와 같은 방식(emulator-5554, Virtual Console, 별도 테스트 프로필 `returnH3`)이다. **아직 실행하지 않았다**(에뮬레이터가 꺼져 있음).
+작업 H3(돌려주기 카드·인계 이력·법인 운행 표)의 결과는 **[VERIFICATION_return.md](VERIFICATION_return.md)**에 있다. `python app/tools/return_integration.py`는 H1·H2 스크립트와 같은 방식(emulator-5554, Virtual Console, 별도 테스트 프로필 `returnH3`)이다. H8 재실행도 **14/14 통과**했으며 문서 끝에 근거를 추가했다.
+
+`python app/tools/background_integration.py`는 HOME 뒤 65초 대기 후 공개 경고등 On→Off 기록, 서비스 foreground·프로세스 frozen 상태, 배경 인수/반납 카드, 내비 앱에서 안내 시작 후 Passer 복귀 전 콜백, 모드 끄기와 재시작을 확인한다. 에뮬레이터는 스크립트가 시작하거나 재시작하지 않는다. 별도 고유 debug 프로필을 사용하며, 알림 권한 거절·허용은 이 앱에만 적용한다. 내비 안내는 검사 뒤 종료한다.
 
 
 작업 P의 현재 결과는 **[VERIFICATION_polish.md](VERIFICATION_polish.md)**, HTTP·실제 화면 결과는 `polish-integration.json`, 가로 PNG는 `screens/polish/`에 있다. `python app/tools/polish_integration.py`는 실행 중인 emulator-5554와 고유한 디버그 암호화 저장소·새 임시 DB만 사용한다. 서버 원본 `createApp`이 포트 8787에서 직접 요청을 처리하며 수동 계측 리스너는 메서드·상태와 허용된 동의 필드만 기록한다. 프록시나 응답 주입을 쓰지 않으며 종료 시 서버를 멈추고 임시 폴더는 보존한다. `python app/tools/polish_release_check.py`는 unsigned release APK의 로컬 debug 서명 복사본을 임시 폴더에 만들고 실제 설정 화면 XML을 확인한 뒤 Debug APK를 복귀시킨다. `FLAG_SECURE`는 유지하고 기존 앱 데이터는 지우지 않는다. `python app/tools/verify_polish.py`가 최종 빌드·테스트·린트·문구·출시 권한·실제 버튼 색상과 캡처 APK 해시를 집계한다.

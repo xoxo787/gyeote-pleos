@@ -1,0 +1,78 @@
+ACTIVITY MANAGER SERVICES (dumpsys activity services)
+  User 10 active services:
+  * ServiceRecord{4af6e59 u10 ai.gyeote.app/.vehicle.VehicleRecordService}
+    intent={cmp=ai.gyeote.app/.vehicle.VehicleRecordService}
+    packageName=ai.gyeote.app
+    processName=ai.gyeote.app
+    baseDir=/data/app/~~G-wSgtHXiDbHuPpALeDNyQ==/ai.gyeote.app-Cy1AL72g7E1c1JvbSdbMuw==/base.apk
+    dataDir=/data/user/10/ai.gyeote.app
+    app=ProcessRecord{e431aed 30416:ai.gyeote.app/u10a175}
+    mAllowWhileInUsePermissionInFgsReason=PROC_STATE_TOP
+    mAllowWIUInBindService=DENIED
+    mAllowWIUByBindings=DENIED
+    allowUiJobScheduling=true
+    recentCallingPackage=ai.gyeote.app
+    recentCallingUid=1010175
+    allowStartForeground=PROC_STATE_TOP
+    mAllowStartInBindService=DENIED
+    mAllowStartByBindings=DENIED
+    startForegroundCount=1
+    infoAllowStartForeground=[callingPackage: ai.gyeote.app; callingUid: 1010175; uidState: TOP ; uidBFSL: [BFSL]; intent: Intent { cmp=ai.gyeote.app/.vehicle.VehicleRecordService }; code:PROC_STATE_TOP; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+    isForeground=true foregroundId=8 types=40000000 foregroundNoti=Notification(channel=vehicle_record shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x4a color=0x00000000 category=service vis=PRIVATE)
+    createTime=-2m24s34ms startingBgTimeout=--
+    lastActivity=-2m24s33ms restartTime=-2m24s33ms createdFromFg=true
+    startRequested=true delayedStop=false stopIfKilled=true callStart=true lastStartId=1
+ startCommandResult=2
+
+*APP* UID 1010175 ProcessRecord{e431aed 30416:ai.gyeote.app/u10a175}
+    user #10 uid=1010175 gids={3003, 50175, 20175, 1009997}
+    mRequiredAbi=x86_64 instructionSet=x86_64
+    dir=/data/app/~~G-wSgtHXiDbHuPpALeDNyQ==/ai.gyeote.app-Cy1AL72g7E1c1JvbSdbMuw==/base.apk publicDir=/data/app/~~G-wSgtHXiDbHuPpALeDNyQ==/ai.gyeote.app-Cy1AL72g7E1c1JvbSdbMuw==/base.apk data=/data/user/10/ai.gyeote.app
+    packageList={ai.gyeote.app}
+    compat={160dpi always-compat}
+    thread=android.app.IApplicationThread$Stub$Proxy@dad9b49
+    pid=30416
+    lastActivityTime=-35s254ms    startUptimeTime=-2m24s309ms    startElapsedTime=-2m24s309ms
+    startSeq=128
+    mountMode=DEFAULT
+    lastPssTime=-1m9s775ms pssProcState=4 pssStatType=0 nextPssTime=-9s785ms
+    lastPss=59MB lastSwapPss=241KB lastCachedPss=0.00 lastCachedSwapPss=0.00 lastRss=147MB
+    trimMemoryLevel=0
+    procStateMemTracker: best=1 (1=1 1.5x)
+    lastRequestedGc=-2m24s242ms lastLowMemory=-2m24s242ms reportLowMemory=false
+    currentHostingComponentTypes=0x190 historicalHostingComponentTypes=0x190
+    reportedInteraction=false fgInteractionTime=-26s451ms
+    adjSeq=3650 lruSeq=1756
+    oom adj: max=1001 curRaw=50 setRaw=50 cur=100 set=100
+    mCurSchedGroup=2 setSchedGroup=2 systemNoUi=false
+    curProcState=4 mRepProcState=4 setProcState=4 lastStateTime=-2m24s243ms
+    curCapability=---NFU setCapability=---NFU
+
+    hasShownUi=true pendingUiClean=true
+    cached=false empty=true
+    lastTopTime=-26s451ms
+    lastInvisibleTime=2026-11-04 10:28:44.667 (-26s451ms)
+    hasStartedServices=true
+    mHasForegroundServices=true forcingToImportant=null
+    hasClientActivities=false hasAboveClient=true treatLikeActivity=false
+    Services:
+      - ServiceRecord{4af6e59 u10 ai.gyeote.app/.vehicle.VehicleRecordService}
+    mConnections:
+      - ConnectionRecord{912d2d2 u10 CR ABCLT IMP ai.pleos.playground.service.vehicle/.VehicleService:@e2d995d flags=0x49}
+      - ConnectionRecord{9e77846 u10 CR com.android.car/.CarService:@ec85c21 flags=0x1}
+      - ConnectionRecord{a728734 u10 CR ai.pleos.playground.service.navi/.NaviService:@a57ba07 flags=0x1}
+    Published Providers:
+      - androidx.startup.InitializationProvider
+        -> ContentProviderRecord{bb18c4e u10 ai.gyeote.app/androidx.startup.InitializationProvider}
+    Connected Providers:
+      - 38acddf/com.android.providers.settings/.SettingsProvider->30416:ai.gyeote.app/u10a175 s3/3 u0/0 +2m24s146ms
+    lastCompactTime=0 lastCompactProfile=null
+    hasPendingCompaction=false    isFreezeExempt=false isPendingFreeze=false isFrozen=false
+    earliestFreezableTimeMs=--
+    Activities:
+      - ActivityRecord{9767d96 u10 ai.gyeote.app/.MainActivity t1000159}
+    Recent Tasks:
+      - Task{c025b58 #1000159 type=standard A=1010175:ai.gyeote.app}
+     Configuration={1.0 310mcc260mnc [ko_KR] ldltr sw1440dp w1682dp h1210dp 160dpi xlrg land car finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(853, 90 - 2535, 1300) mAppBounds=Rect(853, 90 - 2535, 1300) mMaxBounds=Rect(0, 0 - 2560, 1440) mDisplayRotation=ROTATION_0 mWindowingMode=multi-window mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.52 fontWeightAdjustment=0}
+     OverrideConfiguration={1.0 310mcc260mnc [ko_KR] ldltr sw1440dp w1682dp h1210dp 160dpi xlrg land car finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(853, 90 - 2535, 1300) mAppBounds=Rect(853, 90 - 2535, 1300) mMaxBounds=Rect(0, 0 - 2560, 1440) mDisplayRotation=ROTATION_0 mWindowingMode=multi-window mDisplayWindowingMode=fullscreen mActivityType=standard mAlwaysOnTop=undefined mRotation=ROTATION_0} s.5 fontWeightAdjustment=0}
+     mLastReportedConfiguration={1.0 310mcc260mnc [ko_KR] ldltr sw1440dp w1682dp h1210dp 160dpi xlrg land car finger qwerty/v/v dpad/v winConfig={ mBounds=Rect(853, 90 - 2535, 1300) mAppBounds=Rect(853, 90 - 2535, 1300) mMaxBounds=Rect(0, 0 - 2560, 1440) mDisplayRotation=ROTATION_0 mWindowingMode=multi-window mDisplayWindowingMode=fullscreen mActivityType=undefined mAlwaysOnTop=undefined mRotation=ROTATION_0} s.104 fontWeightAdjustment=0}

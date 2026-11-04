@@ -118,7 +118,7 @@ class HandoverTextTest {
         assertEquals("배터리 54% · 갈 수 있는 거리 약 210km", card.lines[0].text)
         assertTrue(card.lines[1].text.contains("타이어 공기압이 낮을 수 있어요."))
         assertTrue(card.lines[2].text.startsWith("타이어 바람 2번 (오늘) · 엔진 점검 1번 (10월 23일)"))
-        assertTrue(card.lines[2].text.contains("앱이 켜져 있던 동안의 기록"))
+        assertTrue(card.lines[2].text.contains("Passer가 기록 중일 때의 내용이에요."))
         assertEquals("12,345km", card.lines[3].text)
         assertEquals("열려 있어요: 충전구\n닫혀 있어요: 문·트렁크", card.lines[4].text)
         assertTrue(card.speech.startsWith(card.greeting))
@@ -133,6 +133,18 @@ class HandoverTextTest {
         assertTrue(short.speech.length < normal.speech.length)
         assertTrue(short.speech.contains("54퍼센트")); assertTrue(short.speech.contains("충전구가 열려 있어요."))
         assertFalse(short.speech.contains("12,345")); assertFalse(short.speech.contains("한마디"))
+    }
+    @Test fun historyExplainsBackgroundRecordingAndItsStopConditions() {
+        val text = HandoverText.build(full, HandoverLength.NORMAL, now, zone).lines[2].text
+        assertTrue(text.contains("화면을 닫아도 기록해요."))
+        assertTrue(text.contains("끄기·앱 종료 중에는 기록하지 않아요."))
+        assertTrue(Wording.offending(text).isEmpty())
+    }
+    @Test fun emptyHistoryStillExplainsRecordingLimits() {
+        val text = HandoverText.build(HandoverInput(), HandoverLength.SHORT, now, zone).lines[2].text
+        assertTrue(text.startsWith("기록이 없어요."))
+        assertTrue(text.contains("Passer가 기록 중일 때의 내용이에요."))
+        assertTrue(text.contains("끄기·앱 종료 중에는 기록하지 않아요."))
     }
     @Test fun missingValuesAreSaidAsMissingNeverGuessed() {
         val card = HandoverText.build(HandoverInput(), HandoverLength.NORMAL, now, zone)

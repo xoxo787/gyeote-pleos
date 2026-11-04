@@ -70,3 +70,11 @@
   - `10-31 00:03:04.672 … NavigationUseCase: TASUseCase, notifyRouteStarted, data:RouteStartInfo(duration=3240, distance=22000, tollFare=700, name=서울 중앙병원, …)`
   - `10-31 00:04:11.886 … ActivityManager: quick sync unfreeze 22262 for 1` → `10-31 00:04:12.160 22262 22262 I GyeoteVehicle: navigation=destinationName chars=7`
 - 그래서 실차에서 우리 앱이 안내 시작부터 반납까지 한 번도 앞에 오지 않으면 목적지명이 늦거나 빠질 수 있다(미시험). 도착 콜백은 실제 주행이 필요해 미확인.
+
+## 2026-11-04 H8 — foreground service 실측
+- `VehicleRecordService`가 프로세스 단일 컨트롤러의 SDK 구독·공개 경고등 3초 조회·판정 tick을 유지한다. Activity `onStop`은 화면 콜백·음성·기존 서버 폴링만 멈춘다. 모드 끄기는 서비스와 기록을 멈추며 부팅·시동·강제 종료 뒤 자동 시작은 없다(`START_NOT_STICKY`).
+- API 34의 타입은 `specialUse`다. 차량 내부 SDK 기록·인수/반납 판정의 용도를 subtype property로 적고 `FOREGROUND_SERVICE`·`FOREGROUND_SERVICE_SPECIAL_USE`를 main에 선언했다. 외부 Bluetooth/USB 연결이나 위치 권한을 요구하는 타입은 사용 사례에 맞지 않아 추가하지 않았다. [Android 서비스 타입](https://developer.android.com/develop/background-work/services/fgs/service-types#special-use)(2026-11-04 확인). 개별 앱마켓 정책·승인은 여전히 미확인이다.
+- 화면 해제를 확인하고 **65초** 기다린 뒤 Virtual Console TPMS 켬→끔이 공개 조회만으로 이력에 남았다. 서비스 `isForeground=true`, 프로세스 `curProcState=4`·`isFrozen=false`; 앱을 열면 최근 경고등과 배경에서 준비한 인계·반납 카드가 보였다(`app/docs/screens/background/01-history-and-handover.png`·`02-return-ready.png`). HOME 단독은 다중 창의 앱을 멈추지 않아 내비 화면으로 해당 창을 덮고 검사했다.
+- **H6의 콜백 지연을 FGS에서 다시 측정해 앱 복귀 전 수신을 확인했다.** 내비에서 실제 [안내 시작] 뒤 `navigation=destinationName chars=7`을 앱이 뒤에 있는 동안 받았으며, 같은 기기 시계의 콜백 시각과 복귀 전 시각을 비교했다. 당시에도 `isFrozen=false`, 내비가 resumed였고 Passer는 resumed 목록에 없었다. 안내 종료 화면도 확인했다. 정확한 최종 타임스탬프는 `app/docs/background-integration.json`의 `navigation-before-reopen`, 화면은 `07-navigation-started.png`·`08-navigation-ended.png`다.
+- 알림 채널은 LOW 1개, 소리·진동 없음이다. `POST_NOTIFICATIONS` 거절 상태로 배경 기록·콜백을 측정했다. 권한 테스트는 AAOS의 활성 사용자에 `--user current`를 지정한다. 모드 끄기·재시작과 실제 알림 제거의 최종 수치는 [VERIFICATION_background.md](../app/docs/VERIFICATION_background.md)에 있다. release aapt 권한에 FGS 권한이 있고 `PRIVATE_CAR_SAFETY`는 없음을 확인했다.
+- 실차·내비 도착 콜백·OS가 서비스를 끝낸 뒤의 복구는 미확인이다. 대기 카드는 서비스 프로세스에서 유지하며, 경고등 이력·확정 인수/반납은 기존 암호화 저장소에 남긴다. 이 결과로 실차 연속 동작이나 앱마켓 승인을 보장하지 않는다.

@@ -3,6 +3,9 @@
     <uses-feature android:name="android.hardware.type.automotive" android:required="false" />
     <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="pleos.car.permission.CAR_DRIVE" />
     <uses-permission android:name="pleos.car.permission.CAR_SAFETY" />
     <uses-permission android:name="pleos.car.permission.CAR_DOORS" />
@@ -29,6 +32,14 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:supportsRtl="true">
         <uses-library android:name="android.car" android:required="false" />
+        <service
+            android:name=".vehicle.VehicleRecordService"
+            android:exported="false"
+            android:foregroundServiceType="specialUse">
+            <property
+                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
+                android:value="User-enabled on-device vehicle telltale recording and handover/return detection via the Pleos vehicle SDK while the app screen is closed." />
+        </service>
         <activity
             android:name=".MainActivity"
             android:exported="true"

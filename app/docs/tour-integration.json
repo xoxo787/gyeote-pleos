@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-31T07:51:13.965906+00:00",
+  "at": "2026-11-04T10:03:21.614157+00:00",
   "serial": "emulator-5554",
   "testProfile": "tourH2",
   "results": [
@@ -16,7 +16,7 @@
       "scenario": "card-offers-first-ride",
       "expected": "Handover card appears with [처음 타요]",
       "observed": {
-        "card": "10-31 00:49:20.192 11471 11471 I GyeoteVehicle: handoverCard shown mode=RENTAL gear=PARK",
+        "card": "11-04 02:01:25.463 12236 12236 I GyeoteVehicle: handoverCard shown mode=RENTAL gear=PARK",
         "button": true
       },
       "passed": true
@@ -25,8 +25,8 @@
       "scenario": "enter-from-card",
       "expected": "[처음 타요] stores the snapshot and opens mission 1 of 3",
       "observed": {
-        "started": "10-31 00:49:25.663 11471 11471 I GyeoteVehicle: tour started from=handover mode=RENTAL missions=STEERING+BRAKE+TURN_SIGNAL current=STEERING",
-        "snapshot": "10-31 00:49:25.662 11471 11471 I GyeoteVehicle: handoverSnapshot saved soc=54 odometerKm=12387.0 warnings= door=false trunk=false chargePort=false restored=true via=firstRide",
+        "started": "11-04 02:01:31.111 12236 12236 I GyeoteVehicle: tour started from=handover mode=RENTAL missions=STEERING+BRAKE+TURN_SIGNAL current=STEERING",
+        "snapshot": "11-04 02:01:31.110 12236 12236 I GyeoteVehicle: handoverSnapshot saved soc=54 odometerKm=12345.0 warnings= door=false trunk=false chargePort=false restored=true via=firstRide",
         "mission1": true
       },
       "passed": true
@@ -35,7 +35,7 @@
       "scenario": "mission1-left-only",
       "expected": "After -450 only: gauge shows -450°, left reached, not passed yet",
       "observed": {
-        "log": "10-31 00:49:28.661 11471 11471 I GyeoteVehicle: steeringSdk=450.0 steering=-450.0",
+        "log": "11-04 02:01:34.194 12236 12236 I GyeoteVehicle: steeringSdk=450.0 steering=-450.0",
         "passedEarly": null,
         "ui": [
           "Passer",
@@ -63,8 +63,8 @@
       "scenario": "mission1-pass",
       "expected": "Calibrated -450 then +450 passes mission 1 (SDK sign reversed)",
       "observed": {
-        "sdk": "10-31 00:49:37.081 11471 11471 I GyeoteVehicle: steeringSdk=-450.0 steering=450.0",
-        "passed": "10-31 00:49:37.081 11471 11471 I GyeoteVehicle: tourMission passed=STEERING by=steering next=BRAKE passed=1 remaining=2"
+        "sdk": "11-04 02:01:43.004 12236 12236 I GyeoteVehicle: steeringSdk=-450.0 steering=450.0",
+        "passed": "11-04 02:01:43.003 12236 12236 I GyeoteVehicle: tourMission passed=STEERING by=steering next=BRAKE passed=1 remaining=2"
       },
       "passed": true
     },
@@ -93,8 +93,8 @@
       "scenario": "mission2-pass",
       "expected": "Console brake=60 passes mission 2",
       "observed": {
-        "brake": "10-31 00:49:44.036 11471 11471 I GyeoteVehicle: brakePressed=true",
-        "passed": "10-31 00:49:44.036 11471 11471 I GyeoteVehicle: tourMission passed=BRAKE by=brake next=TURN_SIGNAL passed=2 remaining=1"
+        "brake": "11-04 02:01:50.087 12236 12236 I GyeoteVehicle: brakePressed=true",
+        "passed": "11-04 02:01:50.087 12236 12236 I GyeoteVehicle: tourMission passed=BRAKE by=brake next=TURN_SIGNAL passed=2 remaining=1"
       },
       "passed": true
     },
@@ -123,8 +123,8 @@
       "scenario": "mission3-pass",
       "expected": "BlinkLeft passes mission 3 and completes the tour",
       "observed": {
-        "passed": "10-31 00:49:51.019 11471 11471 I GyeoteVehicle: tourMission passed=TURN_SIGNAL by=turnSignal next=null passed=3 remaining=0",
-        "completed": "10-31 00:49:51.019 11471 11471 I GyeoteVehicle: tour completed passed=3"
+        "passed": "11-04 02:01:57.170 12236 12236 I GyeoteVehicle: tourMission passed=TURN_SIGNAL by=turnSignal next=null passed=3 remaining=0",
+        "completed": "11-04 02:01:57.170 12236 12236 I GyeoteVehicle: tour completed passed=3"
       },
       "passed": true
     },
@@ -152,14 +152,14 @@
       "expected": "Each pass requests a short utterance (2 x PASS, 1 x PASS+DONE); real playback not possible here",
       "observed": {
         "speech": [
-          "10-31 00:49:37.081 11471 11471 I GyeoteVehicle: tourSpeech kind=PASS",
-          "10-31 00:49:44.036 11471 11471 I GyeoteVehicle: tourSpeech kind=PASS",
-          "10-31 00:49:51.019 11471 11471 I GyeoteVehicle: tourSpeech kind=PASS+DONE"
+          "11-04 02:01:43.003 12236 12236 I GyeoteVehicle: tourSpeech kind=PASS",
+          "11-04 02:01:50.087 12236 12236 I GyeoteVehicle: tourSpeech kind=PASS",
+          "11-04 02:01:57.170 12236 12236 I GyeoteVehicle: tourSpeech kind=PASS+DONE"
         ],
         "tts": [
-          "10-31 00:49:37.081 11471 11471 I GyeoteVehicle: tts=queued status=음성 엔진이 없어 화면으로 안내해요",
-          "10-31 00:49:44.036 11471 11471 I GyeoteVehicle: tts=queued status=음성 엔진이 없어 화면으로 안내해요",
-          "10-31 00:49:51.019 11471 11471 I GyeoteVehicle: tts=queued status=음성 엔진이 없어 화면으로 안내해요"
+          "11-04 02:01:43.004 12236 12236 I GyeoteVehicle: tts=queued status=음성 엔진이 없어 화면으로 안내해요",
+          "11-04 02:01:50.087 12236 12236 I GyeoteVehicle: tts=queued status=음성 엔진이 없어 화면으로 안내해요",
+          "11-04 02:01:57.170 12236 12236 I GyeoteVehicle: tts=queued status=음성 엔진이 없어 화면으로 안내해요"
         ],
         "note": "this emulator has no local Korean TTS voice; requests only"
       },
@@ -169,7 +169,7 @@
       "scenario": "start-goes-home",
       "expected": "[시작하기] closes the tour and shows home",
       "observed": {
-        "closed": "10-31 00:50:07.815 11471 11471 I GyeoteVehicle: tour closed",
+        "closed": "11-04 02:02:14.581 12236 12236 I GyeoteVehicle: tour closed",
         "home": true
       },
       "passed": true
@@ -191,8 +191,8 @@
       "expected": "Settings replay starts the tour; D ends it at once and P does not bring it back",
       "observed": {
         "button": true,
-        "started": "10-31 00:50:33.575 24173 24173 I GyeoteVehicle: tour started from=settings mode=RENTAL missions=STEERING+BRAKE+TURN_SIGNAL current=STEERING",
-        "ended": "10-31 00:50:35.459 24173 24173 I GyeoteVehicle: tour ended reason=gear=DRIVE passed=0 remaining=3",
+        "started": "11-04 02:02:40.551 25052 25052 I GyeoteVehicle: tour started from=settings mode=RENTAL missions=STEERING+BRAKE+TURN_SIGNAL current=STEERING",
+        "ended": "11-04 02:02:42.411 25052 25052 I GyeoteVehicle: tour ended reason=gear=DRIVE passed=0 remaining=3",
         "tourTextInD": [],
         "tourTextBackInP": []
       },
@@ -203,11 +203,11 @@
       "expected": "OFF hides the replay button; shared-car mode has 2 missions; [건너뛰기] ends with the remaining count",
       "observed": {
         "offHidesButton": true,
-        "family": "10-31 00:50:57.775 24173 24173 I GyeoteVehicle: tour started from=settings mode=FAMILY missions=STEERING+BRAKE current=STEERING",
+        "family": "11-04 02:03:04.919 25052 25052 I GyeoteVehicle: tour started from=settings mode=FAMILY missions=STEERING+BRAKE current=STEERING",
         "familyUi": true,
-        "skipped": "10-31 00:51:02.673 24173 24173 I GyeoteVehicle: tour skipped passed=0 remaining=2",
+        "skipped": "11-04 02:03:09.909 25052 25052 I GyeoteVehicle: tour skipped passed=0 remaining=2",
         "skipCard": true,
-        "backToRental": "10-31 00:51:12.007 24173 24173 I GyeoteVehicle: handoverSettings mode=RENTAL length=SHORT"
+        "backToRental": "11-04 02:03:19.329 25052 25052 I GyeoteVehicle: handoverSettings mode=RENTAL length=SHORT"
       },
       "passed": true
     },
@@ -230,7 +230,7 @@
   "captures": [
     {
       "file": "screens/tour/01-mission1-steering.png",
-      "sha256": "a2bd40b79b561241b41300f7a35bc7e9101044d43ff797e78f963bb981a4ca1f",
+      "sha256": "a2e4a1742c8f187963cc2a636742aef85c5b0ba9d78e7f6adff626b937daed3c",
       "expected_text": [
         "미션 1 / 3",
         "핸들을 왼쪽 끝까지",
@@ -244,7 +244,7 @@
     },
     {
       "file": "screens/tour/02-mission2-brake.png",
-      "sha256": "844e7ddcf306050346b524fe2e8dc02a927dc041af6775d7830d875390bd723c",
+      "sha256": "cfb1a77fda4d05ba5bc0d10829438497248ab3e46277370ed017278f42e1cfc6",
       "expected_text": [
         "미션 2 / 3",
         "브레이크를",
@@ -255,7 +255,7 @@
     },
     {
       "file": "screens/tour/03-mission3-turn-signal.png",
-      "sha256": "138fb73f4c3d4838eb5d0fd81e33014a7246300dfd16070c8740f7110138a1be",
+      "sha256": "db3cf843129825b537a6777c83cc77049a12fba9acdd387c8711be873316cc20",
       "expected_text": [
         "미션 3 / 3",
         "방향지시등을",
@@ -265,7 +265,7 @@
     },
     {
       "file": "screens/tour/04-done.png",
-      "sha256": "4731bedb11daf66fea6de9d9c6007cb536ecf3f41deb8f7805dbe13f4d58344f",
+      "sha256": "403151775c5677edc7bea84a87180f32d1852f1d632cbf1adaa90f4ac86b16a6",
       "expected_text": [
         "준비 끝났어요.",
         "안전 운전하세요.",
@@ -276,10 +276,10 @@
     },
     {
       "file": "screens/tour/05-driving-no-tour.png",
-      "sha256": "3a15e2942b530f14fc7a5a0a92e3a04ced3e3f955c4f1ee85487a6cd82a992a7",
+      "sha256": "6cdc557c72674ecaf4b2e2468249abee996acac1331abbf0670f1345e1017b4a",
       "expected_text": [],
       "passed": true
     }
   ],
-  "apk_sha256": "d10a2cd0c0786e1002688e438ee52b3ccad31e0a8bf2fc0f0d9004dbb79d85f5"
+  "apk_sha256": "63d07bdd77402c1e6a07107fe42f011dbbfd4a57947191cfb0d37b088857a9d8"
 }

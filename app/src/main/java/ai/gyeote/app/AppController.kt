@@ -12,7 +12,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 
-/** Main-thread presentation state plus one serial network worker. No background service claim. */
+/** Process-wide vehicle state; the recording service and a visible screen have separate lifetimes. */
 class AppController(context: Context, forceFake: Boolean = false, publicTelltalesOnly: Boolean = false,
     testProfile: String? = null, private val changed: () -> Unit) {
     private val store = SecureStore(context, testProfile.takeIf { BuildConfig.DEBUG })
@@ -101,6 +101,7 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
         private set
     private var failures = 0
     @Volatile private var active = false
+    private var recording = false
     @Volatile private var destroyed = false
     @Volatile private var connecting = false
     private var polling: ScheduledFuture<*>? = null
@@ -149,7 +150,7 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
             telltaleReadings = readings
             val moment = WarningMoment(Instant.now(), odometerKm.takeIf { it.isFinite() && it >= 0 }, gear,
                 gear in setOf(GearSelection.DRIVE, GearSelection.REVERSE) || journey.phase == JourneyPhase.TRAVELLING)
-            val historyChanged = history.sample(readings, moment)
+            val historyChanged = recording && handoverSettings.mode.cardOn && history.sample(readings, moment)
             if (historyChanged) {
                 store.saveWarningHistory(history.records)
                 vehicleLog("warningHistory records=${history.records.size} open=${history.records.count { it.ended == null }}")
@@ -216,26 +217,44 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
     }
 
     fun start() {
+        if (active || destroyed) return
         active = true
+        handler.removeCallbacks(tick)
         handler.post(tick)
         schedulePoll(0)
+        updateWarnings(telltaleCodes)
     }
     fun stop() {
         active = false
         pairCode = null
         polling?.cancel(false)
-        handler.removeCallbacks(tick)
+        if (!recording) handler.removeCallbacks(tick)
         store.saveArrival(arrival)
         ports.listener.cancel(); ports.speaker.stop(); player.stop()
     }
     fun close() {
-        stop(); destroyed = true
+        if (destroyed) return
+        stopRecording(); stop(); destroyed = true
+        handler.removeCallbacksAndMessages(null)
         subscriptions.forEach(Subscription::cancel)
         ports.close(); ports.speaker.close(); io.shutdownNow()
     }
+    internal fun startRecording() {
+        if (recording || destroyed || !handoverSettings.mode.cardOn) return
+        recording = true
+        handler.removeCallbacks(tick)
+        handler.post(tick)
+        vehicleLog("recording started")
+    }
+    internal fun stopRecording() {
+        if (!recording) return
+        recording = false
+        if (!active) handler.removeCallbacks(tick)
+        vehicleLog("recording stopped")
+    }
     private val tick = object : Runnable {
         override fun run() {
-            if (!active || destroyed) return
+            if ((!active && !recording) || destroyed) return
             sample()
             val now = SystemClock.elapsedRealtime()
             val instant = Instant.now()
@@ -270,6 +289,7 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
         }
     }
     private fun sample() {
+        if ((!active && !recording) || destroyed) return
         journey.sample(VehicleSample(SystemClock.elapsedRealtime(), odometerKm, door.open, door.locked, brake, gear, door.driverOpen))?.let(::journeyEvent)
         checkHandover(); checkReturn()
     }
@@ -302,7 +322,7 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
     /** Values arrive shortly after the gear on a real vehicle; speak once they have had ~2 s to settle. */
     private fun speakHandoverWhenSettled(now: Long) {
         val since = handoverDueSince ?: return
-        if (handoverSpoken || !handoverVisible || now - since < 2_000) return
+        if (!active || handoverSpoken || !handoverVisible || now - since < 2_000) return
         handoverSpoken = true
         val card = handoverCard()
         vehicleLog("handoverSpeech length=${handoverSettings.length} chars=${card.speech.length}")
@@ -431,6 +451,7 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
         changed()
     }
     private fun tourInput(signal: String, feed: (TourMachine) -> Boolean) {
+        if (!active) return
         val machine = tour ?: return
         if (!tourVisible) return
         val before = machine.current ?: return
@@ -481,7 +502,7 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
         if (event == JourneyEvent.DEPARTED) { arrival.depart(); store.saveArrival(arrival) }
         if (event == JourneyEvent.DEPARTED && Features.sharedRoutes) inbox.accepted()?.note?.takeIf { it.isNotBlank() }?.let {
             notice += "\n자녀의 한마디: $it"
-            ports.speaker.speak(it)
+            if (active) ports.speaker.speak(it)
         }
         if (event == JourneyEvent.ARRIVED && Features.sharedRoutes) offerArrival()
         val type = if (event == JourneyEvent.DEPARTED) SharedEventType.DEPARTED else SharedEventType.ARRIVED
@@ -495,7 +516,7 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
         warnings = next
         val newlyActive = warnings - reportedWarnings
         newlyActive.map(::adviceFor).minByOrNull { it.urgency.ordinal }?.let { advice ->
-            ports.speaker.speak(advice.movingText)
+            if (active) ports.speaker.speak(advice.movingText)
             if (Features.warningSharing) share(SharedEvent(SharedEventType.ALERT, Instant.now(), advice.movingText))
         }
         reportedWarnings = warnings
@@ -605,7 +626,7 @@ class AppController(context: Context, forceFake: Boolean = false, publicTelltale
         connection = if (privacy.deletionPending) "오프라인 · 소식 차단됨, 삭제 재시도 중" else "오프라인 · 연결을 다시 시도해요"
     }
     private fun promptDestination() {
-        if (!Features.sharedRoutes) return
+        if (!active || !Features.sharedRoutes) return
         inbox.nextPrompt()?.let { destination ->
             val name = children.firstOrNull { it.id == destination.fromChildId }?.name ?: "가족"
             notice = "$name 님이 ${destination.name} 가는 길을 보내왔어요. 안내를 시작할까요?"

@@ -1,5 +1,5 @@
 {
-  "at": "2026-10-31T07:53:25.503235+00:00",
+  "at": "2026-11-04T10:06:17.834456+00:00",
   "serial": "emulator-5554",
   "testProfile": "returnH3",
   "results": [
@@ -7,8 +7,8 @@
       "scenario": "takeover",
       "expected": "Handover card -> [인수했어요] stores the takeover snapshot (soc=54)",
       "observed": {
-        "cleared": "10-31 00:51:25.811  7439  7439 I GyeoteVehicle: records cleared via=debugIntent pairs=0",
-        "snapshot": "10-31 00:51:37.711  7439  7439 I GyeoteVehicle: handoverSnapshot saved soc=54 odometerKm=12387.0 warnings= door=false trunk=false chargePort=false restored=true via=accept"
+        "cleared": "11-04 02:04:15.877 16389 16389 I GyeoteVehicle: records cleared via=debugIntent pairs=0",
+        "snapshot": "11-04 02:04:27.777 16389 16389 I GyeoteVehicle: handoverSnapshot saved soc=54 odometerKm=12345.0 warnings= door=false trunk=false chargePort=false restored=true via=accept"
       },
       "passed": true
     },
@@ -25,8 +25,8 @@
         "log": [],
         "text": [],
         "odometer": [
-          12387.0,
-          12419
+          12345.0,
+          12377
         ]
       },
       "passed": true
@@ -36,7 +36,7 @@
       "expected": "P alone: nothing; P + driver door open: card with 54% -> 41%, +32km, 1 new warning",
       "observed": {
         "beforeDoor": null,
-        "shown": "10-31 00:51:58.099  7439  7439 I GyeoteVehicle: returnCard shown mode=RENTAL gear=PARK soc=54->41 distanceKm=32.0 newWarnings=1 names=TPMS window=false",
+        "shown": "11-04 02:04:48.227 16389 16389 I GyeoteVehicle: returnCard shown mode=RENTAL gear=PARK soc=54->41 distanceKm=32.0 newWarnings=1 names=TPMS window=false",
         "ui": [
           "Passer",
           "정차 중 · Pleos 차량",
@@ -102,7 +102,7 @@
       "scenario": "window-read",
       "expected": "Window line appears only when windows are reported (CAR_WINDOWS)",
       "observed": {
-        "windowLog": "10-31 00:51:27.959  7439  7439 I GyeoteVehicle: windowOpen=false",
+        "windowLog": "11-04 02:04:18.181 16389 16389 I GyeoteVehicle: windowOpen=false",
         "windowLine": true
       },
       "passed": true
@@ -111,7 +111,7 @@
       "scenario": "return-pair",
       "expected": "[돌려줬어요] stores the return snapshot as a pair (rental: no trip line)",
       "observed": {
-        "pair": "10-31 00:52:11.686  7439  7439 I GyeoteVehicle: returnPair saved soc=54->41 odometerKm=12387.0->12419.0 newWarnings=1 pairs=1 restored=true",
+        "pair": "11-04 02:05:01.951 16389 16389 I GyeoteVehicle: returnPair saved soc=54->41 odometerKm=12345.0->12377.0 newWarnings=1 pairs=1 restored=true",
         "trip": null
       },
       "passed": true
@@ -133,7 +133,7 @@
           "경고등",
           "인계 이력",
           "인수·반납 한 쌍씩 · 최근 50쌍까지 · 차 상태만",
-          "인수 10월 31일 00:51 → 반납 00:52",
+          "인수 11월 4일 02:04 → 반납 02:05",
           "배터리 54% → 41% · 누적 +32km · 새로 켜진 경고등 1개: 타이어 바람 · 반납 때 열림: 문"
         ],
         "pairs": 1,
@@ -145,7 +145,7 @@
       "scenario": "next-card",
       "expected": "Door closed then opened: new handover card; no second return card",
       "observed": {
-        "card": "10-31 00:52:21.892  7439  7439 I GyeoteVehicle: handoverCard shown mode=RENTAL gear=PARK",
+        "card": "11-04 02:05:12.265 16389 16389 I GyeoteVehicle: handoverCard shown mode=RENTAL gear=PARK",
         "returnAgain": null
       },
       "passed": true
@@ -183,7 +183,7 @@
           "나중에",
           "[돌려줬어요]를 누르면 지금 차 상태만 인수 기록과 한 쌍으로 '인계 이력'에 남겨요. 법인·택시 모드라 운행 표에도 1건을 적어요."
         ],
-        "log": "10-31 00:52:53.377  7439  7439 I GyeoteVehicle: returnNote saved chars=17"
+        "log": "11-04 02:05:44.979 16389 16389 I GyeoteVehicle: returnNote saved chars=17"
       },
       "passed": true
     },
@@ -191,12 +191,12 @@
       "scenario": "fleet-trip",
       "expected": "Fleet mode: [돌려줬어요] writes one trip line; trip table tab shows month, 1 entry, total km",
       "observed": {
-        "takeover": "10-31 00:52:28.890  7439  7439 I GyeoteVehicle: handoverSnapshot saved soc=41 odometerKm=12419.0 warnings=TPMS door=false trunk=false chargePort=false restored=true via=accept",
-        "mode": "10-31 00:52:33.343  7439  7439 I GyeoteVehicle: handoverSettings mode=FLEET length=NORMAL",
-        "trip": "10-31 00:52:56.330  7439  7439 I GyeoteVehicle: tripLog added startKm=12419.0 endKm=12424.0 distanceKm=5.0 destination=false trips=1",
+        "takeover": "11-04 02:05:19.345 16389 16389 I GyeoteVehicle: handoverSnapshot saved soc=41 odometerKm=12377.0 warnings=TPMS door=false trunk=false chargePort=false restored=true via=accept",
+        "mode": "11-04 02:05:23.814 16389 16389 I GyeoteVehicle: handoverSettings mode=FLEET length=NORMAL",
+        "trip": "11-04 02:05:47.986 16389 16389 I GyeoteVehicle: tripLog added startKm=12377.0 endKm=12382.0 distanceKm=5.0 destination=false trips=1",
         "odometer": [
-          12419.0,
-          12424
+          12377.0,
+          12382
         ],
         "ui": [
           "Passer",
@@ -212,19 +212,19 @@
           "인계 이력",
           "운행 표",
           "법인·택시 모드에서 [돌려줬어요]를 누를 때마다 운행 1건을 적어요. 업무·개인 구분은 하지 않아요.",
-          "2026년 10월 · 1건 · 합계 5km",
+          "2026년 11월 · 1건 · 합계 5km",
           "날짜",
           "출발 km",
           "도착 km",
           "거리",
           "목적지",
           "인수 → 반납",
-          "10월 31일",
-          "12,419km",
-          "12,424km",
+          "11월 4일",
+          "12,377km",
+          "12,382km",
           "5km",
           "—",
-          "00:52 → 00:52"
+          "02:05 → 02:05"
         ]
       },
       "passed": true
@@ -233,7 +233,7 @@
       "scenario": "next-card-note",
       "expected": "Fleet mode: the next handover card shows the note",
       "observed": {
-        "card": "10-31 00:53:05.400  7439  7439 I GyeoteVehicle: handoverCard shown mode=FLEET gear=PARK",
+        "card": "11-04 02:05:57.197 16389 16389 I GyeoteVehicle: handoverCard shown mode=FLEET gear=PARK",
         "ui": [
           "Passer",
           "정차 중 · Pleos 차량",
@@ -249,9 +249,9 @@
           "지금 켜진 경고등",
           "없어요.",
           "최근 켜졌던 경고등",
-          "타이어 바람 1번 (오늘)\n앱이 켜져 있던 동안의 기록이에요.",
+          "타이어 바람 1번 (오늘)\nPasser가 기록 중일 때의 내용이에요. 화면을 닫아도 기록해요. 끄기·앱 종료 중에는 기록하지 않아요.",
           "누적 주행거리",
-          "12,424km",
+          "12,382km",
           "문·트렁크·충전구",
           "닫혀 있어요: 문·트렁크·충전구",
           "이전 운전자 한마디",
@@ -267,7 +267,7 @@
     {
       "scenario": "clear-all",
       "expected": "Settings 모두 지우기 removes warning history, pairs, trips, snapshot and note",
-      "observed": "10-31 00:53:20.712  7439  7439 I GyeoteVehicle: records cleared warnings=0 pairs=0 trips=0 snapshot=false note=false",
+      "observed": "11-04 02:06:12.634 16389 16389 I GyeoteVehicle: records cleared warnings=0 pairs=0 trips=0 snapshot=false note=false",
       "passed": true
     },
     {
@@ -291,13 +291,13 @@
   "captures": [
     {
       "file": "screens/return/06-driving-no-return.png",
-      "sha256": "c7b444fa674f720aa4328161f03f4ae0e1ccbab8b2f96b11bb3295342a6b935b",
+      "sha256": "1e7e62960a5100615119f099f96e154fac8a83fe87c37e884689b48f39e4b84f",
       "expected_text": [],
       "passed": true
     },
     {
       "file": "screens/return/01-return-card.png",
-      "sha256": "16b523bc3bfa5e6d2021f822c7ea87ac453ec5967eb567152b31d3b1c8f8b9f6",
+      "sha256": "0bc2f4d05128045dd9a3183de305b6b9fc292af4fb28755bbfd48a189eda681e",
       "expected_text": [
         "이번 운행을 정리했어요.",
         "인수 때 → 지금",
@@ -312,7 +312,7 @@
     },
     {
       "file": "screens/return/07-rental-no-note.png",
-      "sha256": "ba747635396d0e144b28446ecf75cc9e99a333ed3e775468c0883f449259c990",
+      "sha256": "cb80746aa3a2f8b8b5b810be27f4518c3f96e8e458076e7c8c2547e1e20e50bf",
       "expected_text": [
         "이번 운행을 정리했어요.",
         "돌려줬어요",
@@ -322,7 +322,7 @@
     },
     {
       "file": "screens/return/03-history-pairs.png",
-      "sha256": "886ddbe7ffe300afc4f46a22d9ce025f13d30f384f5c7a3ecc26c15d367a3193",
+      "sha256": "1e83d9152fac6d0062257f7f0e545f827d2952d1f315d4a957959bdabb266ca3",
       "expected_text": [
         "경고등",
         "인계 이력",
@@ -336,7 +336,7 @@
     },
     {
       "file": "screens/return/02-note.png",
-      "sha256": "a22125999a12559fbd2b4f720311887d9560afdcac0c56712400e54483e81857",
+      "sha256": "4f38d1c664e4f6200d0e02a758f182289d4061420ba0f3ec839164ffe6555f30",
       "expected_text": [
         "Rear tire air low",
         "한마디 저장"
@@ -345,7 +345,7 @@
     },
     {
       "file": "screens/return/05-trip-table.png",
-      "sha256": "4065ce8bc26f0cfa5a2966dce02e38d135d6e316ab523492c616275b683520ce",
+      "sha256": "ee962434da13f3e0459c9ae13d315a7f989144f1e69bcbc5e133b5b3c883278b",
       "expected_text": [
         "운행 표",
         "1건 · 합계 5km",
@@ -361,7 +361,7 @@
     },
     {
       "file": "screens/return/04-next-card-note.png",
-      "sha256": "5ebcaf1a17777a521570e463bc12c1cd0639daed676a03f7a830a78d8097099f",
+      "sha256": "117d5df4fa723d89f7010e93f03a9636f5469bca5ae15dbcd4e7e3116bc3f783",
       "expected_text": [
         "안녕하세요. 지금 제 상태를 말씀드릴게요.",
         "이전 운전자 한마디",
@@ -371,5 +371,5 @@
       "passed": true
     }
   ],
-  "apk_sha256": "d10a2cd0c0786e1002688e438ee52b3ccad31e0a8bf2fc0f0d9004dbb79d85f5"
+  "apk_sha256": "63d07bdd77402c1e6a07107fe42f011dbbfd4a57947191cfb0d37b088857a9d8"
 }

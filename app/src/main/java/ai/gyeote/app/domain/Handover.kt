@@ -71,6 +71,7 @@ data class HandoverSnapshot(
 
 /** First-person car voice. Plain words from the existing warning dictionary; no judgement of people. */
 object HandoverText {
+    const val RECORDING_SCOPE = "Passer가 기록 중일 때의 내용이에요. 화면을 닫아도 기록해요. 끄기·앱 종료 중에는 기록하지 않아요."
     const val GREETING = "안녕하세요. 지금 제 상태를 말씀드릴게요."
     private fun km(value: Double) = String.format(Locale.KOREA, "%,.0f", value)
     /** Korean particle by the final syllable: 문이/충전구가, 문은/충전구는. */
@@ -133,8 +134,8 @@ object HandoverText {
             "지금 켜진 경고등이 있어요. " + active.joinToString(" ") { it.meaning }
 
         val recent = recentSummary(input.history, now, zone)
-        lines += HandoverLine("최근 켜졌던 경고등", if (recent.isEmpty()) "기록이 없어요. (앱이 켜져 있던 동안의 기록이에요)" else
-            recent.joinToString(" · ") + "\n앱이 켜져 있던 동안의 기록이에요.")
+        lines += HandoverLine("최근 켜졌던 경고등", if (recent.isEmpty()) "기록이 없어요.\n$RECORDING_SCOPE" else
+            recent.joinToString(" · ") + "\n$RECORDING_SCOPE")
         if (length == HandoverLength.NORMAL) speech += if (recent.isEmpty()) "최근에 켜졌던 경고등 기록은 없어요." else
             "최근에 켜졌던 경고등은 " + recent.joinToString(", ") { it.replace(Regex(" \\((.+)\\)$"), ", $1") } + "이에요."
 

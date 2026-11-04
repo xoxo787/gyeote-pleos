@@ -1,0 +1,332 @@
+{
+  "at": "2026-11-04T10:30:01.002150+00:00",
+  "serial": "emulator-5554",
+  "testProfile": "backgroundH8-c91600181884",
+  "apk_sha256": "63d07bdd77402c1e6a07107fe42f011dbbfd4a57947191cfb0d37b088857a9d8",
+  "results": [
+    {
+      "scenario": "background-recording",
+      "expected": "After >=60s behind HOME, public polling records TPMS On -> Off; FGS, unfrozen; notification permission denied",
+      "observed": {
+        "foregroundLog": "11-04 02:26:47.061 30416 30416 I GyeoteVehicle: recordService foreground",
+        "elapsedSeconds": 65.00056119999499,
+        "on": "11-04 02:27:58.197 30416 30416 I GyeoteVehicle: warningHistory records=1 open=1",
+        "off": "11-04 02:28:04.202 30416 30416 I GyeoteVehicle: warningHistory records=1 open=0",
+        "state": {
+          "foreground": true,
+          "notFrozen": true,
+          "processState": [
+            "curProcState=4 mRepProcState=4 setProcState=4 lastStateTime=-1m20s398ms"
+          ],
+          "service": [
+            "* ServiceRecord{4af6e59 u10 ai.gyeote.app/.vehicle.VehicleRecordService}",
+            "intent={cmp=ai.gyeote.app/.vehicle.VehicleRecordService}",
+            "infoAllowStartForeground=[callingPackage: ai.gyeote.app; callingUid: 1010175; uidState: TOP ; uidBFSL: [BFSL]; intent: Intent { cmp=ai.gyeote.app/.vehicle.VehicleRecordService }; code:PROC_STATE_TOP; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]",
+            "isForeground=true foregroundId=8 types=40000000 foregroundNoti=Notification(channel=vehicle_record shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x4a color=0x00000000 category=service vis=PRIVATE)"
+          ],
+          "freezer": [
+            "hasPendingCompaction=false    isFreezeExempt=false isPendingFreeze=false isFrozen=false"
+          ]
+        },
+        "hidden": {
+          "homeThenNavigationCover": true,
+          "detached": "11-04 02:26:50.208 30416 30416 I GyeoteVehicle: recordScreen detached",
+          "resumed": [
+            "topResumedActivity=ActivityRecord{9c286d7 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000146}",
+            "topResumedActivity=ActivityRecord{c78832 u10 ai.umos.drivingview/.DrivingViewActivity t1000145}",
+            "topResumedActivity=ActivityRecord{109a073 u10 ai.umos.homescreen/.HomeActivity t1000143}"
+          ]
+        },
+        "resumed": [
+          "topResumedActivity=ActivityRecord{9c286d7 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000146}",
+          "topResumedActivity=ActivityRecord{c78832 u10 ai.umos.drivingview/.DrivingViewActivity t1000145}",
+          "topResumedActivity=ActivityRecord{109a073 u10 ai.umos.homescreen/.HomeActivity t1000143}"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "background-card-ready",
+      "expected": "Background P + driver door open/close prepares a handover card, visible on reopening, no background speech",
+      "observed": {
+        "cardBeforeReopen": "11-04 02:28:09.832 30416 30416 I GyeoteVehicle: handoverCard shown mode=RENTAL gear=PARK",
+        "backgroundSpeech": [],
+        "ui": [
+          "Passer",
+          "정차 중 · Pleos 차량",
+          "인계 방식 · 렌터카·카셰어",
+          "오늘",
+          "기록",
+          "설정",
+          "모의",
+          "차를 넘겨받는 순간 · 정차 중",
+          "안녕하세요. 지금 제 상태를 말씀드릴게요.",
+          "배터리",
+          "배터리 41% · 갈 수 있는 거리 약 210km",
+          "지금 켜진 경고등",
+          "없어요.",
+          "최근 켜졌던 경고등",
+          "타이어 바람 1번 (오늘)\nPasser가 기록 중일 때의 내용이에요. 화면을 닫아도 기록해요. 끄기·앱 종료 중에는 기록하지 않아요.",
+          "누적 주행거리",
+          "12,385km",
+          "문·트렁크·충전구",
+          "닫혀 있어요: 문·트렁크·충전구",
+          "인수했어요",
+          "처음 타요",
+          "다시 듣기",
+          "[인수했어요]를 누르면 지금 차 상태(시각·배터리·누적 거리·켜진 경고등·문·충전구)만 이 차 안에 남겨요."
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "background-history-visible",
+      "expected": "Recently lit warning contains TPMS after reopening",
+      "observed": [
+        "Passer",
+        "정차 중 · Pleos 차량",
+        "인계 방식 · 렌터카·카셰어",
+        "오늘",
+        "기록",
+        "설정",
+        "모의",
+        "차를 넘겨받는 순간 · 정차 중",
+        "안녕하세요. 지금 제 상태를 말씀드릴게요.",
+        "배터리",
+        "배터리 41% · 갈 수 있는 거리 약 210km",
+        "지금 켜진 경고등",
+        "없어요.",
+        "최근 켜졌던 경고등",
+        "타이어 바람 1번 (오늘)\nPasser가 기록 중일 때의 내용이에요. 화면을 닫아도 기록해요. 끄기·앱 종료 중에는 기록하지 않아요.",
+        "누적 주행거리",
+        "12,385km",
+        "문·트렁크·충전구",
+        "닫혀 있어요: 문·트렁크·충전구",
+        "인수했어요",
+        "처음 타요",
+        "다시 듣기",
+        "[인수했어요]를 누르면 지금 차 상태(시각·배터리·누적 거리·켜진 경고등·문·충전구)만 이 차 안에 남겨요."
+      ],
+      "passed": true
+    },
+    {
+      "scenario": "background-return-ready",
+      "expected": "Return is judged behind HOME and its card is visible on reopening",
+      "observed": {
+        "beforeReopen": "11-04 02:28:33.762 30416 30416 I GyeoteVehicle: returnCard shown mode=FLEET gear=PARK soc=41->41 distanceKm=1.0 newWarnings=0 names= window=false",
+        "ui": [
+          "Passer",
+          "정차 중 · Pleos 차량",
+          "인계 방식 · 법인·택시",
+          "오늘",
+          "기록",
+          "설정",
+          "모의",
+          "차를 돌려줄 때 · 정차 중",
+          "이번 운행을 정리했어요.",
+          "인수 때 → 지금",
+          "배터리 · 인수 때 → 지금",
+          "41% → 41%",
+          "누적 주행거리",
+          "+1km",
+          "새로 켜진 경고등",
+          "0개",
+          "문·트렁크·충전구",
+          "열려 있어요: 문\n닫혀 있어요: 트렁크·충전구",
+          "창문",
+          "모두 닫혀 있어요.",
+          "다음 사람에게 한마디 · 선택",
+          "다음에 타는 사람의 인계 카드에 '이전 운전자 한마디'로 보여요.",
+          "다음 사람에게 한마디",
+          "돌려줬어요",
+          "나중에",
+          "[돌려줬어요]를 누르면 지금 차 상태만 인수 기록과 한 쌍으로 '인계 이력'에 남겨요. 법인·택시 모드라 운행 표에도 1건을 적어요."
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "navigation-before-reopen",
+      "expected": "Route-start name arrives before Passer is brought forward; Maps is resumed",
+      "observed": {
+        "routeStartTapped": true,
+        "callback": "11-04 02:29:09.468 30416 30416 I GyeoteVehicle: navigation=destinationName chars=7",
+        "callbackEpoch": 1793788149.468,
+        "beforeReopenEpoch": 1793788153.8955824,
+        "resumed": [
+          "topResumedActivity=ActivityRecord{9c286d7 u10 ai.umos.maps.android.navigation.app/.MainActivity t1000146}",
+          "topResumedActivity=ActivityRecord{c78832 u10 ai.umos.drivingview/.DrivingViewActivity t1000145}",
+          "topResumedActivity=ActivityRecord{109a073 u10 ai.umos.homescreen/.HomeActivity t1000143}"
+        ],
+        "state": {
+          "foreground": true,
+          "notFrozen": true,
+          "processState": [
+            "curProcState=4 mRepProcState=4 setProcState=4 lastStateTime=-2m24s243ms"
+          ],
+          "service": [
+            "* ServiceRecord{4af6e59 u10 ai.gyeote.app/.vehicle.VehicleRecordService}",
+            "intent={cmp=ai.gyeote.app/.vehicle.VehicleRecordService}",
+            "infoAllowStartForeground=[callingPackage: ai.gyeote.app; callingUid: 1010175; uidState: TOP ; uidBFSL: [BFSL]; intent: Intent { cmp=ai.gyeote.app/.vehicle.VehicleRecordService }; code:PROC_STATE_TOP; tempAllowListReason:<null>; targetSdkVersion:36; callerTargetSdkVersion:36; startForegroundCount:0; bindFromPackage:null: isBindService:false]",
+            "isForeground=true foregroundId=8 types=40000000 foregroundNoti=Notification(channel=vehicle_record shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x4a color=0x00000000 category=service vis=PRIVATE)"
+          ],
+          "freezer": [
+            "hasPendingCompaction=false    isFreezeExempt=false isPendingFreeze=false isFrozen=false"
+          ]
+        }
+      },
+      "passed": true
+    },
+    {
+      "scenario": "navigation-ended",
+      "expected": "Guidance is ended after measurement",
+      "observed": {
+        "endTapped": true,
+        "endControlStillVisible": false
+      },
+      "passed": true
+    },
+    {
+      "scenario": "notification-before-off",
+      "expected": "An ongoing notification is actually posted before testing removal",
+      "observed": {
+        "notifications": [
+          "NotificationRecord(0x0a6f1c54: pkg=ai.gyeote.app user=UserHandle{10} id=8 tag=null importance=2 key=10|ai.gyeote.app|8|null|1010175: Notification(channel=vehicle_record shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x4a color=0x00000000 category=service vis=PRIVATE))"
+        ],
+        "waitedSeconds": 9.329154500002915
+      },
+      "passed": true
+    },
+    {
+      "scenario": "mode-off",
+      "expected": "OFF removes VehicleRecordService and the ongoing notification",
+      "observed": {
+        "serviceStillPresent": false,
+        "activeNotifications": [],
+        "ui": [
+          "Passer",
+          "정차 중 · Pleos 차량",
+          "인계 방식 · 끄기",
+          "오늘",
+          "기록",
+          "설정",
+          "모의",
+          "인계 설정",
+          "운전자가 바뀔 때 차가 자기 상태를\n먼저 알려 드려요.",
+          "쓰는 방식",
+          "렌터카·카셰어 · 기본",
+          "법인·택시",
+          "함께 쓰는 차",
+          "끄기",
+          "끄기를 고르면 인계 카드와 차 상태 기록을 멈춰요.",
+          "말하는 길이",
+          "짧게 · 약 15초",
+          "보통 · 약 30초",
+          "화면에는 늘 모든 줄을 보여 드려요.",
+          "마지막 인수 기록",
+          "11월 4일 02:28 · 배터리 41% · 누적 12,385km · 켜진 경고등 없음 · 문 닫힘 · 트렁크 닫힘 · 충전구 닫힘",
+          "차 상태만 이 차 안에 암호화해 저장해요.",
+          "기록 모두 지우기",
+          "경고등 기록·인계 이력·운행 표·마지막 인수 기록·남긴 한마디를 이 차에서 지워요. 설정은 그대로 둬요.",
+          "모두 지우기"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "off-reopen-no-service",
+      "expected": "Opening the app with stored mode OFF must not start recording",
+      "observed": {
+        "serviceStillPresent": false
+      },
+      "passed": true
+    },
+    {
+      "scenario": "mode-enabled-again",
+      "expected": "Enabled mode restarts one FGS and its ongoing notification",
+      "observed": {
+        "restart": "11-04 02:29:58.392 30416 30416 I GyeoteVehicle: recordService foreground",
+        "notifications": [
+          "NotificationRecord(0x03dc3000: pkg=ai.gyeote.app user=UserHandle{10} id=8 tag=null importance=2 key=10|ai.gyeote.app|8|null|1010175: Notification(channel=vehicle_record shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x6a color=0x00000000 category=service vis=PRIVATE))"
+        ],
+        "waitedSeconds": 0.04251300000032643
+      },
+      "passed": true
+    },
+    {
+      "scenario": "quiet-channel",
+      "expected": "One LOW channel, no sound or vibration",
+      "observed": [
+        "NotificationChannel{mId='vehicle_record', mName=차 상..., mDescription=, mImportance=2, mBypassDnd=false, mLockscreenVisibility=-1000, mSound=null, mLights=false, mLightColor=0, mVibration=null, mUserLockedFields=0, mUserVisibleTaskShown=true, mVibrationEnabled=false, mShowBadge=false, mDeleted=false, mDeletedTimeMs=-1, mGroup='null', mAudioAttributes=null, mBlockableSystem=false, mAllowBubbles=-1, mImportanceLockedDefaultApp=false, mOriginalImp=2, mParent=null, mConversationId=null, mDemoted=false, mImportantConvo=false}"
+      ],
+      "passed": true
+    }
+  ],
+  "captures": [
+    {
+      "file": "screens/background/01-history-and-handover.png",
+      "sha256": "1d01ff1417ff82987dbfdded5f04781d45d15d9442a180235c9bddfe658ba935",
+      "expected_text": [
+        "안녕하세요. 지금 제 상태를 말씀드릴게요.",
+        "최근 켜졌던 경고등",
+        "타이어 바람"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/background/02-return-ready.png",
+      "sha256": "ee1af63fa2346d9c726ad49593730e1f37de0b0e33b8ae1c63cc0689ab7cba7d",
+      "expected_text": [
+        "이번 운행을 정리했어요.",
+        "+1km",
+        "돌려줬어요"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/background/04-navigation-open.png",
+      "sha256": "26f62f4ec8b50c5aebc4f354d8f69204b5d3d309a32d29783e671effb45da440",
+      "expected_text": [],
+      "passed": true
+    },
+    {
+      "file": "screens/background/05-navigation-search.png",
+      "sha256": "3157f923d707da352c22b12d2e6c6ba92a45720d37605a2243f00b2e63d48535",
+      "expected_text": [],
+      "passed": true
+    },
+    {
+      "file": "screens/background/05b-navigation-destination.png",
+      "sha256": "2af621d7fe6dfb165668ca87ed7d0bac876692494cdda298ea42b2a318925a5c",
+      "expected_text": [],
+      "passed": true
+    },
+    {
+      "file": "screens/background/06-navigation-route.png",
+      "sha256": "400579dfbbcf8cee0d6a2788908dbb9b3a50068e639ef88483ada18f3a406b3f",
+      "expected_text": [],
+      "passed": true
+    },
+    {
+      "file": "screens/background/07-navigation-started.png",
+      "sha256": "10cb07082bd7e3a1f44cfb6de3adade5de8fcaaaa2b98aa73a87a3dd24bec0f0",
+      "expected_text": [],
+      "passed": true
+    },
+    {
+      "file": "screens/background/08-navigation-ended.png",
+      "sha256": "10c0e9df7449510261788bd8e1f348e520ad9298275e11139b0b02097309232c",
+      "expected_text": [],
+      "passed": true
+    },
+    {
+      "file": "screens/background/03-mode-off.png",
+      "sha256": "742cc43fe687ce8490a4314e9fc2a07d5d9e13031862302985a0a680f5b01968",
+      "expected_text": [
+        "끄기",
+        "차 상태 기록을 멈춰요"
+      ],
+      "passed": true
+    }
+  ]
+}

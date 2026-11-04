@@ -66,3 +66,10 @@
 - 설정의 모드 순서·라벨: **렌터카·카셰어 · 기본 → 법인·택시 → 함께 쓰는 차 → 끄기**(`screens/handover/ui-settings.png`, 새 항목 `settings-mode-order` 통과). 위 표의 모드 이름 예외 1건은 라벨이 바뀌어 없어졌다.
 - 모드별 기본 발화 길이: 렌터카·카셰어 **짧게**(이전 보통), 법인·택시 보통, 함께 쓰는 차 짧게. 저장된 길이는 그대로 우선한다. 그래서 `3-tts`는 `length=SHORT|NORMAL` 둘 다 받도록 고쳤다(이번 실행 `length=SHORT chars=86`).
 - 재실행(debug `d10a2cd0c078`): **18개 중 16개 통과**. 실패 2개는 환경 문제: `3-tts`(한국어 음성 없음), `2-odometer-exactly-12345`(누적 km가 이미 12,387km라 줄일 수 없음). 단위 테스트 249개(debug·release 각 249, 실패 0).
+
+## 2026-11-04 H8
+- 기록 foreground service를 추가했다. 화면 콜백만 붙였다 떼며 화면 뒤에서도 경고등 공개 3초 조회·인수/반납 판정을 유지한다. 빌드 성공, 단위 테스트 Debug·Release 각 **259개**, lint 오류 0.
+- F1 재실행 **17/18** 통과(허용 환경 실패 `3-tts` 1개), F2 **16/16**, F3 **14/14**. debug APK sha256 앞 12자리 `63d07bdd7740`.
+- 실제 화면이 멈춘 뒤 **65초** 대기 → TPMS 켬/끔 기록, 서비스 `isForeground=true`, 프로세스 `curProcState=4`·`isFrozen=false`. 화면 뒤 P+운전석 문 여닫기로 준비된 인계 카드를 앱 복귀 직후 확인했다(`screens/background/01-history-and-handover.png`). 배경 인계 발화 0건.
+- 기록 범위 문구에 화면을 닫아도 기록한다는 설명과 끄기·앱 종료의 한계를 넣었다. 전체 문구·A~G 판정·알림 및 내비 실측은 [VERIFICATION_background.md](VERIFICATION_background.md), 원시 결과는 `background-integration.json`.
+- 한계: 실차·앱마켓 정책 미확인, 한국어 TTS는 요청까지만 확인. 프로세스 종료 중 기록과 대기 카드 복원은 보장하지 않는다. HOME 단독으로는 다중 창의 앱이 계속 resumed여서 내비 화면으로 덮고 화면 해제를 확인한 뒤 검사했다.
