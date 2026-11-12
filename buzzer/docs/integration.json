@@ -1,0 +1,774 @@
+{
+  "at": "2026-11-11T13:09:39.268424+00:00",
+  "serial": "emulator-5554",
+  "timingsMs": {
+    "ask": 6000,
+    "reveal": 5000,
+    "reflexDelay": 6000,
+    "reflexWindow": 6000,
+    "fallback": 15000
+  },
+  "results": [
+    {
+      "scenario": "A1-locked-while-driving",
+      "expected": "In D the screen only says to park; a window move does nothing",
+      "observed": {
+        "ui": [
+          "앞",
+          "운전석",
+          "조수석",
+          "뒤 왼쪽",
+          "뒤 오른쪽",
+          "충전오락관",
+          "차를 세우면 열려요",
+          "기어를 P에 두면 놀이가 열려요."
+        ],
+        "lobbyLog": []
+      },
+      "passed": true
+    },
+    {
+      "scenario": "A2-park-opens-lobby",
+      "expected": "P opens the lobby with nobody joined",
+      "observed": {
+        "log": "11-11 05:04:51.054  9616  9616 I BuzzerGame: phase=Lobby joined=[] charging=false soc=60",
+        "ui": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "A3-window-joins-seat",
+      "expected": "Lowering a seat's own window joins that seat only",
+      "observed": {
+        "first": "11-11 05:04:56.102  9616  9616 I BuzzerGame: phase=Lobby joined=[REAR_LEFT] charging=false soc=60",
+        "second": "11-11 05:04:56.765  9616  9616 I BuzzerGame: phase=Lobby joined=[REAR_LEFT, DRIVER] charging=false soc=60",
+        "ui": [
+          "앞",
+          "운전석",
+          "참가! 이제 올려 주세요",
+          "★ 0",
+          "조수석",
+          "창문을 내리면 참가",
+          "뒤 왼쪽",
+          "참가! 이제 올려 주세요",
+          "★ 0",
+          "뒤 오른쪽",
+          "창문을 내리면 참가",
+          "충전오락관",
+          "오늘은 5판 · 충전 중에 열면 배터리가 시계가 돼요",
+          "함께할 자리는\n창문을 한 칸 내려 주세요",
+          "창문은 한 칸이면 돼요 · 올릴 때는 천천히 · 기어를 옮기면 바로 닫혀요\n지금까지 모은 별 0개",
+          "시작"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "A4-start-waits-for-windows-up",
+      "expected": "[시작] with windows down waits (no time limit) until they are raised",
+      "observed": {
+        "tapped": true,
+        "between": "11-11 05:05:02.388  9616  9616 I BuzzerGame: phase=Between raise=[REAR_LEFT, DRIVER] nextAtSoc=null",
+        "askedWhileDown": [],
+        "asking": "11-11 05:05:09.407  9616  9616 I BuzzerGame: phase=Asking round=0 fromCar=false truth=true answeredO=[] final=false",
+        "ui": [
+          "앞",
+          "운전석",
+          "창문을 올려 주세요",
+          "★ 0",
+          "조수석",
+          "쉬는 자리",
+          "뒤 왼쪽",
+          "창문을 올려 주세요",
+          "★ 0",
+          "뒤 오른쪽",
+          "쉬는 자리",
+          "충전오락관",
+          "잠깐",
+          "창문을 올려 주세요",
+          "천천히 하셔도 돼요 · 뒤 왼쪽, 운전석"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "A5-lowering-answers-O",
+      "expected": "The seat that lowered answered O (correct, +1 star); the seat that stayed answered X",
+      "observed": {
+        "answered": "11-11 05:05:10.187  9616  9616 I BuzzerGame: phase=Asking round=0 fromCar=false truth=true answeredO=[REAR_LEFT] final=false",
+        "reveal": "11-11 05:05:15.419  9616  9616 I BuzzerGame: phase=Reveal round=0 kind=OX correct=[REAR_LEFT] wrong=[DRIVER] stars=REAR_LEFT:1,DRIVER:0",
+        "question": [
+          "앞",
+          "운전석",
+          "그대로 두면 X",
+          "★ 0",
+          "조수석",
+          "쉬는 자리",
+          "뒤 왼쪽",
+          "O를 골랐어요",
+          "★ 0",
+          "뒤 오른쪽",
+          "쉬는 자리",
+          "충전오락관",
+          "1번째 판",
+          "전기차는 달리는 동안 배기가스를 내보내지 않는다.",
+          "맞으면 창문을 한 칸 내리고, 아니면 그대로 두세요."
+        ],
+        "revealUi": [
+          "앞",
+          "운전석",
+          "아쉬워요",
+          "★ 0",
+          "조수석",
+          "쉬는 자리",
+          "뒤 왼쪽",
+          "★ 맞혔어요",
+          "★ 1",
+          "뒤 오른쪽",
+          "쉬는 자리",
+          "충전오락관",
+          "전기차는 달리는 동안 배기가스를 내보내지 않는다.",
+          "O · 맞는 말이에요",
+          "전기 모터로 달려서 배기구가 없어요."
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "A6-next-question-waits-for-raise",
+      "expected": "The next question does not start while the answering window is still down",
+      "observed": {
+        "between": "11-11 05:05:20.499  9616  9616 I BuzzerGame: phase=Between raise=[REAR_LEFT] nextAtSoc=null",
+        "askedWhileDown": [],
+        "asking": "11-11 05:05:24.855  9616  9616 I BuzzerGame: phase=Asking round=1 fromCar=false truth=false answeredO=[] final=false"
+      },
+      "passed": true
+    },
+    {
+      "scenario": "A7-staying-up-answers-X",
+      "expected": "On a false statement both seats stay up and both earn a star",
+      "observed": "11-11 05:05:30.868  9616  9616 I BuzzerGame: phase=Reveal round=1 kind=OX correct=[REAR_LEFT, DRIVER] wrong=[] stars=REAR_LEFT:2,DRIVER:1",
+      "passed": true
+    },
+    {
+      "scenario": "A8-reflex-round",
+      "expected": "Lowering before go sits out; the first seat to lower after go wins the star",
+      "observed": {
+        "steady": "11-11 05:05:35.933  9616  9616 I BuzzerGame: phase=Steady round=2 tooEarly=[] final=false",
+        "early": "11-11 05:05:36.235  9616  9616 I BuzzerGame: phase=Steady round=2 tooEarly=[DRIVER] final=false",
+        "go": "11-11 05:05:41.962  9616  9616 I BuzzerGame: phase=Go round=2 tooEarly=[DRIVER]",
+        "winner": "11-11 05:05:44.787  9616  9616 I BuzzerGame: phase=Reveal round=2 kind=REFLEX winner=REAR_LEFT tooEarly=[DRIVER] stars=REAR_LEFT:3,DRIVER:1",
+        "goUi": [
+          "앞",
+          "운전석",
+          "이번 판은 쉬어요",
+          "★ 1",
+          "조수석",
+          "쉬는 자리",
+          "뒤 왼쪽",
+          "지금!",
+          "★ 2",
+          "뒤 오른쪽",
+          "쉬는 자리",
+          "충전오락관",
+          "3번째 판 · 번개 버저",
+          "지금!",
+          "가장 먼저 내린 자리가 별을 받아요."
+        ],
+        "winnerUi": [
+          "앞",
+          "운전석",
+          "너무 빨랐어요",
+          "★ 1",
+          "조수석",
+          "쉬는 자리",
+          "뒤 왼쪽",
+          "★ 가장 빨랐어요",
+          "★ 3",
+          "뒤 오른쪽",
+          "쉬는 자리",
+          "충전오락관",
+          "번개 버저",
+          "뒤 왼쪽이 가장 빨랐어요.",
+          "너무 빨랐던 자리: 운전석"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "A9-car-makes-a-question",
+      "expected": "Every third question is made from live car data (battery 60 % -> 'more than half' is true)",
+      "observed": {
+        "log": "11-11 05:05:49.799  9616  9616 I BuzzerGame: phase=Asking round=3 fromCar=true truth=true answeredO=[] final=false",
+        "ui": [
+          "앞",
+          "운전석",
+          "그대로 두면 X",
+          "★ 1",
+          "조수석",
+          "쉬는 자리",
+          "뒤 왼쪽",
+          "그대로 두면 X",
+          "★ 3",
+          "뒤 오른쪽",
+          "쉬는 자리",
+          "충전오락관",
+          "4번째 판 · 차가 낸 문제",
+          "지금 이 차의 배터리는 절반보다 많이 남아 있다.",
+          "맞으면 창문을 한 칸 내리고, 아니면 그대로 두세요."
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "A10-driving-closes-at-once",
+      "expected": "Leaving P closes the game at once, says so once, keeps the 4 stars, and ignores windows afterwards",
+      "observed": {
+        "closed": "11-11 05:05:52.700  9616  9616 I BuzzerGame: phase=Locked closedByDriving=true leftScreen=false lifetime=4",
+        "said": "11-11 05:05:52.700  9616  9616 I BuzzerCar: say count=1 first=출발하니까 놀이를 닫을게요. 다음에 이어서 해요.",
+        "ui": [
+          "앞",
+          "운전석",
+          "★ 1",
+          "조수석",
+          "뒤 왼쪽",
+          "★ 3",
+          "뒤 오른쪽",
+          "충전오락관",
+          "출발",
+          "출발하니까 닫았어요",
+          "다음에 차를 세우면 이어서 해요. 지금까지 모은 별 4개"
+        ],
+        "phasesAfter": []
+      },
+      "passed": true
+    },
+    {
+      "scenario": "B1-lobby-shows-charging",
+      "expected": "While charging the lobby says the battery brings the questions",
+      "observed": {
+        "charging": "11-11 05:06:07.720  9616  9616 I BuzzerGame: phase=Lobby joined=[] charging=true soc=78",
+        "ui": [
+          "앞",
+          "운전석",
+          "창문을 내리면 참가",
+          "조수석",
+          "창문을 내리면 참가",
+          "뒤 왼쪽",
+          "창문을 내리면 참가",
+          "뒤 오른쪽",
+          "창문을 내리면 참가",
+          "충전오락관",
+          "충전 중 78% · 배터리가 1% 오를 때마다 새 문제가 와요",
+          "함께할 자리는\n창문을 한 칸 내려 주세요",
+          "창문은 한 칸이면 돼요 · 올릴 때는 천천히 · 기어를 옮기면 바로 닫혀요\n지금까지 모은 별 4개"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "B2-one-percent-brings-next-question",
+      "expected": "After a round the next question waits for +1 % and arrives when the battery reaches it",
+      "observed": {
+        "asking": "11-11 05:06:17.726  9616  9616 I BuzzerGame: phase=Asking round=0 fromCar=false truth=true answeredO=[] final=false",
+        "between": "11-11 05:06:28.827  9616  9616 I BuzzerGame: phase=Between raise=[] nextAtSoc=79",
+        "askedBeforePercent": [],
+        "unlocked": "11-11 05:06:35.207  9616  9616 I BuzzerGame: phase=Asking round=1 fromCar=false truth=false answeredO=[] final=false",
+        "ui": [
+          "앞",
+          "운전석",
+          "준비됐어요",
+          "★ 0",
+          "조수석",
+          "쉬는 자리",
+          "뒤 왼쪽",
+          "쉬는 자리",
+          "뒤 오른쪽",
+          "쉬는 자리",
+          "충전오락관",
+          "충전 중 78%",
+          "다음 문제는 79%에 와요",
+          "충전되는 동안 잠깐 쉬어요."
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "B3-target-ends-session",
+      "expected": "Reaching 80 % plays one last round and ends the session",
+      "observed": {
+        "between": "11-11 05:06:46.287  9616  9616 I BuzzerGame: phase=Between raise=[] nextAtSoc=80",
+        "lastRound": "11-11 05:06:46.485  9616  9616 I BuzzerGame: phase=Steady round=2 tooEarly=[] final=true",
+        "said": "11-11 05:06:46.485  9616  9616 I BuzzerCar: say count=2 first=충전이 거의 끝났어요. 마지막 문제예요.",
+        "finished": "11-11 05:07:03.727  9616  9616 I BuzzerGame: phase=Finished reason=CHARGED open=[] stars=DRIVER:1 lifetime=5",
+        "ui": [
+          "앞",
+          "운전석",
+          "수고했어요",
+          "★ 1",
+          "조수석",
+          "쉬는 자리",
+          "뒤 왼쪽",
+          "쉬는 자리",
+          "뒤 오른쪽",
+          "쉬는 자리",
+          "충전오락관",
+          "충전 완료 80%",
+          "충전도 놀이도 끝났어요",
+          "오늘 모은 별 1개 · 지금까지 5개",
+          "한 판 더"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "B4-slow-charger-fallback",
+      "expected": "Without +1 % the next question still arrives after the fallback time (15 s here)",
+      "observed": {
+        "between": "11-11 05:07:36.442  9616  9616 I BuzzerGame: phase=Between raise=[] nextAtSoc=81",
+        "askedEarly": [],
+        "asking": "11-11 05:07:51.513  9616  9616 I BuzzerGame: phase=Asking round=1 fromCar=false truth=true answeredO=[] final=false",
+        "waitedSeconds": 14.9
+      },
+      "passed": true
+    },
+    {
+      "scenario": "B5-unplug-ends-after-round",
+      "expected": "Unplugging lets the current round finish, then ends with 'continue next charge'",
+      "observed": {
+        "unplugged": "11-11 05:07:52.331  9616  9645 I BuzzerCar: charging=false",
+        "finished": "11-11 05:08:02.652  9616  9616 I BuzzerGame: phase=Finished reason=UNPLUGGED open=[] stars=DRIVER:1 lifetime=6",
+        "ui": [
+          "앞",
+          "운전석",
+          "수고했어요",
+          "★ 1",
+          "조수석",
+          "쉬는 자리",
+          "뒤 왼쪽",
+          "쉬는 자리",
+          "뒤 오른쪽",
+          "쉬는 자리",
+          "충전오락관",
+          "충전 끝",
+          "다음 충전 때 이어서 해요",
+          "오늘 모은 별 1개 · 지금까지 6개",
+          "한 판 더"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "C1-five-rounds-then-open-window-reminder",
+      "expected": "A parked session ends after five rounds and lists a window still open until it is closed",
+      "observed": {
+        "lobby": true,
+        "finished": "11-11 05:09:28.799  9616  9616 I BuzzerGame: phase=Finished reason=ROUNDS_DONE open=[PASSENGER] stars=REAR_RIGHT:3 lifetime=9",
+        "rounds": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "cleared": "11-11 05:09:31.881  9616  9616 I BuzzerGame: phase=Finished reason=ROUNDS_DONE open=[] stars=REAR_RIGHT:3 lifetime=9",
+        "ui": [
+          "앞",
+          "운전석",
+          "쉬는 자리",
+          "조수석",
+          "창문이 열려 있어요",
+          "뒤 왼쪽",
+          "쉬는 자리",
+          "뒤 오른쪽",
+          "수고했어요",
+          "★ 3",
+          "충전오락관",
+          "끝",
+          "오늘은 여기까지예요",
+          "오늘 모은 별 3개 · 지금까지 9개\n열려 있는 창문을 올려 주세요: 조수석",
+          "한 판 더"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "scenario": "C2-stars-survive-restart",
+      "expected": "Lifetime stars are still there after the app is closed and opened",
+      "observed": {
+        "lifetime": 9,
+        "ui": true
+      },
+      "passed": true
+    },
+    {
+      "scenario": "ui-wording",
+      "expected": "No avoided words on any captured screen",
+      "observed": {
+        "screens": [
+          "01-lobby-joined",
+          "02-raise-windows",
+          "03-question-answered",
+          "04-reveal",
+          "05-reflex-go",
+          "06-reflex-winner",
+          "07-car-question",
+          "08-closed-by-driving",
+          "09-lobby-charging",
+          "10-waiting-for-percent",
+          "11-finished-charged",
+          "12-finished-unplugged",
+          "13-finished-open-window"
+        ],
+        "offending": {}
+      },
+      "passed": true
+    }
+  ],
+  "captures": [
+    {
+      "file": "screens/01-lobby-joined.png",
+      "sha256": "16ffc97943ddb1f1e1d8eb0bc9aa5cc9c87bde92e9135ed24dbf282bd24cb115",
+      "expected_text": [
+        "운전석",
+        "뒤 왼쪽",
+        "참가!",
+        "창문을 내리면 참가",
+        "시작"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "참가! 이제 올려 주세요",
+        "★ 0",
+        "조수석",
+        "창문을 내리면 참가",
+        "뒤 왼쪽",
+        "참가! 이제 올려 주세요",
+        "★ 0",
+        "뒤 오른쪽",
+        "창문을 내리면 참가",
+        "충전오락관",
+        "오늘은 5판 · 충전 중에 열면 배터리가 시계가 돼요",
+        "함께할 자리는\n창문을 한 칸 내려 주세요",
+        "창문은 한 칸이면 돼요 · 올릴 때는 천천히 · 기어를 옮기면 바로 닫혀요\n지금까지 모은 별 0개",
+        "시작"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/02-raise-windows.png",
+      "sha256": "9ca39adac3ffdf1257200adb189da80f6a8df8052551d94605642d5e8202d228",
+      "expected_text": [
+        "창문을 올려 주세요",
+        "천천히 하셔도 돼요"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "창문을 올려 주세요",
+        "★ 0",
+        "조수석",
+        "쉬는 자리",
+        "뒤 왼쪽",
+        "창문을 올려 주세요",
+        "★ 0",
+        "뒤 오른쪽",
+        "쉬는 자리",
+        "충전오락관",
+        "잠깐",
+        "창문을 올려 주세요",
+        "천천히 하셔도 돼요 · 뒤 왼쪽, 운전석"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/03-question-answered.png",
+      "sha256": "f6143e890ffb8bf559d6494dcdf3006acba29600b1d0f67283c3e56ffd6bfe80",
+      "expected_text": [
+        "1번째 판",
+        "O를 골랐어요",
+        "그대로 두면 X",
+        "맞으면 창문을 한 칸 내리고"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "그대로 두면 X",
+        "★ 0",
+        "조수석",
+        "쉬는 자리",
+        "뒤 왼쪽",
+        "O를 골랐어요",
+        "★ 0",
+        "뒤 오른쪽",
+        "쉬는 자리",
+        "충전오락관",
+        "1번째 판",
+        "전기차는 달리는 동안 배기가스를 내보내지 않는다.",
+        "맞으면 창문을 한 칸 내리고, 아니면 그대로 두세요."
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/04-reveal.png",
+      "sha256": "c8887c1a79e3563fcbc6367088cc540f6cee2de9e769006168cfcb922375fc48",
+      "expected_text": [
+        "O · 맞는 말이에요",
+        "★ 맞혔어요",
+        "아쉬워요",
+        "★ 1"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "아쉬워요",
+        "★ 0",
+        "조수석",
+        "쉬는 자리",
+        "뒤 왼쪽",
+        "★ 맞혔어요",
+        "★ 1",
+        "뒤 오른쪽",
+        "쉬는 자리",
+        "충전오락관",
+        "전기차는 달리는 동안 배기가스를 내보내지 않는다.",
+        "O · 맞는 말이에요",
+        "전기 모터로 달려서 배기구가 없어요."
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/05-reflex-go.png",
+      "sha256": "8d8742c484632fd7756e00c5873bf90c83857e626f4224ca1a8589177b94fcb0",
+      "expected_text": [
+        "번개 버저",
+        "지금!",
+        "이번 판은 쉬어요"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "이번 판은 쉬어요",
+        "★ 1",
+        "조수석",
+        "쉬는 자리",
+        "뒤 왼쪽",
+        "지금!",
+        "★ 2",
+        "뒤 오른쪽",
+        "쉬는 자리",
+        "충전오락관",
+        "3번째 판 · 번개 버저",
+        "지금!",
+        "가장 먼저 내린 자리가 별을 받아요."
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/06-reflex-winner.png",
+      "sha256": "b0cf142bd5c65c9dcc4ade98c33cdcc7f2bd80bfb86baf8e52bc3135737d2623",
+      "expected_text": [
+        "뒤 왼쪽이 가장 빨랐어요",
+        "★ 가장 빨랐어요",
+        "너무 빨랐어요"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "너무 빨랐어요",
+        "★ 1",
+        "조수석",
+        "쉬는 자리",
+        "뒤 왼쪽",
+        "★ 가장 빨랐어요",
+        "★ 3",
+        "뒤 오른쪽",
+        "쉬는 자리",
+        "충전오락관",
+        "번개 버저",
+        "뒤 왼쪽이 가장 빨랐어요.",
+        "너무 빨랐던 자리: 운전석"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/07-car-question.png",
+      "sha256": "d2e7cb4fa85648f975c53999573c613f2e274dd4459999011fae783bbc3f6023",
+      "expected_text": [
+        "차가 낸 문제",
+        "배터리는 절반보다"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "그대로 두면 X",
+        "★ 1",
+        "조수석",
+        "쉬는 자리",
+        "뒤 왼쪽",
+        "그대로 두면 X",
+        "★ 3",
+        "뒤 오른쪽",
+        "쉬는 자리",
+        "충전오락관",
+        "4번째 판 · 차가 낸 문제",
+        "지금 이 차의 배터리는 절반보다 많이 남아 있다.",
+        "맞으면 창문을 한 칸 내리고, 아니면 그대로 두세요."
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/08-closed-by-driving.png",
+      "sha256": "36696ad85ac309c0096a61ada7f3f920a84520be340eb1054a1198d2a6d3c13e",
+      "expected_text": [
+        "출발하니까 닫았어요",
+        "지금까지 모은 별 4개"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "★ 1",
+        "조수석",
+        "뒤 왼쪽",
+        "★ 3",
+        "뒤 오른쪽",
+        "충전오락관",
+        "출발",
+        "출발하니까 닫았어요",
+        "다음에 차를 세우면 이어서 해요. 지금까지 모은 별 4개"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/09-lobby-charging.png",
+      "sha256": "3928fe04c1eb1cda7c756fa3e413a695aca3d4d48d2203d8a0662d55b8606547",
+      "expected_text": [
+        "충전 중 78%",
+        "배터리가 1% 오를 때마다 새 문제가 와요",
+        "지금까지 모은 별 4개"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "창문을 내리면 참가",
+        "조수석",
+        "창문을 내리면 참가",
+        "뒤 왼쪽",
+        "창문을 내리면 참가",
+        "뒤 오른쪽",
+        "창문을 내리면 참가",
+        "충전오락관",
+        "충전 중 78% · 배터리가 1% 오를 때마다 새 문제가 와요",
+        "함께할 자리는\n창문을 한 칸 내려 주세요",
+        "창문은 한 칸이면 돼요 · 올릴 때는 천천히 · 기어를 옮기면 바로 닫혀요\n지금까지 모은 별 4개"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/10-waiting-for-percent.png",
+      "sha256": "05ce9877e9d3e8380e052306e86a226805f3b2043ee1a1a00d3cf0f97c08c49e",
+      "expected_text": [
+        "다음 문제는 79%에 와요",
+        "충전 중 78%"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "준비됐어요",
+        "★ 0",
+        "조수석",
+        "쉬는 자리",
+        "뒤 왼쪽",
+        "쉬는 자리",
+        "뒤 오른쪽",
+        "쉬는 자리",
+        "충전오락관",
+        "충전 중 78%",
+        "다음 문제는 79%에 와요",
+        "충전되는 동안 잠깐 쉬어요."
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/11-finished-charged.png",
+      "sha256": "e43532568a41efc0b2084a4ba8a2efc6191be8d764d25a8d20cfd7a64cf41886",
+      "expected_text": [
+        "충전도 놀이도 끝났어요",
+        "한 판 더"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "수고했어요",
+        "★ 1",
+        "조수석",
+        "쉬는 자리",
+        "뒤 왼쪽",
+        "쉬는 자리",
+        "뒤 오른쪽",
+        "쉬는 자리",
+        "충전오락관",
+        "충전 완료 80%",
+        "충전도 놀이도 끝났어요",
+        "오늘 모은 별 1개 · 지금까지 5개",
+        "한 판 더"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/12-finished-unplugged.png",
+      "sha256": "6610bc7b8de49f4e596a99ff990674cbbddc8961865b8df843df76dee271d9d9",
+      "expected_text": [
+        "다음 충전 때 이어서 해요",
+        "한 판 더"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "수고했어요",
+        "★ 1",
+        "조수석",
+        "쉬는 자리",
+        "뒤 왼쪽",
+        "쉬는 자리",
+        "뒤 오른쪽",
+        "쉬는 자리",
+        "충전오락관",
+        "충전 끝",
+        "다음 충전 때 이어서 해요",
+        "오늘 모은 별 1개 · 지금까지 6개",
+        "한 판 더"
+      ],
+      "passed": true
+    },
+    {
+      "file": "screens/13-finished-open-window.png",
+      "sha256": "3e33b010ce100f0b38261d9a9d1601f8ab9574c4d0218cfb30643cc7071d3f12",
+      "expected_text": [
+        "오늘은 여기까지예요",
+        "열려 있는 창문을 올려 주세요: 조수석",
+        "창문이 열려 있어요"
+      ],
+      "seen_text": [
+        "앞",
+        "운전석",
+        "쉬는 자리",
+        "조수석",
+        "창문이 열려 있어요",
+        "뒤 왼쪽",
+        "쉬는 자리",
+        "뒤 오른쪽",
+        "수고했어요",
+        "★ 3",
+        "충전오락관",
+        "끝",
+        "오늘은 여기까지예요",
+        "오늘 모은 별 3개 · 지금까지 9개\n열려 있는 창문을 올려 주세요: 조수석",
+        "한 판 더"
+      ],
+      "passed": true
+    }
+  ],
+  "apk_sha256": "16bb8414f944d140e0bac19e4f534bff40843cc29b61bde858dec6581de3c4fc"
+}

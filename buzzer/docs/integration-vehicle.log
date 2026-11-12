@@ -1,0 +1,163 @@
+11-11 05:04:43.492  9616  9616 I BuzzerCar: tts=unavailable (no local Korean voice)
+11-11 05:04:45.926  9616  9640 I BuzzerCar: socPercent=60
+11-11 05:04:45.931  9616  9650 I BuzzerCar: socPercent=60
+11-11 05:04:45.931  9616  9650 I BuzzerCar: chargePortOpen=false
+11-11 05:04:45.943  9616  9650 I BuzzerCar: chargePortOpen=false
+11-11 05:04:46.103  9616  9616 I BuzzerCar: gear=GEAR_DRIVE
+11-11 05:04:46.136  9616  9616 I BuzzerCar: window=REAR_RIGHT position=0
+11-11 05:04:46.146  9616  9616 I BuzzerCar: window=PASSENGER position=0
+11-11 05:04:46.148  9616  9752 I BuzzerCar: charging=false
+11-11 05:04:46.157  9616  9616 I BuzzerCar: window=DRIVER position=0
+11-11 05:04:46.182  9616  9616 I BuzzerCar: window=REAR_LEFT position=0
+11-11 05:04:46.212  9616  9616 I BuzzerCar: window=DRIVER position=0
+11-11 05:04:46.231  9616  9616 I BuzzerCar: window=PASSENGER position=0
+11-11 05:04:46.247  9616  9616 I BuzzerCar: window=PASSENGER position=0
+11-11 05:04:46.256  9616  9616 I BuzzerCar: window=REAR_LEFT position=0
+11-11 05:04:46.265  9616  9616 I BuzzerCar: window=REAR_LEFT position=0
+11-11 05:04:46.274  9616  9616 I BuzzerCar: window=REAR_RIGHT position=0
+11-11 05:04:46.283  9616  9616 I BuzzerCar: window=REAR_RIGHT position=0
+11-11 05:04:48.905  9616  9616 I BuzzerCar: window=REAR_LEFT position=1
+11-11 05:04:49.511  9616  9616 I BuzzerCar: window=REAR_LEFT position=0
+11-11 05:04:50.336  9616  9616 I BuzzerCar: gear=GEAR_PARK
+11-11 05:04:51.054  9616  9616 I BuzzerGame: phase=Lobby joined=[] charging=false soc=60
+11-11 05:04:56.101  9616  9616 I BuzzerCar: window=REAR_LEFT position=1
+11-11 05:04:56.102  9616  9616 I BuzzerCar: say count=1 first=뒤 왼쪽 참가!
+11-11 05:04:56.102  9616  9616 I BuzzerGame: phase=Lobby joined=[REAR_LEFT] charging=false soc=60
+11-11 05:04:56.764  9616  9616 I BuzzerCar: window=DRIVER position=1
+11-11 05:04:56.765  9616  9616 I BuzzerCar: say count=1 first=운전석 참가!
+11-11 05:04:56.765  9616  9616 I BuzzerGame: phase=Lobby joined=[REAR_LEFT, DRIVER] charging=false soc=60
+11-11 05:05:02.388  9616  9616 I BuzzerCar: say count=2 first=시작할게요.
+11-11 05:05:02.388  9616  9616 I BuzzerGame: phase=Between raise=[REAR_LEFT, DRIVER] nextAtSoc=null
+11-11 05:05:08.802  9616  9616 I BuzzerCar: window=REAR_LEFT position=0
+11-11 05:05:08.802  9616  9616 I BuzzerGame: phase=Between raise=[DRIVER] nextAtSoc=null
+11-11 05:05:09.407  9616  9616 I BuzzerCar: window=DRIVER position=0
+11-11 05:05:09.407  9616  9616 I BuzzerCar: say count=1 first=전기차는 달리는 동안 배기가스를 내보내지 않는다. 맞으면 창문을 한 칸 내리고, 아니면 그대로 두세요.
+11-11 05:05:09.407  9616  9616 I BuzzerGame: phase=Asking round=0 fromCar=false truth=true answeredO=[] final=false
+11-11 05:05:10.187  9616  9616 I BuzzerCar: window=REAR_LEFT position=1
+11-11 05:05:10.187  9616  9616 I BuzzerGame: phase=Asking round=0 fromCar=false truth=true answeredO=[REAR_LEFT] final=false
+11-11 05:05:15.419  9616  9616 I BuzzerCar: say count=1 first=맞는 말이에요. 전기 모터로 달려서 배기구가 없어요.
+11-11 05:05:15.419  9616  9616 I BuzzerGame: phase=Reveal round=0 kind=OX correct=[REAR_LEFT] wrong=[DRIVER] stars=REAR_LEFT:1,DRIVER:0
+11-11 05:05:20.498  9616  9616 I BuzzerCar: say count=1 first=창문을 올려 주세요. 천천히 하셔도 돼요.
+11-11 05:05:20.499  9616  9616 I BuzzerGame: phase=Between raise=[REAR_LEFT] nextAtSoc=null
+11-11 05:05:24.855  9616  9616 I BuzzerCar: window=REAR_LEFT position=0
+11-11 05:05:24.855  9616  9616 I BuzzerCar: say count=1 first=방향지시등은 차로를 바꾼 다음에 켠다.
+11-11 05:05:24.855  9616  9616 I BuzzerGame: phase=Asking round=1 fromCar=false truth=false answeredO=[] final=false
+11-11 05:05:30.868  9616  9616 I BuzzerCar: say count=1 first=틀린 말이에요. 바꾸기 전에 먼저 켜서 알려야 해요.
+11-11 05:05:30.868  9616  9616 I BuzzerGame: phase=Reveal round=1 kind=OX correct=[REAR_LEFT, DRIVER] wrong=[] stars=REAR_LEFT:2,DRIVER:1
+11-11 05:05:35.933  9616  9616 I BuzzerCar: say count=1 first=번개 버저! 지금이라고 하면 창문을 한 칸 내리세요.
+11-11 05:05:35.933  9616  9616 I BuzzerGame: phase=Steady round=2 tooEarly=[] final=false
+11-11 05:05:36.235  9616  9616 I BuzzerCar: window=DRIVER position=1
+11-11 05:05:36.235  9616  9616 I BuzzerGame: phase=Steady round=2 tooEarly=[DRIVER] final=false
+11-11 05:05:36.751  9616  9616 I BuzzerCar: window=DRIVER position=0
+11-11 05:05:41.962  9616  9616 I BuzzerCar: say count=1 first=지금!
+11-11 05:05:41.962  9616  9616 I BuzzerGame: phase=Go round=2 tooEarly=[DRIVER]
+11-11 05:05:44.786  9616  9616 I BuzzerCar: window=REAR_LEFT position=1
+11-11 05:05:44.787  9616  9616 I BuzzerCar: say count=1 first=뒤 왼쪽이 가장 빨랐어요.
+11-11 05:05:44.787  9616  9616 I BuzzerGame: phase=Reveal round=2 kind=REFLEX winner=REAR_LEFT tooEarly=[DRIVER] stars=REAR_LEFT:3,DRIVER:1
+11-11 05:05:47.987  9616  9616 I BuzzerCar: window=REAR_LEFT position=0
+11-11 05:05:49.799  9616  9616 I BuzzerCar: say count=1 first=지금 이 차의 배터리는 절반보다 많이 남아 있다.
+11-11 05:05:49.799  9616  9616 I BuzzerGame: phase=Asking round=3 fromCar=true truth=true answeredO=[] final=false
+11-11 05:05:52.700  9616  9616 I BuzzerCar: gear=GEAR_DRIVE
+11-11 05:05:52.700  9616  9616 I BuzzerCar: say count=1 first=출발하니까 놀이를 닫을게요. 다음에 이어서 해요.
+11-11 05:05:52.700  9616  9616 I BuzzerGame: phase=Locked closedByDriving=true leftScreen=false lifetime=4
+11-11 05:05:56.624  9616  9616 I BuzzerCar: window=REAR_LEFT position=1
+11-11 05:05:57.251  9616  9616 I BuzzerCar: window=REAR_LEFT position=0
+11-11 05:06:05.025  9616  9752 I BuzzerCar: socPercent=78
+11-11 05:06:05.647  9616  9752 I BuzzerCar: chargePortOpen=true
+11-11 05:06:06.984  9616  9616 I BuzzerCar: gear=GEAR_PARK
+11-11 05:06:07.205  9616  9752 I BuzzerCar: charging=true
+11-11 05:06:07.720  9616  9616 I BuzzerGame: phase=Lobby joined=[] charging=true soc=78
+11-11 05:06:14.139  9616  9616 I BuzzerCar: window=DRIVER position=1
+11-11 05:06:14.140  9616  9616 I BuzzerCar: say count=1 first=운전석 참가!
+11-11 05:06:14.140  9616  9616 I BuzzerGame: phase=Lobby joined=[DRIVER] charging=true soc=78
+11-11 05:06:14.764  9616  9616 I BuzzerCar: window=DRIVER position=0
+11-11 05:06:17.726  9616  9616 I BuzzerCar: say count=2 first=시작할게요.
+11-11 05:06:17.726  9616  9616 I BuzzerGame: phase=Asking round=0 fromCar=false truth=true answeredO=[] final=false
+11-11 05:06:23.755  9616  9616 I BuzzerCar: say count=1 first=맞는 말이에요. 아가미로 보내는 심장 둘, 온몸으로 보내는 심장 하나가 있어요.
+11-11 05:06:23.755  9616  9616 I BuzzerGame: phase=Reveal round=0 kind=OX correct=[] wrong=[DRIVER] stars=DRIVER:0
+11-11 05:06:28.827  9616  9616 I BuzzerGame: phase=Between raise=[] nextAtSoc=79
+11-11 05:06:35.206  9616  6065 I BuzzerCar: socPercent=79
+11-11 05:06:35.207  9616  9616 I BuzzerCar: say count=1 first=달은 스스로 빛을 낸다.
+11-11 05:06:35.207  9616  9616 I BuzzerGame: phase=Asking round=1 fromCar=false truth=false answeredO=[] final=false
+11-11 05:06:41.219  9616  9616 I BuzzerCar: say count=1 first=틀린 말이에요. 달은 햇빛을 받아 반사할 뿐이에요.
+11-11 05:06:41.219  9616  9616 I BuzzerGame: phase=Reveal round=1 kind=OX correct=[DRIVER] wrong=[] stars=DRIVER:1
+11-11 05:06:46.287  9616  9616 I BuzzerGame: phase=Between raise=[] nextAtSoc=80
+11-11 05:06:46.484  9616  6065 I BuzzerCar: socPercent=80
+11-11 05:06:46.485  9616  9616 I BuzzerCar: say count=2 first=충전이 거의 끝났어요. 마지막 문제예요.
+11-11 05:06:46.485  9616  9616 I BuzzerGame: phase=Steady round=2 tooEarly=[] final=true
+11-11 05:06:52.573  9616  9616 I BuzzerCar: say count=1 first=지금!
+11-11 05:06:52.573  9616  9616 I BuzzerGame: phase=Go round=2 tooEarly=[]
+11-11 05:06:58.660  9616  9616 I BuzzerCar: say count=1 first=이번에는 아무도 내리지 않았어요.
+11-11 05:06:58.660  9616  9616 I BuzzerGame: phase=Reveal round=2 kind=REFLEX winner=null tooEarly=[] stars=DRIVER:1
+11-11 05:07:03.727  9616  9616 I BuzzerCar: say count=1 first=충전도 놀이도 끝났어요.
+11-11 05:07:03.727  9616  9616 I BuzzerGame: phase=Finished reason=CHARGED open=[] stars=DRIVER:1 lifetime=5
+11-11 05:07:08.973  9616  9616 I BuzzerGame: phase=Lobby joined=[] charging=true soc=80
+11-11 05:07:21.802  9616  9616 I BuzzerCar: window=DRIVER position=1
+11-11 05:07:21.802  9616  9616 I BuzzerCar: say count=1 first=운전석 참가!
+11-11 05:07:21.802  9616  9616 I BuzzerGame: phase=Lobby joined=[DRIVER] charging=true soc=80
+11-11 05:07:22.407  9616  9616 I BuzzerCar: window=DRIVER position=0
+11-11 05:07:25.364  9616  9616 I BuzzerCar: say count=2 first=시작할게요.
+11-11 05:07:25.364  9616  9616 I BuzzerGame: phase=Asking round=0 fromCar=true truth=false answeredO=[] final=false
+11-11 05:07:31.385  9616  9616 I BuzzerCar: say count=1 first=틀린 말이에요. 지금 갈 수 있는 거리는 약 0km예요.
+11-11 05:07:31.385  9616  9616 I BuzzerGame: phase=Reveal round=0 kind=OX correct=[DRIVER] wrong=[] stars=DRIVER:1
+11-11 05:07:36.442  9616  9616 I BuzzerGame: phase=Between raise=[] nextAtSoc=81
+11-11 05:07:51.513  9616  9616 I BuzzerCar: say count=1 first=전기차는 속도를 줄일 때 전기를 조금 되찾는다.
+11-11 05:07:51.513  9616  9616 I BuzzerGame: phase=Asking round=1 fromCar=false truth=true answeredO=[] final=false
+11-11 05:07:52.331  9616  9645 I BuzzerCar: charging=false
+11-11 05:07:57.594  9616  9616 I BuzzerCar: say count=1 first=맞는 말이에요. 바퀴가 도는 힘으로 발전해서 배터리에 다시 담아요.
+11-11 05:07:57.594  9616  9616 I BuzzerGame: phase=Reveal round=1 kind=OX correct=[] wrong=[DRIVER] stars=DRIVER:1
+11-11 05:08:02.651  9616  9616 I BuzzerCar: say count=1 first=충전이 끝났네요. 다음 충전 때 이어서 해요.
+11-11 05:08:02.652  9616  9616 I BuzzerGame: phase=Finished reason=UNPLUGGED open=[] stars=DRIVER:1 lifetime=6
+11-11 05:08:05.632  9616 26695 I BuzzerCar: chargePortOpen=false
+11-11 05:08:08.547  9616  9616 I BuzzerGame: phase=Lobby joined=[] charging=false soc=80
+11-11 05:08:23.601  9616  9616 I BuzzerCar: window=REAR_RIGHT position=1
+11-11 05:08:23.601  9616  9616 I BuzzerCar: say count=1 first=뒤 오른쪽 참가!
+11-11 05:08:23.601  9616  9616 I BuzzerGame: phase=Lobby joined=[REAR_RIGHT] charging=false soc=80
+11-11 05:08:24.205  9616  9616 I BuzzerCar: window=REAR_RIGHT position=0
+11-11 05:08:27.035  9616  9616 I BuzzerCar: say count=2 first=시작할게요.
+11-11 05:08:27.035  9616  9616 I BuzzerGame: phase=Asking round=0 fromCar=false truth=false answeredO=[] final=false
+11-11 05:08:27.641  9616  9616 I BuzzerCar: window=PASSENGER position=4
+11-11 05:08:33.062  9616  9616 I BuzzerCar: say count=1 first=틀린 말이에요. 모든 자리에서 매야 해요.
+11-11 05:08:33.062  9616  9616 I BuzzerGame: phase=Reveal round=0 kind=OX correct=[REAR_RIGHT] wrong=[] stars=REAR_RIGHT:1
+11-11 05:08:38.129  9616  9616 I BuzzerCar: say count=1 first=이 차는 지금까지 지구 한 바퀴보다 많이 달렸다.
+11-11 05:08:38.129  9616  9616 I BuzzerGame: phase=Asking round=1 fromCar=true truth=false answeredO=[] final=false
+11-11 05:08:44.209  9616  9616 I BuzzerCar: say count=1 first=틀린 말이에요. 지구 한 바퀴는 약 4만 km이고, 이 차는 지금까지 0km를 달렸어요.
+11-11 05:08:44.209  9616  9616 I BuzzerGame: phase=Reveal round=1 kind=OX correct=[REAR_RIGHT] wrong=[] stars=REAR_RIGHT:2
+11-11 05:08:49.270  9616  9616 I BuzzerCar: say count=1 first=번개 버저! 지금이라고 하면 창문을 한 칸 내리세요.
+11-11 05:08:49.270  9616  9616 I BuzzerGame: phase=Steady round=2 tooEarly=[] final=false
+11-11 05:08:55.342  9616  9616 I BuzzerCar: say count=1 first=지금!
+11-11 05:08:55.342  9616  9616 I BuzzerGame: phase=Go round=2 tooEarly=[]
+11-11 05:09:01.420  9616  9616 I BuzzerCar: say count=1 first=이번에는 아무도 내리지 않았어요.
+11-11 05:09:01.420  9616  9616 I BuzzerGame: phase=Reveal round=2 kind=REFLEX winner=null tooEarly=[] stars=REAR_RIGHT:2
+11-11 05:09:06.479  9616  9616 I BuzzerCar: say count=1 first=빛은 소리보다 빠르다.
+11-11 05:09:06.479  9616  9616 I BuzzerGame: phase=Asking round=3 fromCar=false truth=true answeredO=[] final=false
+11-11 05:09:12.566  9616  9616 I BuzzerCar: say count=1 first=맞는 말이에요. 그래서 번개가 먼저 보이고 천둥이 나중에 들려요.
+11-11 05:09:12.566  9616  9616 I BuzzerGame: phase=Reveal round=3 kind=OX correct=[] wrong=[REAR_RIGHT] stars=REAR_RIGHT:2
+11-11 05:09:17.635  9616  9616 I BuzzerCar: say count=1 first=물은 섭씨 100도에서 언다.
+11-11 05:09:17.635  9616  9616 I BuzzerGame: phase=Asking round=4 fromCar=false truth=false answeredO=[] final=false
+11-11 05:09:23.718  9616  9616 I BuzzerCar: say count=1 first=틀린 말이에요. 0도에서 얼고 100도에서 끓어요.
+11-11 05:09:23.718  9616  9616 I BuzzerGame: phase=Reveal round=4 kind=OX correct=[REAR_RIGHT] wrong=[] stars=REAR_RIGHT:3
+11-11 05:09:28.799  9616  9616 I BuzzerCar: say count=2 first=오늘은 여기까지예요.
+11-11 05:09:28.799  9616  9616 I BuzzerGame: phase=Finished reason=ROUNDS_DONE open=[PASSENGER] stars=REAR_RIGHT:3 lifetime=9
+11-11 05:09:31.880  9616  9616 I BuzzerCar: window=PASSENGER position=0
+11-11 05:09:31.881  9616  9616 I BuzzerGame: phase=Finished reason=ROUNDS_DONE open=[] stars=REAR_RIGHT:3 lifetime=9
+11-11 05:09:33.231 14654 14654 I BuzzerCar: tts=unavailable (no local Korean voice)
+11-11 05:09:35.246 14654 14679 I BuzzerCar: socPercent=80
+11-11 05:09:35.249 14654 14679 I BuzzerCar: socPercent=80
+11-11 05:09:35.252 14654 14802 I BuzzerCar: chargePortOpen=false
+11-11 05:09:35.252 14654 14679 I BuzzerCar: socPercent=80
+11-11 05:09:35.253 14654 14802 I BuzzerCar: chargePortOpen=false
+11-11 05:09:35.441 14654 14654 I BuzzerCar: gear=GEAR_PARK
+11-11 05:09:35.465 14654 14654 I BuzzerCar: window=REAR_RIGHT position=0
+11-11 05:09:35.475 14654 14654 I BuzzerCar: window=PASSENGER position=0
+11-11 05:09:35.485 14654 14654 I BuzzerCar: window=DRIVER position=0
+11-11 05:09:35.490 14654 14802 I BuzzerCar: charging=false
+11-11 05:09:35.513 14654 14654 I BuzzerCar: window=REAR_LEFT position=0
+11-11 05:09:35.521 14654 14654 I BuzzerCar: window=DRIVER position=0
+11-11 05:09:35.532 14654 14654 I BuzzerCar: window=PASSENGER position=0
+11-11 05:09:35.540 14654 14654 I BuzzerCar: window=REAR_LEFT position=0
+11-11 05:09:35.549 14654 14654 I BuzzerCar: window=REAR_RIGHT position=0
+11-11 05:09:35.557 14654 14654 I BuzzerCar: window=REAR_RIGHT position=0
+11-11 05:09:35.567 14654 14654 I BuzzerCar: window=REAR_LEFT position=0
+11-11 05:09:35.576 14654 14654 I BuzzerCar: window=PASSENGER position=0
+11-11 05:09:36.205 14654 14654 I BuzzerGame: phase=Lobby joined=[] charging=false soc=80

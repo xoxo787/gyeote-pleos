@@ -1,0 +1,7 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="48dp" android:height="48dp" android:viewportWidth="48" android:viewportHeight="48">
+    <path android:fillColor="#14162B" android:pathData="M0,0h48v48H0z" />
+    <!-- A car window with the glass lowered one notch, and a star above it. -->
+    <path android:strokeColor="#F4F1DE" android:strokeWidth="3" android:strokeLineJoin="round" android:fillColor="@android:color/transparent" android:pathData="M10,38V22l8,-10h20v26z" />
+    <path android:strokeColor="#7BDFF2" android:strokeWidth="3" android:strokeLineCap="round" android:pathData="M12,27h26" />
+    <path android:fillColor="#FFD166" android:pathData="M27,14l1.6,3.4 3.7,0.5 -2.7,2.6 0.7,3.7 -3.3,-1.8 -3.3,1.8 0.7,-3.7 -2.7,-2.6 3.7,-0.5z" />
+</vector>

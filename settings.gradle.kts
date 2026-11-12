@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Gyeote"
 include(":app")
+include(":buzzer")

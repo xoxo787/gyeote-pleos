@@ -97,3 +97,8 @@ __pycache__/
 
 # 서버 테스트 임시 데이터(2026-10-31, 시스템 Temp 대신 저장소 안 한 폴더)
 server/.tmp-test/
+
+# 모션그래픽 렌더링 결과와 시험본(2026-11-12)
+media/motion/out/
+media/motion/src/old/
+media/motion/public/screens/
