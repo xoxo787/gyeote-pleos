@@ -23,7 +23,7 @@ const FRONT_GLASS = 'M 378 160 L 489 100 L 636 97 L 636 160 Z';
 const REAR_GLASS = 'M 660 160 L 660 97 L 838 96 L 884 160 Z';
 const QUARTER_GLASS = 'M 904 160 L 862 98 C 912 106, 952 132, 978 160 Z';
 
-export const CarSide: React.FC<{rearDrop?: number; charging?: number}> = ({rearDrop = 0, charging = 1}) => {
+export const CarSide: React.FC<{rearDrop?: number; charging?: number; brake?: number; blink?: number; doorGlow?: number; spin?: number}> = ({rearDrop = 0, charging = 1, brake = 0, blink = 0, doorGlow = 0, spin = 0}) => {
   const wheels = [250, 900];
   return (
     <svg width={CAR_BOX.w} height={CAR_BOX.h} viewBox={`0 0 ${CAR_BOX.w} ${CAR_BOX.h}`} style={{overflow: 'visible'}}>
@@ -58,7 +58,7 @@ export const CarSide: React.FC<{rearDrop?: number; charging?: number}> = ({rearD
           <circle cx={x} cy={302} r={66} fill="none" stroke="#23264A" strokeWidth={2} />
           <circle cx={x} cy={302} r={53} fill="#DDE1EC" />
           {[0, 72, 144, 216, 288].map((a) => (
-            <line key={a} x1={x} y1={302} x2={x + 49 * Math.cos(((a - 90) * Math.PI) / 180)} y2={302 + 49 * Math.sin(((a - 90) * Math.PI) / 180)} stroke="#A9AFC6" strokeWidth={11} strokeLinecap="round" />
+            <line key={a} x1={x} y1={302} x2={x + 49 * Math.cos(((a + spin - 90) * Math.PI) / 180)} y2={302 + 49 * Math.sin(((a + spin - 90) * Math.PI) / 180)} stroke="#A9AFC6" strokeWidth={11} strokeLinecap="round" />
           ))}
           <circle cx={x} cy={302} r={53} fill="none" stroke="#C2C7D8" strokeWidth={3} />
           <circle cx={x} cy={302} r={13} fill="#14162B" />
@@ -92,10 +92,20 @@ export const CarSide: React.FC<{rearDrop?: number; charging?: number}> = ({rearD
       <rect x={776} y={186} width={58} height={9} rx={4.5} fill="rgba(255,255,255,0.26)" />
       <path d="M 372 152 l -34 -5 q -10 7 -4 19 l 33 6 q 8 -8 5 -20 z" fill="#1E2148" stroke="rgba(255,255,255,0.18)" strokeWidth={1.2} />
 
+      {/* front door, lit when the story is about someone getting in */}
+      <path d="M 353 176 C 341 222, 345 282, 354 318 L 646 318 L 646 168 Z" fill={P.gold} opacity={0.2 * doorGlow} />
+      <path d="M 353 176 C 341 222, 345 282, 354 318 L 646 318 L 646 168 Z" fill="none" stroke={P.gold} strokeWidth={3} opacity={doorGlow} />
+
       {/* lamps */}
       <rect x={66} y={228} width={50} height={9} rx={4.5} fill="#FFF1B8" />
       <rect x={66} y={243} width={26} height={5} rx={2.5} fill="#FFF1B8" opacity={0.7} />
-      <rect x={1062} y={204} width={27} height={11} rx={4} fill="#F0566E" />
+      <circle cx={1078} cy={209} r={46} fill="#FF3B5C" opacity={0.28 * brake} />
+      <rect x={1062} y={204} width={27} height={11} rx={4} fill={brake > 0.5 ? '#FF2D4F' : '#F0566E'} />
+      {/* turn signal: front corner and rear corner */}
+      <circle cx={86} cy={258} r={34} fill={P.gold} opacity={0.3 * blink} />
+      <rect x={70} y={254} width={30} height={8} rx={4} fill={P.gold} opacity={blink} />
+      <circle cx={1076} cy={226} r={34} fill={P.gold} opacity={0.3 * blink} />
+      <rect x={1064} y={221} width={24} height={9} rx={4} fill={P.gold} opacity={blink} />
 
       {/* charge port */}
       <circle cx={CAR_POINTS.port.x} cy={CAR_POINTS.port.y} r={13} fill="#0A0B17" stroke={P.gold} strokeWidth={2.5} opacity={charging} />
